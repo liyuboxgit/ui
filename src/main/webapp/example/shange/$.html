@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap Template</title>
+
+    <!-- /* -->
+    <link href="/ui/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <script src="/ui/bootstrap/dist/js/bootstrap.js"></script>
+    <!--[if lt IE 9]>
+      <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- */ -->
+    
+    <style>
+		.block{
+			border: 1px solid #f00;
+		}
+	</style>
+  </head>
+  <body>
+    <div class="container">
+    	<div class="row">
+    		<div class="col-sm-12 block">12</div>
+    		<div class="col-sm-6 block">6</div>
+    		<div class="col-sm-6 block">6</div>
+    		<div class="col-sm-3 block">3</div>
+    		<div class="col-sm-3 block">3</div>
+    		<div class="col-sm-3 block">3</div>
+    		<div class="col-sm-3 block">3</div>
+    		<div class="col-sm-1 block">1</div>
+    		<div class="col-sm-1 block">1</div>
+    		<div class="col-sm-1 block">1</div>
+    		<div class="col-sm-1 block">1</div>
+    		<div class="col-sm-1 block">1</div>
+    		<div class="col-sm-1 block">1</div>
+    		<div class="col-sm-1 block">1</div>
+    		<div class="col-sm-1 block">1</div>
+    		<div class="col-sm-1 block">1</div>
+    		<div class="col-sm-1 block">1</div>
+    		<div class="col-sm-1 block">1</div>
+    		<div class="col-sm-1 block">1</div>
+    	</div>
+    </div>
+    <br/>
+    <div class="container">
+    	<div class="row">
+    		<div class="col-sm-12 block">12</div>
+    		<div class="col-sm-1 block">1</div>
+    		<div class="col-sm-3 col-sm-offset-3 block">3</div>
+    	</div>
+    </div>
+    <br/>
+    <div class="container">
+    	<div class="row">
+    		<div class="col-sm-12 block">12</div>
+    		<div class="col-sm-1 block">1</div>
+    		<div class="col-sm-3 col-sm-push-3 block">3</div>
+    	</div>
+    </div>
+    <br/>
+    <pre>
+    	1.柵格12，有lg，md，sm，xs四种[gt1200px,992px~1199px,768px~991px,lt767px],xx代替
+    	2.列偏移：col-xx-offset-d
+    	3.列排序：col-xx-push-d，col-xx-pull-d
+    </pre>
+  </body>
+</html>
