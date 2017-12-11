@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="../node_modules/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+<script type="text/javascript">
+$(function(){
+	window.app = new Vue({
+		el: '#app',
+		data: {
+    		message: 'Hello Vue!'
+  		}
+	});
+})
+</script>
+</head>
+<body>
+	<div id="app">
+	  	{{ message }}
+	</div>
+</body>
+</html>
