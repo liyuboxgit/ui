@@ -1,0 +1,125 @@
+<!-- 物资统计 -->
+<div class="container-fluid tongji">
+	<div class="row">
+		<form class="form-inline">
+			<div class="form-group">
+				<select name="ywlx" id="" class="form-control input-sm">
+					<option value="" selected="selected">统计方式</option>
+					<option value="">年统计</option>
+					<option value="">月统计</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<input type="riqi" class="form-control input-sm"  onClick="WdatePicker()" placeholder="开始日期 ">
+			</div>
+			<i class="fa fa-minus"></i>
+			<div class="form-group">
+				<input type="riqi" class="form-control input-sm"  onClick="WdatePicker()" placeholder="结束日期 ">
+			</div>
+			<button type="button" class="btn btn-ckts btn-sm">查询</button>
+			<button type="reset" class="btn btn-danger btn-sm">重置</button>
+		</form>
+	</div>
+
+	<div class="row">
+		<div class="col-sm-6">
+			<div id="wzcircleChart" style="min-width: 400px; height: 400px"></div>
+		</div>
+		<div class="col-sm-6">
+			<div id="wzlineChart" style="min-width: 400px; height: 400px"></div>
+		</div>
+	</div>
+
+</div>
+<script type="text/javascript"> 
+	 //饼图
+$('#wzcircleChart').highcharts({
+	chart: {
+		plotBackgroundColor: null,
+		plotBorderWidth: null,
+		plotShadow: false
+	},
+	title: {
+		text: '物资占比统计'
+	},
+	tooltip: {
+		headerFormat: '{series.name}<br>',
+		pointFormat: '{point.name}: <b>{point.percentage:.1f}%</b>'
+	},
+	plotOptions: {
+		pie: {
+			allowPointSelect: true,
+			cursor: 'pointer',
+			dataLabels: {
+				enabled: true,
+				format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+				style: {
+					color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+				}
+			}
+		}
+	},
+	series: [{
+		type: 'pie',
+		name: '物资占比',
+		data: [
+			['出口合同',   45],
+			['采购合同',   26],
+			{
+				name: '报关单',
+				y: 12,
+				sliced: true,
+				selected: true
+			},
+			['发票',    8],
+			['外汇',     6]
+		]
+	}]
+});
+	
+	//柱形图
+$('#wzlineChart').highcharts({
+	chart: {
+		plotBackgroundColor: null,
+		plotBorderWidth: null,
+		plotShadow: false
+	},
+	title: {
+		text: '报关单占比统计'
+	},
+	tooltip: {
+		headerFormat: '{series.name}<br>',
+		pointFormat: '{point.name}: <b>{point.percentage:.1f}%</b>'
+	},
+	plotOptions: {
+		pie: {
+			allowPointSelect: true,
+			cursor: 'pointer',
+			dataLabels: {
+				enabled: true,
+				format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+				style: {
+					color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+				}
+			}
+		}
+	},
+	series: [{
+		type: 'pie',
+		name: '物资占比',
+		data: [
+			['出口合同',   15],
+			['采购合同',   6],
+			['报关单',    42],
+			{
+				name: '发票',
+				y: 38,
+				sliced: true,
+				selected: true
+			},
+			['外汇',     26]
+		]
+	}]
+});
+</script>
+

@@ -1,0 +1,166 @@
+<!--采购合同付款管理  -->
+<div class="container-fluid">
+	<div class="col-sm-12 plr0 height100 gridBox" id="capay_gridBox">
+		<table id="capay_jqGrid"></table>
+		<div id="capay_jqGridPager"></div>
+	</div>
+</div>
+
+<script type="text/javascript">
+
+	
+$(function(){
+	var dataUrl = 'data/caigoupay.json';
+	var index = null;
+	var flag = '';
+	var rowNumber = 1000000;
+	//表格数据
+	var gridWidth = $('#capay_gridBox').width();
+	var gridHeight = $('#capay_gridBox').height()-122;
+	$("#capay_jqGrid").jqGrid({
+		
+		hidegrid : false, 
+		altRows : true, 
+		colModel: [{label : '合同编号', name : 'number', align: 'center', width: 120},
+			{label : '合同名称', name : 'name', align: 'center', width:80},
+			{label : '合同金额 ', name : 'money', align: 'center', width:80},
+			{label : '实付金额', name : 'pay', align: 'center', width:80},
+			{label : '剩余金额', name : 'last', align: 'center', width:80},
+			{label : '结款状态', name : 'active', align: 'center', width:80}
+			],
+		viewrecords: true,
+		loadonce:true,
+		width: gridWidth,
+		//width: 'auto',
+		//width : '100%',
+		height: gridHeight,
+		//height : 'auto',
+		rowNum: 11,
+		rowList:[10,15,20,25],
+		datatype: 'local',
+		pager: "#capay_jqGridPager",
+		multiselect: true,
+		rownumbers: true,
+		rownumWidth: 30,
+		recordtext: "当前显示: <b>{0}</b>至<b>{1}</b> 总数: <b>{2}</b>",
+	    //emptyrecords: "No records to view",
+		//loadtext: "Loading...",
+		
+	}).navGrid('#capay_jqGridPager',{ 
+	// the buttons to appear on the toolbar of the grid
+		edit:false,add:false,del:false,search:false,refresh:false
+	}).navButtonAdd('#capay_jqGridPager',{
+			//caption: '导出',
+		caption: '',
+		title : '结算',
+		buttonicon : 'fa fa-paypal',
+		onClickButton : caigoupay_importLayer, //调用导出函数
+		position : 'last'
+	}).navSeparatorAdd("#capay_jqGridPager",{
+			sepcontent: '',
+			sepclass : "ui-separator"
+	});
+	//搜索框按钮,开启搜索框需要重新调整高度
+	$('#capay_jqGrid').jqGrid('filterToolbar');
+	
+	fetchGridData();
+	
+	//editGridRow新增记录；viewGridRow查看记录详情；delGridRow删除记录。
+	// 结算函数
+	function caigoupay_importLayer(){
+		var rowd = getSelectedRow();
+		var len = rowd.length;
+		if(rowd && $.isArray(rowd) && rowd.length>0){
+			//删除
+			var deletindex = layer.confirm('确定要结算吗？', {
+			  btn: ['确定','取消'] //按钮
+			}, function(){
+				/*for(var i=0; i<len; i++){
+					jQuery("#yulu_jqGrid").delRowData(rowd[0]);  
+				}*/
+			    var rowIds = getSelectedRow();
+				if(rowIds && $.isArray(rowIds) && rowIds.length == 1 ){
+					
+					var rowData = $("#capay_jqGrid").getRowData(rowIds[0]);
+					
+				    $('#capay_pay').val(rowData.last),
+				    $('#capay_last').val("0"),
+				    $('#capay_active').val("已结清")
+				}
+			    layer.msg('结算成功', {icon: 1});
+			}, function(){
+			  	layer.close(deletindex);
+			});
+			
+		}else{
+			layer.msg('请选择记录!');
+		}
+	}
+	
+	
+	//弹框取消按钮
+	$('#capay_cacle_btn').on('click',function(){
+		layer.close(index);
+	});
+	
+	//获取json数据
+	function fetchGridData() {
+
+		var gridArrayData = [];
+		// show loading message
+		$("#capay_jqGrid")[0].grid.beginReq();
+		$.ajax({
+			url: dataUrl,
+			success: function(result) {
+				for (var i = 0; i < result.items.length; i++) {
+					var item = result.items[i];
+					
+					gridArrayData.push({
+						number: item.number,
+						name: item.name,
+						pay: item.pay,
+						money: item.money,
+						pay: item.pay,
+						last: item.last,
+						active: item.active
+					});
+
+				}
+				// set the new data
+				$("#capay_jqGrid").jqGrid('setGridParam', {
+					data: gridArrayData
+				});
+				// hide the show message
+				$("#capay_jqGrid")[0].grid.endReq();
+				// refresh the grid
+				$("#capay_jqGrid").trigger('reloadGrid');
+			}
+		});
+	}
+	//格式化标题
+	function formatTitle(cellValue, options, rowObject) {
+		return cellValue.substring(0, 50) + "...";
+	};
+	//格式化链接
+	function formatLink(cellValue, options, rowObject) {
+		return "<a href='" + cellValue + "'>" + cellValue.substring(0, 25) + "..." + "</a>";
+	};
+	//获取选择的行
+	function getSelectedRow() {
+	    var grid = $("#capay_jqGrid");
+	    var rowKeys = grid.jqGrid('getGridParam',"selarrrow");
+
+	   return rowKeys;
+	}
+	
+	
+	changeSearch(); //修改工具条
+	
+});
+
+
+	
+</script>
+
+
+

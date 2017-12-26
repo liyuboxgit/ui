@@ -1,0 +1,300 @@
+<!-- 用户管理 -->
+<div class="container-fluid">
+	<div class="col-sm-12 plr0 height100 gridBox" id="user_gridBox">
+		<table id="user_jqGrid"></table>
+		<div id="user_jqGridPager"></div>
+	</div>
+</div>
+
+<!-- 新增弹窗 -->
+<div id="user_jqGrid_formBox" class="layerFormBox">
+	<form class="form-horizontal layerForm">
+		<div class="form-group col-xs-6">
+			<label for="inputEmail3" class="col-xs-4 control-label">
+				登录名称:
+			</label>
+			<div class="col-xs-8">
+				<input type="text" id="user_name" name="name" class="form-control input-sm"  placeholder="登录名称">
+			</div>
+		</div>
+		<div class="form-group col-xs-6">
+			<label class="col-xs-4 control-label">
+				真实名字:
+			</label>
+			<div class="col-xs-8">
+				<input type="text" id="user_relName" name="relName" class="form-control input-sm"  placeholder="真实名字">
+			</div>
+		</div>
+		<div class="form-group col-xs-6">
+			<label class="col-xs-4 control-label">
+				用户邮箱:
+			</label>
+			<div class="col-xs-8">
+				<input type="text" id="user_email" name="email"  class="form-control input-sm"  placeholder="用户邮箱">
+			</div>
+		</div>
+		<div class="form-group col-xs-6">
+			<label class="col-xs-4 control-label">
+				电话:
+			</label>
+			<div class="col-xs-8">
+				<input type="text" id="user_tel" name="tel"  class="form-control input-sm"  placeholder="电话">
+			</div>
+		</div>
+		<div class="form-group col-xs-6">
+			<label class="col-xs-4 control-label">
+				<span class="necessary">*</span>所属单位:
+			</label>
+			<div class="col-xs-8">
+				<select id="user_company" name="company" class="form-control input-sm">
+					<option value="小笨鸟总部">小笨鸟总部</option>
+					<option value="财务一部">财务一部</option>
+					<option value="运保一部" selected="true">运保一部</option>
+				</select>
+			</div>
+		</div>
+		<div class="form-group col-xs-6">
+			<label class="col-xs-4 control-label">
+				<span class="necessary">*</span>用户状态:
+			</label>
+			<div class="col-xs-8">
+				<select id="user_status" name="status" class="form-control input-sm">
+					<option value="可用" selected="selected">可用</option>
+					<option value="不可用">不可用</option>
+				</select>
+			</div>
+		</div>
+		<div class="form-group col-xs-6">
+			<label class="col-xs-4 control-label">
+				<span class="necessary">*</span>权限级别:
+			</label>
+			<div class="col-xs-8">
+				
+				<select id="user_authorLevel" name="authorLevel" class="form-control input-sm">
+					<option value="小笨鸟总部">小笨鸟总部</option>
+					<option value="财务一部" selected="true">财务一部</option>
+					<option value="运保一部">运保一部</option>
+				</select>
+			</div>
+		</div>
+		<div class="form-group col-xs-6">
+			<label class="col-xs-4 control-label">
+				<span class="necessary">*</span>角色:
+			</label>
+			<div class="col-xs-8">
+				<select name="roleName"  class="form-control input-sm">
+					<option value="系统管理员" >系统管理员</option>
+					<option value="来宾">来宾</option>
+					<option value="普通用户" selected="true">普通用户</option>
+				</select>
+			</div>
+		</div>
+		<p class="text-center">
+			<button type="button" class="saveBtn btn btn-ckts btn-sm" id="user_save_btn">
+				保存
+			</button>
+			<button type="reset" class="saveBtn btn btn-ckts btn-sm">
+				重置
+			</button>
+			<button type="button" class="saveBtn btn btn-ckts btn-sm qx" id="user_cacle_btn">
+				取消
+			</button>
+		</p>
+	</form>
+</div>
+<script type="text/javascript">
+
+	
+$(function(){
+	
+	//-------------------------------//
+	var layerIndex = null; //弹窗id,关闭所用
+	var flag = ''; //添加修改标记
+	var dataUrl = 'data/user.json';//数据源链接
+	var gridId = 'user_jqGrid'; //表格id
+	var gridPager = 'user_jqGridPager'; //表格分页id
+	var formBoxId = 'user_jqGrid_formBox'; //添加修改窗口元素id
+	var layerCloseClassName = 'qx';
+	var dataSaveBtn = 'user_save_btn'; //弹窗保存id
+	var gridBoxId = 'user_gridBox';//表格尺寸
+	var layerCloseTime = 1200; //1200毫秒提示消息关闭延迟时间
+	var gridWidth = $('#'+gridBoxId).width();
+	var gridHeight = $('#'+gridBoxId).height()-118;
+	
+	var colModel = [
+			{label : '登录名', name : 'name', align: 'center', width: 100,
+				searchoptions : {
+					sopt : ['cn']
+				}
+			},
+			{label : '真实姓名', name : 'relName', align: 'center', width:100},
+			{label : '邮箱地址 ', name : 'email', align: 'left', width:150},
+			{label : '电话', name : 'tel', align: 'center', width:130},
+			{label : '权限级别', name : 'authorLevel', align: 'center', width:70, search:false},
+			{label : '所属单位', name : 'company', align: 'center',width:80, search:false},
+			{label : '角色', name : 'roleName', align: 'center',width:80, search:false
+				/*stype : 'select',
+				searchoptions : {
+					dataInit : function(e){
+						$(e).append('<option>来宾</option><option>管理员</option>');
+						console.log(e);
+					},
+					sopt : ['eq']
+				}*/
+			},
+			{label : '账户状态', name : 'status', align: 'center',width:50, search:false},
+			{label : '创建时间', name : 'createTime', align: 'center',width:100,
+				searchoptions : {
+					dataInit: function(e){
+						$(e).on('click',function(){
+							WdatePicker({
+								dateFmt : 'yyyy-MM',
+								readOnly : true
+							});
+						});
+					}
+				}
+			}
+	];
+	
+	$('#'+gridId).jqGrid({
+		width: gridWidth,
+		height: gridHeight,
+		url: dataUrl,
+		datatype: "json",
+		loadonce: true, //加载到本地操作
+		rownumbers: true, //显示顺序编号
+		multiselect: true, //定义多选
+		viewrecords: true, //显示总记录数
+		sortname: 'name', //排序字段
+		sortorder: 'asc', //排序顺序，升序或者降序（asc or desc）
+		altRows : true, //设置表格隔行变色
+		rowNum: 12, //每页显示的记录数
+		rowList:[10,12,15,18,20,25], //
+		rownumWidth: 30, 
+		recordtext: "当前显示: <b>{0}</b>至<b>{1}</b> 总数: <b>{2}</b>",
+		//emptyrecords: "No records to view",
+		//loadtext: "Loading...",
+		pager: '#'+gridPager,
+		colModel: colModel
+		//jsonReader : jsonReader
+		
+	}).navGrid('#'+gridPager,{ // the buttons to appear on the toolbar of the grid
+		edit:false,add:false,del:false,search:false,refresh:false
+	}).navButtonAdd('#'+gridPager,{
+		//caption: '新增',
+		caption: '',
+		title : '添加',
+		buttonicon : 'glyphicon-plus',
+		onClickButton : function(){addLayer();}, //调用添加的函数
+		position : 'last'
+		
+	}).navButtonAdd('#'+gridPager,{
+		//caption: '修改',
+		caption: '',
+		title : '修改',
+		buttonicon : 'glyphicon-edit',
+		onClickButton : function(){updateLayer();}, //调用更新的函数
+		position : 'last'
+		
+	}).navButtonAdd('#'+gridPager,{
+		//caption: '删除',
+		caption: '',
+		title : '删除',
+		buttonicon : 'glyphicon-trash',
+		//onClickButton : deleteLayer(gridId), //调用删除的函数
+		onClickButton : function(){ deleteLayer(gridId); },
+		position : 'last'
+		
+	}).navSeparatorAdd('#'+gridPager,{
+		sepcontent: '',
+		sepclass : "ui-separator"
+	});
+	
+	//表格添加搜索框按钮
+	$('#'+gridId).jqGrid('filterToolbar');
+	//修改工具条
+	changeSearch(); 
+	
+	//editGridRow新增记录；viewGridRow查看记录详情；delGridRow删除记录。
+	
+	//弹框保存按钮
+	$(document).on('click','#'+dataSaveBtn,function(){
+		if(flag == 'add'){
+			var data = getFormData(formBoxId);
+			var currentNumber = uuid.v4();
+			var result = jQuery('#'+gridId).addRowData(currentNumber,data,'first');
+			if(result){
+				layer.msg('添加成功',{time:layerCloseTime});
+				layer.close(layerIndex);
+				
+				jQuery('#'+gridId).setSelection(currentNumber,true);
+				
+			}else{
+				layer.msg('添加失败!',{time:layerCloseTime});
+			}
+		}else if(flag == 'update'){
+			
+			//删除
+			var rowIds = getSelectedRow(gridId);
+			jQuery('#'+gridId).delRowData(rowIds[0]);
+			//添加
+			var data = getFormData(formBoxId);
+			console.log(data);
+			var currentNumber = uuid.v4();
+			var result = jQuery('#'+gridId).addRowData(currentNumber,data,'first');
+			
+			if(result){
+				layer.msg('更新成功',{time:layerCloseTime});
+				layer.close(layerIndex);
+				jQuery('#'+gridId).setSelection(currentNumber,true);
+			}else{
+				layer.msg('更新失败!',{time:layerCloseTime});
+			}
+		}
+		
+	});
+	
+	//弹框取消按钮
+	$('.'+layerCloseClassName).on('click',function(){
+		layer.close(layerIndex);
+	});
+	
+	//左下角新增按钮
+	function addLayer(){
+		flag = 'add';
+		$('#'+formBoxId+' .form-control:not(select)').val('');
+		layerIndex = layer.open({
+			type: 1,
+			title : '添加模块',
+			area: ['50%', '60%'], //宽高
+			content: $('#'+formBoxId)
+		});
+	}
+	
+	//左下角编辑按钮
+	function updateLayer(){
+		flag = 'update';
+		var setting = {
+			gridId : gridId,
+			formBoxId : formBoxId,
+			title : '修改模块',
+			area : ['50%', '60%']
+		};
+		layerIndex = updateGridData(setting);
+	}
+	
+	//左下角删除按钮
+	function deleteLayer(gridId){
+		deleteGridData(gridId);
+	}
+	
+	
+	//-------------------------------//
+	
+	
+});
+
+
+	
+</script>

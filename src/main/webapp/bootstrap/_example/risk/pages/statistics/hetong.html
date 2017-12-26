@@ -1,0 +1,283 @@
+<!-- 按出口国统计 -->
+<style type="text/css">
+	.yincang{display: none;}
+	#fenlei{display: none;}
+	*{padding:0;margin:0;} 
+#fenlei caption{font-size:14px;font-weight:bold;} 
+#fenlei table{ border-collapse:collapse;border:1px #525152 solid;width:900px;margin:0 auto;} 
+#fenlei th,#fenlei td{border:1px #525152 solid;text-align:center;font-size:12px;line-height:30px;} 
+
+
+/*模拟对角线*/ 
+.out{ 
+border-top:45px #D6D3D6 solid;/*上边框宽度等于表格第一行行高*/ 
+width:0px;/*让容器宽度为0*/ 
+height:0px;/*让容器高度为0*/ 
+border-left:199px #BDBABD solid;/*左边框宽度等于表格第一行第一格宽度*/ 
+position:relative;/*让里面的两个子容器绝对定位*/ 
+} 
+.topcolor{background: #D6D3D6;}
+.t1{background: #BDBABD;}
+#fenlei b{font-style:normal;display:block;position:absolute;top:-45px;left:-67px;width:75px;} 
+#fenlei em{font-style:normal;display:block;position:absolute;top:-30px;left:-183px;width:95x;} 
+#fenlei .topcolor{width: 200px;}
+#fenlei td {height: 50px;}
+</style>
+<div class="container-fluid tongji">
+	<div class="row">
+		<form class="form-inline">
+			<div class="form-group">
+				<select name="ywlx" id="selecter" class="form-control input-sm">
+					<option value="" selected="selected">请选择</option>
+					<option value="关单数量">关单数量</option>
+					<option value="出口金额">出口金额</option>
+					<option value="商品分类数量">商品分类数量</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<label>起始日期:</label>
+				<input type="riqi" class="form-control input-sm"  onClick="WdatePicker()">
+			</div>
+			<div class="form-group">
+				<label>截止日期:</label>
+				<input type="riqi" class="form-control input-sm"  onClick="WdatePicker()">
+			</div>
+			<button type="button" class="btn btn-ckts btn-sm" id="search">查询</button>
+			<button type="reset" class="btn btn-danger btn-sm">重置</button>
+			
+		</form>
+	</div>
+
+	<div class="row">
+		<div class="col-sm-2" id="guandan" class="yincang">
+			<div id="guandanChart" style="min-width:1000px;height:400px"></div>
+			
+		</div>
+		<div class="col-sm-2" id="jine" class="yincang">
+			<div id="jineChart" style="min-width:1000px;height:400px"></div>
+		</div>
+		<div class="col-sm-2" id="fenlei" class="yincang">
+			<table>
+				<tr> 
+				<th style="width:200px"> 
+					<div class="out">
+						<em>商品名称</em>  
+						<b>国家</b> 
+					</div> 
+				</th> 
+				<th class="topcolor" style="width:150px">美国</th> 
+				<th class="topcolor" style="width:150px">德国</th> 
+				<th class="topcolor">意大利</th> 
+				<th class="topcolor">俄罗斯</th>
+				<th class="topcolor">德国</th>
+				<th class="topcolor">合计</th>
+				</tr> 
+				<tr> 
+					<td class="t1">液晶显示器</td> 
+					<td>10</td> 
+					<td>20</td> 
+					<td>30</td> 
+					<td>40</td> 
+					<td>50</td>
+					<td>150</td>
+				</tr> 
+				<tr> 
+					<td class="t1">华为手机</td> 
+					<td>10</td> 
+					<td>20</td> 
+					<td>30</td> 
+					<td>40</td> 
+					<td>50</td>
+					<td>150</td>
+				</tr> 
+				<tr> 
+					<td class="t1">控制器内变压器</td> 
+					<td>10</td> 
+					<td>20</td> 
+					<td>30</td> 
+					<td>40</td> 
+					<td>50</td>
+					<td>150</td>
+				</tr>
+				<tr> 
+					<td class="t1">钻井平台防滑板</td> 
+					<td>10</td> 
+					<td>20</td> 
+					<td>30</td> 
+					<td>40</td> 
+					<td>50</td>
+					<td>150</td>
+				</tr>
+				<tr>
+					<td class="t1">合计</td>
+					<td>40</td> 
+					<td>80</td> 
+					<td>120</td> 
+					<td>160</td> 
+					<td>200</td>
+					<td>600</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+
+</div>
+<script type="text/javascript"> 
+	var guandan = 'guandan';
+	var flag = 'Chart';
+	var guandan= 'guandan';
+	var jine = 'jine';
+	var fenlei = 'fenlei';
+	$(document).on('click','#search',function(){
+		if ($('#selecter option:selected').text() == '关单数量') {
+			$('#guandan').show().siblings().hide();
+			guandanchart();
+		}else if($('#selecter option:selected').text() == '出口金额'){
+			$('#jine').show().siblings().hide();
+			jinechart();
+		}else if($('#selecter option:selected').text() == '商品分类数量'){
+			$('#fenlei').show().siblings().hide();
+			fenleichart();
+		}
+	})
+// 按成交方式
+	function guandanchart(){
+	 $('#' + guandan + flag).highcharts({
+		chart: {
+			type: 'column'
+		},
+		title: {
+			text: '关单数量'
+		},
+		subtitle: {
+			text: '数据来源: 关单数量'
+		},
+		xAxis: {
+			type: 'category'
+		},
+		yAxis: {
+			title: {
+				text: '总的统计'
+			}
+		},
+		legend: {
+			enabled: false
+		},
+		plotOptions: {
+			series: {
+				borderWidth: 0,
+				dataLabels: {
+					enabled: true,
+					format: '{point.y}'
+				}
+			},
+			column: {
+            	pointWidth:50
+        	}
+		},
+		tooltip: {
+			headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+			pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y}</b> of total<br/>'
+		},
+		series: [{
+			name: '出口国家',
+			colorByPoint: true,
+			data: [{
+				name: '美国',
+				y: 120,
+				drilldown: '2002'
+			}, {
+				name: '日本',
+				y: 540,
+				drilldown: '2005'
+			}, {
+				name: '德国',
+				y: 450,
+				drilldown: '2009'
+			}, {
+				name: '加拿大',
+				y: 120,
+				drilldown: '2002'
+			}, {
+				name: '意大利',
+				y: 540,
+				drilldown: '2005'
+			}]
+		}]
+		
+	});
+	
+	}
+// 按关单号
+function jinechart(){
+	 $('#' + jine + flag).highcharts({
+		chart: {
+			type: 'column'
+		},
+		title: {
+			text: '出口金额'
+		},
+		subtitle: {
+			text: '数据来源: 出口金额'
+		},
+		xAxis: {
+			type: 'category'
+		},
+		yAxis: {
+			title: {
+				text: '总的统计'
+			}
+		},
+		legend: {
+			enabled: false
+		},
+		plotOptions: {
+			series: {
+				borderWidth: 0,
+				dataLabels: {
+					enabled: true,
+					format: '{point.y}万元'
+				}
+			},
+			column: {
+            	pointWidth:50
+        	}
+		},
+		tooltip: {
+			headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+			pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y}</b> of total<br/>'
+		},
+		series: [{
+			name: '出口国家',
+			colorByPoint: true,
+			data: [{
+				name: '美国',
+				y: 220,
+				drilldown: '2002'
+			}, {
+				name: '日本',
+				y: 110,
+				drilldown: '2005'
+			}, {
+				name: '德国',
+				y: 330,
+				drilldown: '2009'
+			}, {
+				name: '加拿大',
+				y: 220,
+				drilldown: '2002'
+			}, {
+				name: '意大利',
+				y: 440,
+				drilldown: '2005'
+			}]
+		}]
+		
+	});
+	
+	}
+// 按贸易方式
+	function fenleichart(){
+		
+	}
+</script>

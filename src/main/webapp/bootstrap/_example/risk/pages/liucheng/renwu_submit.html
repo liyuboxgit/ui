@@ -1,0 +1,149 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+	<head>
+		<meta charset="UTF-8">
+		<!--Bootstrap 不支持 IE 古老的兼容模式。为了让 IE 浏览器运行最新的渲染模式建议添加一下meta-->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<!--自适应设备宽度-->
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+		<title>外贸综合服务企业出口退税风险管控信息系统-任务管理</title>
+		<meta name="Keywords" content="外贸综合服务企业出口退税风险管控信息系统">
+		<meta name="description" content="外贸综合服务企业出口退税风险管控信息系统">
+		<link rel="stylesheet" href="../../static/plugins/bootstrap-3.3.7/css/bootstrap.min.css"/>
+		<script type="text/javascript" src="../../static/plugins/jquery-2.1.1/jquery-2.1.1.js"></script>
+		<script type="text/javascript" src="../../static/plugins/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" href="../../static/plugins/font-awesome-4.7.0/css/font-awesome.css"/><!-- icon字体图标 -->
+		<link rel="stylesheet" href="../../static/plugins/bootstrap-table-1.11.1/bootstrap-table.css"/><!-- 表格 -->
+		<script type="text/javascript" src="../../static/plugins/bootstrap-table-1.11.1/bootstrap-table.js"></script>
+		<script type="text/javascript" src="../../static/plugins/bootstrap-table-1.11.1/extensions/export/bootstrap-table-export.js"></script><!-- 表格导出 -->
+		<script type="text/javascript" src="../../static/plugins/tableExport.jquery.plugin/tableExport.js"></script>
+		<script type="text/javascript" src="../../static/plugins/bootstrap-table-1.11.1/locale/bootstrap-table-zh-CN.js"></script>
+		<script type="text/javascript" src="../../static/js/common.js"></script><!-- 自定义公用js -->
+		<link rel="stylesheet" href="../../static/css/common.css"/><!-- 自定义公用css -->
+		<link rel="stylesheet" href="../../static/plugins/layer-v3.1.0/theme/default/layer.css"/><!-- 弹窗 -->
+		<script type="text/javascript" src="../../static/plugins/layer-v3.1.0/layer.js"></script>
+		<script type="text/javascript" src="../../static/plugins/My97DatePicker-4.8/WdatePicker.js"></script><!-- 日历 -->
+	</head>
+	<body>
+		<div class="layerBodyBg">
+			<form name="submitNext" action="" method="post">
+				<p>请选择要提交的用户：</p>
+				<div id="guanDanZu">
+					<select class="form-control input-sm" name="liuchengzu">
+						<!-- 
+						<option value="0">创建任务组</option>
+						 -->
+					</select>
+				</div>
+				<div class="row" id="userBox" style="background:#f4f4f4; margin-left:0; margin-right:0; margin-top:15px;">
+					<!-- 
+					<div class="col-xs-4">
+						<div class="checkbox">
+						  <label>
+						    <input type="checkbox" name="username" value="" checked="checked">李四
+						  </label>
+						</div>
+					</div>
+					-->
+				</div>
+				<div class="row" style="margin-top:15px;">
+					<div class="col-xs-12">
+						<textarea name="yijian" class="form-control input-sm" rows="5" style="width:100%!important;" placeholder="意见..."></textarea>
+					</div>
+				</div>
+				<p class="text-center"><button type="button" class="btn btn-ckts btn-sm" style="margin-top:35px;" id="subNext">确认</button></p> 
+			</form>
+		</div>
+		<script type="text/javascript">
+			$(function(){
+				
+				var gwbm = "000148"; //当前人员的机关编码
+				var usersData = []; //所有的机关以及人员
+				
+				//初始化任务组
+				function initZu(usersData,gwbm){
+					if(usersData && $.isArray(usersData)){
+						var zuHtmlArr = [];
+						for(var i=0; i<usersData.length; i++){
+							var selected = (usersData[i].gwbm == gwbm) ? "selected" : "";
+							zuHtmlArr.push('<option '+selected+' value="'+usersData[i].gwbm+'">'+usersData[i].gwmc+'</option>');
+						}
+						$("#guanDanZu select").html(zuHtmlArr.join(""));
+					}
+					initUser(usersData,gwbm); //初始机关成员
+				}
+				
+				//初始化机关成员
+				function initUser(usersData,gwbm){
+					
+					var gwbms = usersData.map(function(item,index,array){ return item.gwbm; });
+					if($.inArray(gwbm, gwbms) === -1){
+						layer.msg("没有此机关");
+					}else{
+						for(var i=0; i<usersData.length; i++){
+							if(gwbm == usersData[i].gwbm){
+								var users = usersData[i].jgry;
+								if($.isArray(users)){
+									var zuHtmlArr = [];
+									for(var j=0; j<users.length; j++){
+										zuHtmlArr.push('<div class="col-xs-4"><div class="checkbox"><label><input '+(users[j].checked ? "checked" : "")+' type="checkbox" name="username" value="'+users[j].rybm+'">'+users[j].rymc+'</label></div></div>');
+									}
+									$("#userBox").html(zuHtmlArr.join(""));
+								}
+								break;
+							}
+						}
+					}
+				}
+                $.ajax({
+                    url : "../../../renwu/findJgRylist",
+                    // data : {"rwbh":parent.params.rwbh},
+                    data : {"jggwBm":parent.lcparams.jggwBm,"znDm":parent.lcparams.znDm},
+                    type : "post",
+                    dataType : "json",
+                    success : function(result){
+                        if(result.success && result.data.jgarr){
+							usersData = result.data.jgarr; //所有数据
+							initZu(usersData,gwbm); //初始化组和人员
+						}else{
+							parent.layer.msg("没有人员信息!");
+						}
+                    }
+
+                });
+				//获取用户数据
+//				$.getJSON("../../data/user.json",function(result){
+//					if(result.success && result.data.jgarr){
+//						usersData = result.data.jgarr; //所有数据
+//						initZu(usersData,gwbm); //初始化组和人员
+//					}else{
+//						parent.layer.msg("没有人员信息!");
+//					}
+//				});
+				
+				//组发生改变的处理
+				$("#guanDanZu").on("change","select",function(data){
+					initUser(usersData,$(this).val());
+				});
+				
+				//确定提交
+				$("#subNext").bind("click",function(){
+					//提交到后台的数据
+					var data =JSON.stringify($("form[name='submitNext']").serializeJSON());
+					
+					ajaxHelper("/",{data:data},function(){
+						
+						//成功后关闭窗口
+						//parent.layer.closeAll(); 
+						//parent.parent.layer.closeAll();
+						//parent.parent.layer.msg("提交成功!");
+						
+					});
+					
+				});
+			});
+			
+		</script>
+	</body>
+</html>

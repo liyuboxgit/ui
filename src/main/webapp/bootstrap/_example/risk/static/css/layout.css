@@ -1,0 +1,87 @@
+/*@charset "UTF-8";*/
+/*layout start*/
+html,body,#fkBox{width:100%; height:100%; position:relative; font-size:14px; overflow:hidden; }
+#fkHeader { position:absolute; left:0; top:0; z-index:3; width:100%; height:58px; line-height:58px; background:#68a8df; }
+#fkLeft { position:absolute; left:0; top:0; z-index:2; width:150px; min-height:100%; background:#3f576a; }
+#fkTabs {position:absolute; top:58px; z-index:1; width:100%; padding-left:150px; height:40px; background:#e5e6e6; border-top:1px solid #d9d9d9; border-bottom:1px solid #d9d9d9;}
+#fkRight { position:absolute; top:98px; z-index:1; width:100%;  padding-left:150px; background:#f4f4f4; overflow:hidden;}
+/*layout end*/
+/* right tabs start */
+#fkTabs {}
+/* #fkTabs ul { margin-bottom:0; width: 1341px; padding-top:7px; overflow-x: scroll;} */
+#fkTabs ul { margin-bottom:0; padding:10px 10px 0 10px;margin-left:0; }
+#fkTabs ul li{ border:1px solid #e5e6e6; border-bottom-color:#d9d9d9; position:relative; float:left; }
+#fkTabs ul li.active {border-radius:4px 4px 0 0; border:1px solid #cacaca; border-bottom-color:#f4f4f4; background:#f4f4f4;}
+#fkTabs ul li a{ display:block; height:28px; line-height:28px; text-align:center;padding:0 20px 0 10px;  }
+#fkTabs ul li:first-child a { padding:0px 10px; }
+#fkTabs ul li i{
+	position:absolute; right:7px; top:7px; cursor: pointer; color:#aaa; z-index:5;
+	transition-property: color;
+	transition-duration:.3s;
+	-moz-transition-property: color;
+	-moz-transition-duration:.3s;
+	-webkit-transition-property : color;
+	-webkit-transition-duration:.3s;
+	-o-transition-property: color;
+	-o-transition-duration:.3s;
+}
+#fkTabs ul li.active i { display:block; } 
+#fkTabs ul li:hover i { color:#333; }
+/* right tabs end */
+
+/*header start*/
+.headerInfo { line-height:58px; background: #68a8df;}
+.headerInfo .logo { width:150px; height:58px; text-align:center; }
+.headerInfo .logo a { display:block; }
+.headerInfo .logo img { display:inline; height:58px; }
+.headerInfo .companyName { padding:0 30px;/*  border-right:1px solid #d9d9d9;  */}
+.headerInfo .companyName a { display:block; color: #fff; font-size:16px; letter-spacing:1px; text-shadow:2px 2px 2px #333;  }
+.headerInfo .companyName a:hover { color:#fff; }
+.headerInfo .companyName a i{ margin:0 15px;}
+.headerInfo ul{}
+.headerInfo ul li{ margin-right:20px; position:relative; }
+.headerInfo ul li a {font-size:22px; color: #fff; }
+.headerInfo ul li a span { position:absolute; top:10px; right:-2px; z-index:2; padding:3px 5px; background:#fe6c6c;}
+.headerInfo ul li a img { width:30px; }
+.headerInfo ul li a b {font-size:16px; padding-left:10px; }
+/*修改密码退出*/
+.headerInfo .myPassword { min-width:120px; }
+.headerInfo .myPassword li { margin-right:0; }
+.headerInfo .myPassword li a{ font-size:12px; color:#262626; }
+/*header end*/
+
+/*menu start*/
+.menus { padding-top:58px; }
+/* .menus .intro { color:#eee; height:40px; line-height:40px; background:#374f62;  margin-bottom:0;  } */
+.menus .intro {  height:40px; line-height:40px; position:absolute; right:0; top:325px; z-index:5; border-radius:3px 0 0 3px;  margin-bottom:0; width:10px; text-align:center; background:rgba(51,51,51,0.2); }
+.menus .intro a {display:block; color:#ddd; }
+.menus ul { padding-top:8px; }
+.menus ul li{ position:relative;   }
+.menus ul li a{ color:#eee; display:block;  padding:8px 0;}
+.menus ul li a:hover, .menus ul li.active  a { background:#374f62; }
+.menus ul li a i {  } 
+.menus ul li a .l { padding:0 15px 0 15px; width:45px;  }
+.menus ul li a .r { padding:0 15px 0 0; position:relative; top:3px; float:right; }
+.menus ul li dl{ position:absolute; left:150px;/*  bottom:-20px; */ top:0; z-index:10; background:#374f62;  display:none;}
+/* .menus ul li:nth-child(2) dl { top:0; bottom:auto; } */
+.menus ul li dl dd{ padding:8px 30px 8px 10px; }
+.menus ul li dl dd ,.menus ul li dl dd a  {
+	transition-property: background;
+	transition-duration:.5s;
+	-moz-transition-property: background;
+	-moz-transition-duration:.5s;
+	-webkit-transition-property : background;
+	-webkit-transition-duration:.5s;
+	-o-transition-property: background;
+	-o-transition-duration:.5s;
+}
+.menus ul li dl dd a { padding:0; white-space: nowrap;  }
+.menus ul li dl dd:hover,.menus ul li dl dd:hover a { background: #68a8df; }
+/*menu end*/
+
+/*right content start*/
+#main, #main .con { height:100%; }
+#main {}
+#main .con { display:none;  background: #f4f4f4; }
+#main .con.active {display: block; }
+/*right content end*/

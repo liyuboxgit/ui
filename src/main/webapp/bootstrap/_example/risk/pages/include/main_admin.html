@@ -1,0 +1,184 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<!--Bootstrap 不支持 IE 古老的兼容模式。为了让 IE 浏览器运行最新的渲染模式建议添加一下meta-->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<!--自适应设备宽度-->
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+<title>外贸综合服务企业出口退税风险管控信息系统</title>
+<meta name="Keywords" content="外贸综合服务企业出口退税风险管控信息系统">
+<meta name="description" content="外贸综合服务企业出口退税风险管控信息系统">
+
+<link rel="stylesheet" href="../../static/plugins/bootstrap-3.3.7/css/bootstrap.min.css" />
+<script type="text/javascript" src="../../static/plugins/jquery-2.1.1/jquery-2.1.1.js"></script>
+<script type="text/javascript" src="../../static/plugins/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+
+<!-- icon字体图标 -->
+<link rel="stylesheet" href="../../static/plugins/font-awesome-4.7.0/css/font-awesome.css" />
+<!-- 表格 -->
+<link rel="stylesheet" href="../../static/plugins/bootstrap-table-1.11.1/bootstrap-table.css" />
+<script type="text/javascript" src="../../static/plugins/bootstrap-table-1.11.1/bootstrap-table.js"></script>
+
+<!-- 表格导出 -->
+<script type="text/javascript"
+	src="../../static/plugins/bootstrap-table-1.11.1/extensions/export/bootstrap-table-export.js"></script>
+<script type="text/javascript" src="../../static/plugins/tableExport.jquery.plugin/tableExport.js"></script>
+<script type="text/javascript"
+	src="../../static/plugins/bootstrap-table-1.11.1/locale/bootstrap-table-zh-CN.js"></script>
+
+<!-- 美化滚动条 -->
+<script src="../../static/plugins/jquery.nicescroll-3.7.6/jquery.nicescroll.js"></script>
+
+<!-- 自定义公用css/js -->
+<script type="text/javascript" src="../../static/js/common.js"></script>
+<link rel="stylesheet" href="../../static/css/common.css" />
+
+<!-- 本页专用 -->
+<link rel="stylesheet" href="../../static/css/main.css" />
+<!-- <script type="text/javascript" src="../../static/js/main.js"></script> -->
+
+<!-- 弹窗 -->
+<!-- 
+<link rel="stylesheet" href="../../static/plugins/layer-v3.1.0/theme/default/layer.css"/>
+	<script type="text/javascript" src="../../static/plugins/layer-v3.1.0/layer.js"></script> -->
+</head>
+<body>
+	<div class="container-fluid" id="include_main_box">
+		<div class="row">
+			<div class="col-sm-6">
+				<div class="row">
+					<div></div>
+				</div>
+				<div class="panel panel-info">
+					<div class="panel-heading">退税统计</div>
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-sm-4">
+								<a class="fa fa-bar-chart"></a> <span class="font"
+									style="padding-top: 19px; font-size: 16px;">退税额</span> <span class="font"
+									style="padding-top: 7px; font-size: 13px;">&yen;&nbsp;3,605,600.58</span>
+							</div>
+							<div class="col-sm-4">
+								<a class="fa fa-check-square-o"></a> <span class="font"
+									style="padding-top: 19px; font-size: 16px;">已退税额</span> <span class="font"
+									style="padding-top: 7px; font-size: 13px;">&yen;&nbsp;2,045,783.46</span>
+							</div>
+							<div class="col-sm-4">
+								<a class="fa fa-circle-o"></a> <span class="font"
+									style="padding-top: 19px; font-size: 16px;">未退税额</span> <span class="font"
+									style="padding-top: 7px; font-size: 13px;">&yen;&nbsp;1,559,817.12</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-6">
+				<div class="panel panel-info">
+					<div class="panel-heading">关单发票统计</div>
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-sm-3">
+								<p class="text-center" style="padding-top: 28px; font-size: 16px;">关单:</p>
+							</div>
+							<div class="col-sm-9">
+								<table class="table sbData">
+									<thead>
+										<tr>
+											<th>总数</th>
+											<th>已申报</th>
+											<th>未申报</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>100</td>
+											<td>85</td>
+											<td>15</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-3">
+								<p class="text-center" style="padding-top: 28px; font-size: 16px;">发票:</p>
+							</div>
+							<div class="col-sm-9">
+								<table class="table sbData">
+									<thead>
+										<tr>
+											<th>总数</th>
+											<th>已申报</th>
+											<th>未申报</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>120</td>
+											<td>75</td>
+											<td>45</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-sm-4">
+				<div class="panel panel-info">
+					<div class="panel-heading">供货商预警</div>
+					<div class="panel-body">
+						<a class="fa fa-bell-o" id="main_gq_title"></a> <span class="font">51</span>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-4">
+				<div class="panel panel-info">
+					<div class="panel-heading">申报预警</div>
+					<div class="panel-body">
+						<a class="fa fa-tasks" id="main_sb_title"></a> <span class="font">12</span>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-sm-4">
+				<div class="panel panel-info">
+					<div class="panel-heading">收汇预警</div>
+					<div class="panel-body">
+						<a class="fa fa-exchange" id="main_sh_title"></a> <span class="font">36</span>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+	</div>
+
+	<script>
+		$(function() {
+
+			$('#main_db_title, .main_db_name').on('click', function() {
+				parent.$('#menu_rw_gl', parent.document).trigger('click');
+			});
+			$('#main_sb_title').on('click', function() {
+				parent.$('#menu_yj_sb', parent.document).trigger('click');
+			});
+			$('#main_gq_title').on('click', function() {
+				parent.$('#menu_yj_gq', parent.document).trigger('click');
+			});
+			$('#main_sh_title').on('click', function() {
+				parent.$('#menu_yj_sh', parent.document).trigger('click');
+			});
+
+		});
+	</script>
+
+</body>
+</html>

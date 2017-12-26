@@ -1,0 +1,658 @@
+<!--预录入报关单  -->
+<style type="text/css">
+#yulu_formBox .text-center{
+text-align: center;
+}
+#yulu_formBox .text-left{
+text-align: left;
+}
+#yulu_formBox .index {
+	z-index: 23452523;
+}
+.table {
+	border: 1px solid #ccc;
+}
+/* .table td{
+	border: 1px solid #ccc;
+}
+.table th{
+	border: 1px solid #ccc;
+} */
+.thead{
+	width: 100%;
+}
+.yulu_ul {
+	list-style: none;
+}
+.text-center{
+	text-align: center;
+}
+.index {
+	border: 1px solid #ccc;
+}
+.head {
+	padding-top: 5px;
+}
+.form-group {
+	/*border: 1px solid #ccc !important;*/
+	/* background: #D9DEF7; */
+}
+.form-group label{
+	margin-top: 2px;
+}
+.form-group .form-control {
+	vertical-align:middle !important; 
+	margin-top: 5px;
+}
+.form-group input,.form-group textarea {border: none;outline: none;}
+</style>
+<div class="container-fluid">
+	<div class="col-sm-12 plr0 height100 gridBox" id="yulu_gridBox">
+		<table id="yulu_jqGrid"></table>
+		<div id="yulu_jqGridPager"></div>
+	</div>
+</div>
+
+<div class="layerFormBox" id="baoguanhangtupian_box">
+	<p class="text-center" style="margin-top:20px;">
+		<img src="static/img/baoguanhangguandan.jpg" class="img-responsive"/>
+	</p>
+</div>
+<!-- 新增弹窗 -->
+<div id="yulu_formBox" class="layerFormBox">
+	<form class="form-horizontal layerForm col-xs-12">
+		<h4 class="col-xs-12 text-center">预报关单</h4>
+		<div class="col-xs-12 index">
+			<div class="form-group col-xs-4">
+				<label class="col-xs-4 control-label">
+					预录入编号:
+				</label>
+				<div class="col-xs-8">
+					<input type="text" id="yulu_number" name="number" class="form-control input-sm" value="000000000092371271">
+				</div>
+			</div>
+			<div class="form-group col-xs-4">
+				<label class="col-xs-4 control-label">
+					海关编号:
+				</label>
+				<div class="col-xs-8">
+					<input type="text" class="form-control input-sm">
+				</div>
+			</div>
+			<div class="form-group col-xs-4">
+				<label class="col-xs-4 control-label">
+					出口口岸
+				</label>
+				<div class="col-xs-8">
+					<input type="text" id="yulu_type" name="type" class="form-control input-sm" value="天津新港">
+				</div>		
+			</div>
+			<div class="form-group col-xs-4">
+				<label class="col-xs-4 control-label">
+					备案号
+				</label>
+				<div class="col-xs-8">
+					<input type="text" class="form-control input-sm">
+				</div>		
+			</div>
+			<div class="form-group col-xs-4">
+				<label class="col-xs-4 control-label">
+					出口日期
+				</label>
+				<div class="col-xs-8">
+					<input type="text" id="yulu_outTime" onclick="WdatePicker();" name="outTime" class="form-control input-sm" value="2014-10-19">
+				</div>		
+			</div>
+			<div class="form-group col-xs-4">
+				<label class="col-xs-4 control-label">
+					申报日期
+				</label>
+				<div class="col-xs-8">
+					<input type="text" id="yulu_county" onclick="WdatePicker();" name="createTime" class="form-control input-sm" value="2015-01-29">
+				</div>		
+			</div>
+
+			<div class="form-group col-xs-4">
+				<label class="col-xs-4 control-label">
+					经营单位
+				</label>
+				<div class="col-xs-8">
+					<input type="text" class="form-control input-sm" value="某集团工程有限公司">
+				</div>		
+			</div>
+			<div class="form-group col-xs-4">
+				<label class="col-xs-4 control-label">
+					运输方式
+				</label>
+				<div class="col-xs-8">
+					<input type="text" class="form-control input-sm" value="水运">
+				</div>		
+			</div>
+			<div class="form-group col-xs-4">
+				<label class="col-xs-4 control-label">
+					运输工具
+				</label>
+				<div class="col-xs-8">
+					<input type="text" class="form-control input-sm" value="轮船">
+				</div>		
+			</div>
+			<div class="form-group col-xs-4">
+				<label class="col-xs-4 control-label">
+					提运单号
+				</label>
+				<div class="col-xs-8">
+					<input type="text" class="form-control input-sm">
+				</div>		
+			</div>
+
+			<div class="form-group col-xs-4">
+				<label class="col-xs-4 control-label">
+					发货单位
+				</label>
+				<div class="col-xs-8">
+					<input type="text" class="form-control input-sm" value="某集团工程有限公司">
+				</div>		
+			</div>
+			<div class="form-group col-xs-4">
+				<label class="col-xs-4 control-label">
+					贸易方式
+				</label>
+				<div class="col-xs-8">
+					<input type="text" id="yulu_property" name="property" class="form-control input-sm" value="一般贸易">
+				</div>		
+			</div>
+			<div class="form-group col-xs-4">
+				<label class="col-xs-4 control-label">
+					征免性质
+				</label>
+				<div class="col-xs-8">
+					<input type="text" class="form-control input-sm">
+				</div>		
+			</div>
+			<div class="form-group col-xs-4">
+				<label class="col-xs-4 control-label">
+					提运单号
+				</label>
+				<div class="col-xs-8">
+					<input type="text" class="form-control input-sm">
+				</div>		
+			</div>
+
+			<div class="form-group col-xs-4">
+				<label class="col-xs-4 control-label">
+					许可证号
+				</label>
+				<div class="col-xs-8">
+					<input type="text" class="form-control input-sm">
+				</div>		
+			</div>
+			<div class="form-group col-xs-4">
+				<label class="col-xs-4 control-label" value="s2566764">
+					运抵国
+				</label>
+				<div class="col-xs-8">
+					<input type="text" id="yulu_company" name="company" class="form-control input-sm" value="美国">
+				</div>		
+			</div>
+			<div class="form-group col-xs-4">
+				<label class="col-xs-4 control-label">
+					指运港
+				</label>
+				<div class="col-xs-8">
+					<input type="text" id="yulu_anothertype" name="anothertype" class="form-control input-sm" value="波士顿">
+				</div>		
+			</div>
+			<div class="form-group col-xs-4">
+				<label class="col-xs-4 control-label">
+					境内货源地
+				</label>
+				<div class="col-xs-8">
+					<input type="text" class="form-control input-sm">
+				</div>		
+			</div>
+
+			<div class="form-group col-xs-4">
+				<label class="col-xs-4 control-label">
+					批准文号
+				</label>
+				<div class="col-xs-8">
+					<input type="text" class="form-control input-sm" value="PZX63D832">
+				</div>		
+			</div>
+			<div class="form-group col-xs-4">
+				<label class="col-xs-4 control-label">
+					成交方式
+				</label>
+				<div class="col-xs-8">
+					<input type="text" id="yulu_pay" name="pay" class="form-control input-sm" value="FOB">
+				</div>		
+			</div>
+			<div class="form-group col-xs-4">
+				<label class="col-xs-4 control-label">
+					运费
+				</label>
+				<div class="col-xs-8">
+					<input type="text" class="form-control input-sm">
+				</div>		
+			</div>
+			<div class="form-group col-xs-4">
+				<label class="col-xs-4 control-label">
+					保费
+				</label>
+				<div class="col-xs-8">
+					<input type="text" class="form-control input-sm">
+				</div>		
+			</div>
+			<div class="form-group col-xs-4">
+				<label class="col-xs-4 control-label">
+					杂费
+				</label>
+				<div class="col-xs-8">
+					<input type="text" class="form-control input-sm">
+				</div>		
+			</div>
+
+			<div class="form-group col-xs-4">
+				<label class="col-xs-4 control-label">
+					合同协议号
+				</label>
+				<div class="col-xs-8">
+					<input type="text" class="form-control input-sm" value="4520000254">
+				</div>		
+			</div>
+			<div class="form-group col-xs-4">
+				<label class="col-xs-4 control-label">
+					件数
+				</label>
+				<div class="col-xs-8">
+					<input type="text" class="form-control input-sm" value="32">
+				</div>		
+			</div>
+			<div class="form-group col-xs-4">
+				<label class="col-xs-4 control-label">
+					包装种类
+				</label>
+				<div class="col-xs-8">
+					<input type="text" class="form-control input-sm">
+				</div>		
+			</div>
+			<div class="form-group col-xs-4">
+				<label class="col-xs-4 control-label">
+					毛重（kg）
+				</label>
+				<div class="col-xs-8">
+					<input type="text" class="form-control input-sm">
+				</div>		
+			</div>
+			<div class="form-group col-xs-4">
+				<label class="col-xs-4 control-label">
+					净重（kg）
+				</label>
+				<div class="col-xs-8">
+					<input type="text" class="form-control input-sm">
+				</div>		
+			</div>
+
+			<div class="form-group col-xs-4">
+				<label class="col-xs-4 control-label">
+					集装箱号
+				</label>
+				<div class="col-xs-8">
+					<input type="text" class="form-control input-sm">
+				</div>		
+			</div>
+			<div class="form-group col-xs-4">
+				<label class="col-xs-4 control-label">
+					随附单据
+				</label>
+				<div class="col-xs-8">
+					<input type="text" id="yulu_accessory" name="accessory" class="form-control input-sm">
+				</div>		
+			</div>
+			<div class="form-group col-xs-4">
+				<label class="col-xs-4 control-label">
+					生产厂家
+				</label>
+				<div class="col-xs-8">
+					<input type="text" class="form-control input-sm">
+				</div>		
+			</div>
+
+			<div class="form-group col-xs-12">
+				<label class="col-xs-2 control-label text-center">
+					标记码及备注
+				</label>
+				<div class="col-xs-10">
+					<textarea type="text" class="form-control input-sm"></textarea>.
+				</div>		
+			</div>
+			<div id="yulu_ul col-xs-12">
+				<table class="table col-xs-12">
+					<thead class="thead">
+						<tr>
+							<th>项号</th>
+							<th>商品编号</th>
+							<th>商品名称 规格型号</th>
+							<th>数量及单位</th>
+							<th>最终目的国（地区）</th>
+							<th>单价</th>
+							<th>总价</th>
+							<th>币值</th>
+							<th>征免</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>1</td>
+							<td>4019991010</td>
+							<td>钻井防滑板|无品牌|无型号</td>
+							<td>50  个</td>
+							<td>美国</td>
+							<td>193.36</td>
+							<td>9668.08</td>
+							<td>美元</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>2</td>
+							<td>3544492100</td>
+							<td>电缆|传输电力|无型号|400伏</td>
+							<td>0.8  千米</td>
+							<td>美国</td>
+							<td>1012.42</td>
+							<td>10731.69</td>
+							<td>美元</td>
+							<td></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<p class="text-center col-xs-12">
+			<button type="button" class="saveBtn btn btn-ckts btn-sm" id="yulu_save_btn">
+				打印
+			</button>
+			<button type="button" class="saveBtn btn btn-ckts btn-sm qx">
+				取消
+			</button>
+		</p>
+	</form>
+</div>
+<script type="text/javascript">
+
+	
+$(function(){
+	var index = null;
+	var dataUrl = 'data/yuluru.json';
+	var flag = '';
+	var rowNumber = 1000000;
+	var gridPager = 'yulu_jqGridPager';
+
+	//表格数据
+	var gridWidth = $('#yulu_gridBox').width();
+	var gridHeight = $('#yulu_gridBox').height()-122;
+	$("#yulu_jqGrid").jqGrid({
+		
+		hidegrid : false, 
+		altRows : true, 
+		colModel: [{label : '预关单号', name : 'number', align: 'center', formatter: formatName, width: 120, searchoptions: {sopt : ['cn']}},
+			{label : '出口日期 ', name : 'outTime', align: 'center', width:120, searchoptions: {sopt : ['cn']}},
+			{label : '贸易方式', name : 'type', align: 'center', width:100, searchoptions: {sopt : ['cn']}},
+			{label : '出口口岸', name : 'kouan', align: 'center', width:100, searchoptions: {sopt : ['cn']}},
+			{label : '出口国家', name : 'county', align: 'center', width: 100, searchoptions: {sopt : ['cn']}},
+			{label : '任务编号', name : 'numbers', align: 'center', width:120, searchoptions: {sopt : ['cn']}},
+			{label : '报关行预关单号 ', name : 'guannumber', align: 'center', width:120, formatter: formatName1}
+			],
+
+		viewrecords: true,
+		loadonce:true,
+		width: gridWidth,
+		//width: 'auto',
+		//width : '100%',
+		height: gridHeight,
+		//height : 'auto',
+		rowNum: 12,
+		rowList:[10,15,20,25],
+		datatype: 'local',
+		pager: '#'+gridPager,
+		// caption: fxUtils.addBtn(arr),
+		multiselect: true,
+		multiboxonly: true,
+		rownumbers: true,
+		rownumWidth: 30,
+		recordtext: "当前显示: <b>{0}</b>至<b>{1}</b> 总数: <b>{2}</b>",
+	    //emptyrecords: "No records to view",
+		//loadtext: "Loading...",
+		
+	}).navGrid('#'+gridPager,{ // the buttons to appear on the toolbar of the grid
+			edit:false,add:false,del:false,search:false,refresh:false
+		}).navButtonAdd('#'+gridPager,{
+			//caption: '导出',
+			caption: '',
+			title : '导出',
+			buttonicon : 'fa fa-download',
+			onClickButton : yulu_importLayer, //调用导出函数
+			position : 'last'
+		}).navButtonAdd('#'+gridPager,{
+				//caption: '新增',
+			caption: '',
+			title : '打印',
+			buttonicon : 'fa fa-print',
+			onClickButton : yulu_addLayer, //调用添加的函数
+			position : 'last'
+		}).navSeparatorAdd('#'+gridPager,{
+			sepcontent: '',
+			sepclass : "ui-separator"
+		});
+	//搜索框按钮,开启搜索框需要重新调整高度
+	$('#yulu_jqGrid').jqGrid('filterToolbar');
+	
+	fetchGridData();
+	
+	$('#glyphicon').fileupload();
+	
+	//弹框取消按钮
+	$('.qx').on('click',function(){
+		layer.close(index);
+	});
+	// 导出函数
+	function yulu_importLayer(){
+		var rowd = getSelectedRow();
+		var len = rowd.length;
+		if(rowd && $.isArray(rowd) && rowd.length>0){
+			//删除
+			var deletindex = layer.confirm('确定要导出吗？', {
+			  btn: ['确定','取消'] //按钮
+			}, function(){
+				/*for(var i=0; i<len; i++){
+					jQuery("#yulu_jqGrid").delRowData(rowd[0]);  
+				}*/
+			    layer.msg('导出成功', {icon: 1});
+			}, function(){
+			  	layer.close(deletindex);
+			});
+			
+		}else{
+			layer.msg('请选择记录!');
+		}
+	}
+	//打印按钮
+	function yulu_addLayer(){
+		var rowIds = getSelectedRow('yulu_jqGrid');
+		if(rowIds && $.isArray(rowIds) && rowIds.length >= 1 ){
+			layer.msg('打印成功!',{time:layerCloseTime});
+		}else{
+			layer.msg('请选择一条记录!',{time:layerCloseTime});
+		}
+	};
+	$('#yulu_save_btn').on('click',function(){
+		layer.msg('打印成功!',{time:layerCloseTime});
+	});
+	//获取json数据
+	function fetchGridData() {
+		
+		var gridArrayData = [];
+		// show loading message
+		$("#yulu_jqGrid")[0].grid.beginReq();
+		$.ajax({
+			url: dataUrl,
+			success: function(result) {
+				for (var i = 0; i < result.items.length; i++) {
+					var item = result.items[i];
+					
+					gridArrayData.push({
+						number: item.number,
+						type: item.type,
+						outTime: item.outTime,
+						county: item.county,
+						kouan: item.kouan,
+						numbers: item.numbers,
+						guannumber: item.guannumber
+					});
+
+				}
+				// set the new data
+				$("#yulu_jqGrid").jqGrid('setGridParam', {
+					data: gridArrayData
+				});
+				// hide the show message
+				$("#yulu_jqGrid")[0].grid.endReq();
+				// refresh the grid
+				$("#yulu_jqGrid").trigger('reloadGrid');
+			}
+		});
+	}
+	//格式化标题
+	function formatName(cellValue, options, rowObject) {
+		var len = cellValue.length;
+		if(len>50){
+			cellValue = cellValue.substring(0, 50) + "...";
+		}
+		return '<a href="javascript:;" onclick="lookInfo(\''+options.gid+'\',\''+options.rowId+'\')">'+cellValue+'</a>';
+	};
+	
+	function formatName1(cellValue, options, rowObject){
+		var len = cellValue.length;
+		if(len>50){
+			cellValue = cellValue.substring(0, 50) + "...";
+		}
+		return '<a href="javascript:;" class="baoguanhangtupian_btn">'+cellValue+'</a>';
+	}
+	//获取选择的行
+	function getSelectedRow() {
+	    var grid = $("#yulu_jqGrid");
+	    var rowKeys = grid.jqGrid('getGridParam',"selarrrow");
+
+	   return rowKeys;
+	}
+	
+	
+	changeSearch(); //修改工具条
+	
+	
+	$(document).on('click','.baoguanhangtupian_btn',function(){
+		layer.open({
+			type :1,
+			title :'报关行预关单',
+			area : ['70%','70%'],
+			content : $('#baoguanhangtupian_box')
+		});
+	});
+
+});
+function lookInfo(gid,rowId){
+	var data = $('#'+gid).getRowData(rowId);
+	data.name = $(data.name).text();
+	data.relName = $(data.relName).text();
+	setFormData(gid+'_formBox',data);
+	title = '信息';
+	commIndex = layer.open({
+		type: 1,
+		title : title,
+		area: ['98%', '98%'], //宽高
+		content: $('#yulu_formBox')
+	});
+}
+
+	
+</script>
+	
+<!-- 可用的模板来显示文件上传 id是必须不可修改 如果不是图片类型的文件显示默认的文件图标-->
+<script id="template-upload" type="text/x-tmpl">
+{% for (var i=0, file; file=o.files[i]; i++) { %}
+	<li class="col-md-2 template-upload fade" style="padding:10px">
+		<div style="margin-bottom:15px;">
+			<span class="preview" style="display:block;  title="{%=file.name%}" >
+				{% if(file.name.indexOf('doc') != -1) { %}
+					<img src="../images/word.png"/>
+				{% } %}
+				{% if(file.name.indexOf('xls') != -1) { %}
+					<img width="150" height="150" src="../images/xls.png"/>
+				{% } %}
+				{% if(file.name.indexOf('pdf') != -1) { %}
+					<img width="150" height="150" src="../images/pdf.png"/>
+				{% } %}
+				{% if(file.name.indexOf('ppt') != -1) { %}
+					<img width="150" height="150" src="../images/ppt.png"/>
+				{% } %}
+			</span>
+            <div style="margin-bottom:10px;margin-top:8px;" class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-bar progress-bar-success" style="width:0%;"></div></div>
+			<p class="errorMsgPosition"><strong class="error text-danger"></strong></p>	
+		</div>
+		
+		{% if (!i && !o.options.autoUpload) { %}
+                <button class="btn btn-ckts btn-sm start" disabled>
+                    <i class="glyphicon glyphicon-upload"></i>
+                    <span>上传</span>
+                </button>
+        {% } %}
+        {% if (!i) { %}
+             <button class="btn btn-sm btn-warning cancel">
+                 <i class="glyphicon glyphicon-ban-circle"></i>
+                 <span>删除</span>
+             </button>
+        {% } %}		
+	</li>	
+{% } %}
+</script>
+<!-- 模板来显示文件可供下载 -->
+<script id="template-download" type="text/x-tmpl">
+{% for (var i=0, file; file=o.files[i]; i++) { %}
+    <li class="col-md-2 template-download fade" style="padding:10px;margin-bottom:10px; margin-left:0">
+		<div style="margin-bottom:15px;">
+			<span class="preview" style="display:block;height:122px;overflow:hidden;"  title="{%=file.name%}" >
+				{% if(file.name.indexOf('doc') != -1) { %}
+					<img width="150" height="150" src="../images/word.png"/>
+				{% }else if(file.name.indexOf('xls') != -1) { %}
+					<img width="150" height="150" src="../images/xls.png"/>
+				{% }else if(file.name.indexOf('pdf') != -1) { %}
+					<img width="150" height="150" src="../images/pdf.png"/>
+				{% }else if(file.name.indexOf('ppt') != -1) { %}
+					<img width="150" height="150" src="../images/ppt.png"/>
+				{% }else { %}
+					<img width="150" height="150" src="{%=file.thumbnailUrl%}">
+				{% } %}
+			</span>
+			<p>{%=(file.name).substring(0,8)%}&bull;&bull;&bull;</p>
+			<p class="errorMsgPosition"><strong class="error text-danger"></strong></p>				
+		</div>
+		
+		<a class="btn btn-ckts btn-sm " href="{%=file.url%}" download="{%=file.url%}">
+             <i class="glyphicon glyphicon-download"></i>
+             <span>下载</span>
+		</a>
+		{% if (file.deleteUrl) { %}
+            <button class="btn btn-danger btn-sm delete" data-type="{%=file.deleteType%}" data-url="{%=file.deleteUrl%}"{% if (file.deleteWithCredentials) { %} data-xhr-fields='{"withCredentials":true}'{% } %}>
+                <i class="glyphicon glyphicon-trash"></i>
+                <span>删除</span>
+            </button>
+            
+        {% } else { %}
+            <button class="btn btn-warning  btn-sm  cancel">
+                <i class="glyphicon glyphicon-ban-circle"></i>
+                <span>删除</span>
+            </button>
+        {% } %}
+	</li>
+{% } %}
+</script>

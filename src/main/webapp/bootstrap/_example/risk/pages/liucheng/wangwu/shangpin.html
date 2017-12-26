@@ -1,0 +1,97 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+	<head>
+		<meta charset="UTF-8">
+		<!--Bootstrap 不支持 IE 古老的兼容模式。为了让 IE 浏览器运行最新的渲染模式建议添加一下meta-->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<!--自适应设备宽度-->
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+		<title>外贸综合服务企业出口退税风险管控信息系统-王五任务管理-选择海关关单</title>
+		<meta name="Keywords" content="外贸综合服务企业出口退税风险管控信息系统">
+		<meta name="description" content="外贸综合服务企业出口退税风险管控信息系统">
+		<link rel="stylesheet" href="../../../static/plugins/bootstrap-3.3.7/css/bootstrap.min.css"/>
+		<script type="text/javascript" src="../../../static/plugins/jquery-2.1.1/jquery-2.1.1.js"></script>
+		<script type="text/javascript" src="../../../static/plugins/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" href="../../../static/plugins/font-awesome-4.7.0/css/font-awesome.css"/><!-- icon字体图标 -->
+		<link rel="stylesheet" href="../../../static/plugins/bootstrap-table-1.11.1/bootstrap-table.css"/><!-- 表格 -->
+		<script type="text/javascript" src="../../../static/plugins/bootstrap-table-1.11.1/bootstrap-table.js"></script>
+		<script type="text/javascript" src="../../../static/plugins/bootstrap-table-1.11.1/extensions/export/bootstrap-table-export.js"></script><!-- 表格导出 -->
+		<script type="text/javascript" src="../../../static/plugins/tableExport.jquery.plugin/tableExport.js"></script>
+		<script type="text/javascript" src="../../../static/plugins/bootstrap-table-1.11.1/locale/bootstrap-table-zh-CN.js"></script>
+		<script src="../../../static/plugins/jquery.nicescroll-3.7.6/jquery.nicescroll.js"></script><!-- 美化滚动条 -->
+		<script type="text/javascript" src="../../../static/js/common.js"></script><!-- 自定义公用js -->
+		<link rel="stylesheet" href="../../../static/css/common.css"/><!-- 自定义公用css -->
+		<link rel="stylesheet" href="../../../static/plugins/layer-v3.1.0/theme/default/layer.css"/><!-- 弹窗 -->
+		<script type="text/javascript" src="../../../static/plugins/layer-v3.1.0/layer.js"></script>
+		<script type="text/javascript" src="../../../static/js/liucheng/liucheng_guandan_shangpin.js"></script><!-- 本页专用 -->
+		<style>
+		.pull-right.pagination-detail,.fixed-table-pagination{
+		display:none !important;
+		}
+		#renwu_bd_box{line-height: 30px;}
+		</style>
+	</head>
+<body>
+<!-- 比对 -->
+<div class="layerBodyBg" id="renwu_bd_box" style="padding:0">
+	
+	<div class="panel panel-info" style="margin-bottom:0;">
+		<p>系统生成与关单信息</p>
+		<div  class="tab-pane">
+			<table id="historyList" class="myTable table-striped"></table>
+		</div>
+		<p>海关关单商品信息</p>
+		<div  class="tab-pane">
+			<table id="guandanList" class="myTable table-striped"></table>
+		</div>
+		<!-- <div class="col-sm-12">
+			<p style="padding-bottom:8px; margin-top:30px; border-bottom:1px dotted #ccc; ">系统生成预关单商品信息</p>
+			<table class="table table-striped col-xs-12" style="margin-top:30px;">
+				<thead class="" style="background: #f4f4f4;">
+					<tr>
+						<th width="60">项号</th>
+						<th>商品编码</th>
+						<th width="160">商品名称、规格型号</th>
+						<th width="100">数量</th>
+						<th width="100">单位</th>
+						<th>最终目的国</th>
+						<th width="100">单价</th>
+						<th width="100">总价</th>
+						<th width="100">币制</th>
+						<th width="100">征免</th>
+					</tr>
+				</thead>
+				<tbody>
+				<tr><td>1</td><td>4016999090</td><td>钻井台防滑板  防护垫|硫化橡胶|不是机器及仪器用|无品牌|无型号</td><td>50</td><td>个</td><td>委内瑞拉</td><td>193.36</td><td>9668.08</td><td>美元</td><td></td>
+				</tr><tr><td>2</td><td>8544492100</td><td>电缆  传输电力|无接头|无品牌|无型号|400伏</td><td>0.8</td><td>千米</td><td>委内瑞拉</td><td>1012.42</td><td>10731.69</td><td>美元</td><td></td></tr>
+				<tr><td>3</td><td>8528591090</td><td>液晶显示器  监视器用|显示影像，LED显示|21.5寸|无品牌|无型号|19</td><td>3</td><td>台</td><td>委内瑞拉</td><td>1739.23</td><td>6956.92</td><td>美元</td><td></td></tr></tbody>
+			</table>
+		</div>
+		<div class="col-sm-12">
+			<p style="padding-bottom:8px; margin-top:30px; border-bottom:1px dotted #ccc; ">海关关单商品信息</p>
+			<table class="table table-striped col-xs-12" style="margin-top:30px;">
+				<thead class="" style="background: #f4f4f4;">
+					<tr>
+						<th width="60">项号</th>
+						<th>商品编码</th>
+						<th width="160">商品名称、规格型号</th>
+						<th width="100">数量</th>
+						<th width="100">单位</th>
+						<th>最终目的国</th>
+						<th width="100">单价</th>
+						<th width="100">总价</th>
+						<th width="100">币制</th>
+						<th width="100">征免</th>
+					</tr>
+				</thead>
+				<tbody>
+				<tr><td>1</td><td>4016999090</td><td>钻井台防滑板  防护垫|硫化橡胶|不是机器及仪器用|无品牌|无型号</td><td>50</td><td>个</td><td>委内瑞拉</td><td>193.36</td><td>9668.08</td><td>美元</td><td></td>
+				</tr><tr><td>2</td><td>8544492100</td><td>电缆  传输电力|无接头|无品牌|无型号|400伏</td><td>0.8</td><td>千米</td><td>委内瑞拉</td><td>1012.42</td><td>10731.69</td><td>美元</td><td></td></tr>
+				<tr><td>3</td><td>8528591090</td><td>液晶显示器  监视器用|显示影像，LED显示|21.5寸|无品牌|无型号|19</td><td>3</td><td>台</td><td>委内瑞拉</td><td>1739.23</td><td>6956.92</td><td>美元</td><td></td></tr></tbody>
+			</table>
+		</div> -->
+	</div>
+</div>
+</body>
+</html>

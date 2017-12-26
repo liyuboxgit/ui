@@ -1,0 +1,151 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<!--Bootstrap 不支持 IE 古老的兼容模式。为了让 IE 浏览器运行最新的渲染模式建议添加一下meta-->
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<!--自适应设备宽度-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+	<title>外贸综合服务企业出口退税风险管控信息系统</title>
+	<meta name="Keywords" content="外贸综合服务企业出口退税风险管控信息系统">
+	<meta name="description" content="外贸综合服务企业出口退税风险管控信息系统">
+	<!-- <link rel="icon" type="image/x-icon" href="favicon.ico"> -->
+	<link rel="shortcut icon" href="favicon.ico" />
+	<link rel="bookmark" href="favicon.ico" type="image/x-icon"/>
+	<!--以下引用CSS以及JS-->
+	<link rel="stylesheet" href="../../static/plugins/bootstrap-3.3.7/css/bootstrap.min.css" />
+	<script type="text/javascript" src="../../static/plugins/jquery-2.1.1/jquery-2.1.1.js"></script>
+	<script type="text/javascript" src="../../static/plugins/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="../../static/plugins/font-awesome-4.7.0/css/font-awesome.css"/>
+	<!--
+	<link rel="stylesheet" href="../../static/plugins/bootstrap-table-1.11.1/bootstrap-table.css"/>
+	<script type="text/javascript" src="../../static/plugins/bootstrap-table-1.11.1/bootstrap-table.js"></script>
+	-->
+	<link rel="stylesheet" href="../../static/css/common.css"/>
+	<script type="text/javascript" src="../../static/js/common.js"></script>
+	<!--布局CSS-->
+	<link rel="stylesheet" href="../../static/css/layout.css"/>
+	<!-- 弹窗 -->
+	<link rel="stylesheet" href="../../static/plugins/layer-v3.1.0/theme/default/layer.css" />
+	<script type="text/javascript" src="../../static/plugins/layer-v3.1.0/layer.js"></script>
+</head>
+<body>
+	<div id="fkBox">
+		<!-- 头部信息 -->
+		<div id="fkHeader"></div>
+		<!-- 左侧菜单 -->
+		<div id="fkLeft"></div>
+		<!-- 右侧切换 -->
+		<div id="fkTabs">
+			<!-- <ul class="list-inline" style="width:1341px;height:56px;overflow-x:scroll;overflow-y: hidden;  -->
+			<ul class="list-inline">
+				<li class="active">
+					<a href="javascript:void(0);" data-href="include/main_admin.html">首页</a>
+					<!-- <a href="javascript:;" data-href="system/module.html">模块管理</a> -->
+				</li>
+			</ul>
+		</div>
+		<!-- 主体内容 -->
+		<div id="fkRight">
+			<div id="main">
+				<div class="con active">
+					<iframe src="../include/main_admin.html" frameborder="0" scrolling="yes" width="100%" height="100%"></iframe>
+				</div>
+			</div>
+		</div>
+		<!-- 底部信息 -->
+		<!-- <div id="fkFooter"></div> -->
+	</div>
+	<script>
+		//$("#fkRight iframe:eq(0)").attr("src","../include/main_admin.html?thisTimeStrap="+new Date().getTime());
+	
+		var dictionaryGroupMap = {};
+		//var dictionaryGroupMap2 = {};
+		var dictionaryDetailMap = {};
+		var dictionaryDetailMap2 = {};
+		
+		var specialDictionaryGroupMap = {};
+		
+		var hgspdmkArray = [];
+		$(function(){
+			var viewH = document.documentElement.clientHeight;  
+            var fkRight = document.getElementById("fkRight");  
+            fkRight.style.height = (viewH - 98)+"px"; 
+            
+            $.ajax({
+		        url:"../../../dictionary/getAllOptions",
+		        type:"POST",
+		        dataType:"json",
+		        data:{},
+		        success:function(result){
+					 //alert(result.length);
+					 dict = result;
+					 for(var i=0;i<result.length;i++){
+						var item = result[i];
+						var lxbm = item.lxbm,code=item.code,name=item.name,ename=item.ename||"";
+						
+						var array = dictionaryGroupMap[lxbm];
+						if(array==null) dictionaryGroupMap[lxbm] = array = [];
+						array.push({value:code,text:name});
+						
+						/*
+						var array2 = dictionaryGroupMap2[lxbm];
+						if(array2==null) dictionaryGroupMap2[lxbm] = array2 = [];
+						array2.push({value:name,text:code});
+						*/
+						
+						var obj = dictionaryDetailMap[lxbm];
+						if(obj==null) dictionaryDetailMap[lxbm] = obj = {};
+						obj[code] = name;
+						
+						var obj2 = dictionaryDetailMap2[lxbm];
+						if(obj2==null) dictionaryDetailMap2[lxbm] = obj2 = {};
+						obj2[name] = code;
+						
+						if(lxbm=="nation"){
+							var specialArray = specialDictionaryGroupMap[lxbm];
+							if(specialArray==null) specialDictionaryGroupMap[lxbm] = specialArray = [];
+							var newName = ename?(ename+"["+name+"]"):name;
+							var c = newName.substring(0,1).toUpperCase();
+							if(c!=""){
+								var targetData = null;
+								for(var j=0;j<specialArray.length;j++){
+									var item = specialArray[j];
+									if(item){
+										var kind = item.kind;
+										var data = item.data;
+										if(c==kind && data){
+											targetData = data;
+											break;
+										}
+									}
+								}
+								if(targetData==null){
+									targetData = [];
+									specialArray.push({kind:c,data:targetData});
+								}
+								targetData.push({value:code,text:newName});
+							}
+							specialArray.sort(function(o1,o2){
+								var kind1=o1.kind,kind2=o2.kind;
+								if(kind1<=kind2)return-1;
+								return 1;
+							});
+						}
+					}
+		        }
+		    });
+            $.ajax({
+		        url:"../../../lcygdsh/selectAll",
+		        type:"POST",
+		        dataType:"json",
+		        data:{},
+		        success:function(result){
+		        	hgspdmkArray = result.data;
+		        }
+		    });
+		});
+	</script>
+</body>
+</html>

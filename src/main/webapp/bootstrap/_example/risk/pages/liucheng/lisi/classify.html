@@ -1,0 +1,177 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+	<head>
+		<meta charset="UTF-8">
+		<!--Bootstrap 不支持 IE 古老的兼容模式。为了让 IE 浏览器运行最新的渲染模式建议添加一下meta-->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<!--自适应设备宽度-->
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+		<title>外贸综合服务企业出口退税风险管控信息系统-李四任务管理商品归类</title>
+		<meta name="Keywords" content="外贸综合服务企业出口退税风险管控信息系统">
+		<meta name="description" content="外贸综合服务企业出口退税风险管控信息系统">
+		<link rel="stylesheet" href="../../../static/plugins/bootstrap-3.3.7/css/bootstrap.min.css"/>
+		<script type="text/javascript" src="../../../static/plugins/jquery-2.1.1/jquery-2.1.1.js"></script>
+		<script type="text/javascript" src="../../../static/plugins/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" href="../../../static/plugins/font-awesome-4.7.0/css/font-awesome.css"/><!-- icon字体图标 -->
+		<link rel="stylesheet" href="../../../static/plugins/bootstrap-table-1.11.1/bootstrap-table.css"/><!-- 表格 -->
+		<script type="text/javascript" src="../../../static/plugins/bootstrap-table-1.11.1/bootstrap-table.js"></script>
+		<script type="text/javascript" src="../../../static/plugins/bootstrap-table-1.11.1/extensions/export/bootstrap-table-export.js"></script><!-- 表格导出 -->
+		<script type="text/javascript" src="../../../static/plugins/tableExport.jquery.plugin/tableExport.js"></script>
+		<script type="text/javascript" src="../../../static/plugins/bootstrap-table-1.11.1/locale/bootstrap-table-zh-CN.js"></script>
+		<script type="text/javascript" src="../../../static/plugins/jquery-validation-1.17.0/jquery.validate.js"></script><!-- 表单验证 -->
+		<script type="text/javascript" src="../../../static/plugins/jquery-validation-1.17.0/jquery.validate.extends.js"></script>
+		<link rel="stylesheet" href="../../../static/plugins/poshytip-1.2/tip-yellowsimple/tip-yellowsimple.css" type="text/css"/>
+		<script type="text/javascript" src="../../../static/plugins/poshytip-1.2/jquery.poshytip.js"></script>
+		<script src="../../../static/plugins/jquery.nicescroll-3.7.6/jquery.nicescroll.js"></script><!-- 美化滚动条 -->
+		<script type="text/javascript" src="../../../static/plugins/My97DatePicker-4.8/WdatePicker.js"></script><!-- 日历 -->
+		<script type="text/javascript" src="../../../static/js/common.js"></script><!-- 自定义公用js -->
+		<link rel="stylesheet" href="../../../static/css/common.css"/><!-- 自定义公用css -->
+		<link rel="stylesheet" href="../../../static/plugins/layer-v3.1.0/theme/default/layer.css"/><!-- 弹窗 -->
+		<script type="text/javascript" src="../../../static/plugins/layer-v3.1.0/layer.js"></script>
+		<script type="text/javascript" src="../../../static/js/liucheng/liucheng_yuguandan_classify.js"></script><!-- 本页专用 -->
+		<script type="text/javascript" src="../../../static/js/liucheng/spdmk.js"></script><!-- 本页专用 -->
+		<style>#hgTable{margin-top:-32px!important;}</style>
+	</head>
+	<body>
+		<div class="layerBodyBg">
+			<!-- <div class="clearfix">
+				<form id="addInfoForm" class="form-horizontal layerForm" action=""  method="post" enctype="multipart/form-data">
+					<p class="fenleiTitle"><span>基本信息</span>
+					<button type="button" class="btn btn-ckts btn-xs pull-right cancel" ><i class="glyphicon glyphicon-remove"></i>取消</button>
+					<button type="reset" class="btn btn-ckts btn-xs pull-right"  style="margin-right:10px;"><i class="glyphicon glyphicon-repeat"></i>重置</button>
+					<button type="button" id="saveBaseInfo" class="btn btn-ckts btn-xs pull-right" style="margin-right:10px;"><i class="glyphicon glyphicon-saved"></i>保存</button>
+					</p>
+					
+					<div role="tabpanel" class="tab-pane active" id="info"></div>
+				</form>
+			</div>
+			<div class="clearfix">
+				<p class="fenleiTitle"><span>货物分类</span></p>
+				<p class="text-right"><button id="guilei" class="btn btn-ckts btn-xs"><i class="glyphicon glyphicon-th-list" style="margin-right:5px;"></i>归类</button></p>
+				<table id="selectedHgTable" class="myTable table-condensed"></table>
+			</div> -->
+			
+			<!-- <form id="renwuForm" class="form-horizontal layerForm" action=""  method="post" enctype="multipart/form-data"> -->
+				<div class="row liuCheng">
+					<div class="col-sm-12" style="position:relatie;">
+						<ul class="nav nav-tabs" role="tablist">
+							<li class="active"><a href="#basicInfo"  data-toggle="tab">基本信息</a></li>
+							<li class="hide"><a href="#ckhwDiv"  data-toggle="tab">货物归类</a></li>
+						</ul>
+						<div class="pull-right text-right liuChengBtnBox" style="position:absolute; right:15px; top:10px;">
+							<p class="pull-left" id="firstStep">
+								<button type="reset" class="btn btn-ckts btn-xs" title="重置" style="margin-right:10px;"><i class="glyphicon glyphicon-repeat"></i>重置</button>
+							</p>
+							<p class="pull-left" id="secondStep" style="display:none;">
+								<button class="btn btn-ckts btn-xs pull-right" id="okClassify" style="margin-right:10px;"><i class="glyphicon glyphicon-saved"></i>保存</button>
+							</p>
+							<button type="button" class="btn btn-ckts btn-xs cancel" style="margin-right:5px;"><i class="glyphicon glyphicon-remove" ></i>取消</button>
+							<button type="button" class="btn btn-ckts btn-xs" title="" id="nextStep" ><i class="glyphicon glyphicon-triangle-right"></i>下一步</button>
+						</div>
+					</div>
+				</div>
+				<div class="tab-content" style="padding-top:10px;">
+					<!-- 基本信息 -->
+					
+					<div  class="tab-pane clearfix active" id="basicInfo">
+						<form id="renwuForm" class="form-horizontal layerForm" action=""  method="post" enctype="multipart/form-data">
+							<div id="basicDiv"></div>
+						</form>
+					</div>
+					
+					<!-- 基本信息 -->
+					<div  class="tab-pane clearfix" id="ckhwDiv">
+						<p style="margin-bottom:10px">
+							<span>设置汇率(美元:人民币): </span><input name="fromCNYToUSD" id="fromCNYToUSD" type="number" width="150"  />
+							<!--汇率ID 隐藏列 -->
+							<input type="hidden" id="exrateId">
+						</p>
+						<!-- 海关商品库 -->
+						<!-- <table id="selectedHgTable" class="myTable table-condensed"></table> -->
+						<table class="table table-bordered table-condensed myTable" style="margin-bottom:0" id="selectedHgTable">
+							<thead>
+								<tr>
+									<th width="180px">商品编码</th>
+									<!-- <th>商品名称、规格型号</th> -->
+									<th width="150">商品名称</th>
+									<th width="120">规格型号</th>
+									<th width="100px">数量</th>
+									<th width="80px">单位</th>
+									<th width="80px">单价</th>
+									<th width="100px">总价</th>
+									<th width="120px">币制</th>
+									<th width="60px">征免</th>
+									<th width="60px">操作</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>
+										<input style="width:146px;" name="cmcode" class="thgspmInput" list="renwu_lisi_shangpinma" type="text" readonly="readonly"/>
+										<a href="javascript:void(0);" id="chooseSpdmk" title="选取商品代码库"><i class="glyphicon glyphicon-search"></i></a>
+									</td>
+									<td><!-- 电视监控系统配件 防爆液晶显示器 --><input type="text" name="stanName" style="width:150px;"/></td>
+									<td><input type="text" name="specificationModel" style="width:120px;"/></td>
+									<td><input type="number" name="legalNum" style="width:100px;"/></td>
+									<td><!-- 套 --></td>
+									<td><!-- <input type="number" name="unitPrice" style="width:80px; height:18px;" /> --></td>
+									<td><input type="number" name="totalPrice" style="width:100px; height:23px;" /></td>
+									<td><select disabled="disabled" name="currency" style="width:120px;height:23px"></select></td>
+									<!-- <td><input type="text" name="tsl" style="width:60px;" readonly="readonly"/></td> -->
+									<td>
+										<select name="tsl" style="width:120px;height:23px"></select>
+									</td>
+									<td><button type="button" class="btn btn-xs btn-ckts" id="clsssifyBtn">归类</button></td>
+								</tr>
+							</tbody>
+						</table>
+						<div class="clearfix">
+							<!-- 物资清单 -->
+							<table id="goodsTable" class="myTable table-condensed"></table>
+						</div>
+						
+						<div class="clearfix">
+							<!-- 归类后的结果清单 -->
+							<table id="classifyedTable" class="myTable table-condensed"></table>
+						</div>
+					</div>
+				</div>
+			<!-- </form> -->
+		</div>
+		
+		<!-- 海关商品码 -->
+		<datalist id="renwu_lisi_shangpinma">
+			<option value="4016999090" >
+			<option value="8544492100" >
+			<option value="8528591090">
+		</datalist>
+		<!-- 海关商品码 -->
+		
+		<!-- 海关商品代码库 -->
+		<div class="myContainer" style="display:none;">
+			<form class="form-inline commSearch searchBox" style="padding:0">
+				<div class="row">
+					<div class="col-xs-9" id="hgSearchBox"></div>
+					<div class="col-xs-3 text-right">
+						<button type="button" class="btn btn-ckts btn-xs search" title="查询"><i class="glyphicon glyphicon-search"></i>查询</button>
+						<button type="reset" class="btn btn-ckts btn-xs" title="重置"><i class="glyphicon glyphicon-refresh"></i>重置</button>
+						<button type="button" class="btn btn-ckts btn-xs advancedSearch" title="确定"><i class="glyphicon glyphicon-ok"></i>确定</button>
+					</div>
+				</div>			
+			</form>
+			<div class="tableBox">
+				<table id="hgTable" data-advanced-search="true" data-id-table="advancedTable" class="myTable table-condensed hgTable"></table>
+			</div>
+		</div>
+		
+		<!-- 海关商品代码库 -->
+		
+		<!-- 查看明细 -->
+		<!-- <div class="mingxixiang" style="display:none">
+			aaa
+			<table id="classifyedMingXi" class="myTable table-condensed"></table>
+		</div> -->
+		<!-- 查看明细 -->
+	</body>
+</html>

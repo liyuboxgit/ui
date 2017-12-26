@@ -1,0 +1,70 @@
+<!-- 头部信息 -->
+<div class="headerInfo clearfix">
+	<div class="logo  pull-left">
+		<a href="javascript:;" target="_blank"
+			style="color: #fff; font-size: 26px;"> <img
+			src="../../static/images/logolan.png" class="responsive"
+			style="height: 68px;" /> <!-- LOGO -->
+		</a>
+	</div>
+	<div class="companyName pull-left">
+		<a href="javascript:;"><i class="fa fa-flag"></i>外贸综合服务企业出口退税风险管控信息系统</a>
+	</div>
+	<ul class="list-inline pull-right" style="margin-bottom: 0;">
+		<!-- <li><a href="javascript:;"><i class="fa fa-star-o"></i></a></li>
+		<li><a href="javascript:;"><i class="fa fa-bell-o"></i><span class="badge">2</span></a></li>
+		<li><a href="javascript:;"><i class="fa fa-headphones"></i></a></li> -->
+		<!-- <li><a href="javascript:;"><img src="static/img/xtx.png" /></a></li> -->
+		<li><a href="javascript:;" data-toggle="dropdown"
+			id="header_dropdown_menu"><i class="fa fa-user-o"></i><b>...</b></a>
+			<ul class="myPassword dropdown-menu dropdown-menu-right"
+				aria-labelledby="header_dropdown_menu">
+				<li><a href="javascript:;" id="changePasswordBtn">修改密码</a></li>
+				<li><a href="../../index.html">退出</a></li>
+			</ul></li>
+	</ul>
+</div>
+
+<div class="layerFormBox" id="header_change_pwd">
+	<form class="form-horizontal layerForm">
+		<div class="form-group">
+			<label for="inputEmail3" class="col-xs-3 control-label">
+				原始密码: </label>
+			<div class="col-xs-8">
+				<input type="text" name="oldPassword" class="form-control input-sm"
+					placeholder="原始密码">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-xs-3 control-label"> 新密码: </label>
+			<div class="col-xs-8">
+				<input type="text" name="password" class="form-control input-sm"
+					placeholder="新密码">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-xs-3 control-label"> 确认新密码: </label>
+			<div class="col-xs-8">
+				<input type="text" name="rqPwd" class="form-control input-sm"
+					placeholder="确认新密码">
+			</div>
+		</div>
+		<p class="text-center">
+			<button type="button" class="saveBtn btn btn-ckts btn-sm qx"
+				id="headerQuedingPwdBtn">确定</button>
+			<button type="reset" class="saveBtn btn btn-ckts btn-sm">重置
+			</button>
+			<button type="button" class="saveBtn btn btn-ckts btn-sm qx">
+				取消</button>
+		</p>
+	</form>
+</div>
+
+<script>
+	$(function() {
+		$('#header_dropdown_menu>b').text(sessionStorage.getItem("name"));
+		//console.log(sessionStorage.getItem("mainUrl"));
+		//console.log($('#main .con').eq(0));
+		$('#main .con').eq(0).find('iframe').attr('src',sessionStorage.getItem("mainUrl"));
+	});
+</script>

@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+	<head>
+		<meta charset="UTF-8">
+		<!--Bootstrap 不支持 IE 古老的兼容模式。为了让 IE 浏览器运行最新的渲染模式建议添加一下meta-->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<!--自适应设备宽度-->
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+		<title>外贸综合服务企业出口退税风险管控信息系统-出口合同列表</title>
+		<meta name="Keywords" content="外贸综合服务企业出口退税风险管控信息系统">
+		<meta name="description" content="外贸综合服务企业出口退税风险管控信息系统">
+		<link rel="stylesheet" href="../../../static/plugins/bootstrap-3.3.7/css/bootstrap.min.css"/>
+		<script type="text/javascript" src="../../../static/plugins/jquery-2.1.1/jquery-2.1.1.js"></script>
+		<script type="text/javascript" src="../../../static/plugins/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" href="../../../static/plugins/font-awesome-4.7.0/css/font-awesome.css"/><!-- icon字体图标 -->
+		<link rel="stylesheet" href="../../../static/plugins/bootstrap-table-1.11.1/bootstrap-table.css"/><!-- 表格 -->
+		<script type="text/javascript" src="../../../static/plugins/bootstrap-table-1.11.1/bootstrap-table.js"></script>
+		<script type="text/javascript" src="../../../static/plugins/bootstrap-table-1.11.1/extensions/toolbar/bootstrap-table-toolbar.js"></script>
+		<!-- <script type="text/javascript" src="../../../static/plugins/bootstrap-table-1.11.1/extensions/export/bootstrap-table-export.js"></script> --><!-- 表格导出 -->
+		<!-- <script type="text/javascript" src="../../../static/plugins/tableExport.jquery.plugin/tableExport.js"></script> -->
+		<script type="text/javascript" src="../../../static/plugins/bootstrap-table-1.11.1/locale/bootstrap-table-zh-CN.js"></script>
+		<script src="../../../static/plugins/jquery.nicescroll-3.7.6/jquery.nicescroll.js"></script><!-- 美化滚动条 -->
+		<script type="text/javascript" src="../../../static/js/common.js"></script><!-- 自定义公用js -->
+		<link rel="stylesheet" href="../../../static/css/common.css"/><!-- 自定义公用css -->
+		<link rel="stylesheet" href="../../../static/plugins/layer-v3.1.0/theme/default/layer.css"/><!-- 弹窗 -->
+		<script type="text/javascript" src="../../../static/plugins/jquery-validation-1.17.0/jquery.validate.js"></script><!-- 表单验证 -->
+		<script type="text/javascript" src="../../../static/plugins/jquery-validation-1.17.0/jquery.validate.extends.js"></script>
+		<link rel="stylesheet" href="../../../static/plugins/poshytip-1.2/tip-yellowsimple/tip-yellowsimple.css" type="text/css"/>
+		<script type="text/javascript" src="../../../static/plugins/poshytip-1.2/jquery.poshytip.js"></script>
+		<script type="text/javascript" src="../../../static/plugins/layer-v3.1.0/layer.js"></script>
+		<script type="text/javascript" src="../../../static/plugins/My97DatePicker-4.8/WdatePicker.js"></script><!-- 日历 -->
+		
+ <!-- 		<link rel="stylesheet" href="../../../static/plugins/bootstarp-select-1.12.4/css/bootstrap-select.css">
+		<script type="text/javascript" src="../../../static/plugins/bootstarp-select-1.12.4/js/bootstrap-select.js"></script> -->
+
+		<script type="text/javascript" src="../../../static/js/picidl/dlpc_guandan.js"></script><!-- 本页专用 -->
+	</head>
+	<body>
+		<div class="myContainer">
+			<!-- 查询 -->
+			<form id="thSearchForm" class="form-inline commSearch searchBox" style="padding:0">
+				<div class="row">
+					<div class="col-xs-9" id="advSearchBox">
+					</div>
+					<div class="col-xs-3 text-right">
+						<button type="button" class="btn btn-ckts btn-xs" id="thSearchBtn"><i class="glyphicon glyphicon-search"></i>查询</button>
+						<button type="reset" class="btn btn-ckts btn-xs"><i class="glyphicon glyphicon-refresh"></i>重置</button>
+						<button type="button" class="btn btn-ckts btn-xs" id="other" ><i class="glyphicon glyphicon-menu-down"></i>更多</button>
+					</div>
+				</div>
+			</form>
+			<!-- 查询 -->
+			<div class="tableBox">
+				<!-- 表格头部操作按钮 -->
+				<div id="optionsBtn" class="myBtn"></div>
+				<!-- 表格头部操作按钮 -->
+				<!-- 表格数据 -->
+				<table id="table" data-advanced-search="true" data-id-table="advancedTable" class="myTable table-condensed"></table>
+				<!-- 表格数据 -->
+			</div>
+		</div>
+	</body>
+	
+<!-- 		可搜索下拉菜单
+ -->		
+ 		<link href="../../../static/plugins/bootstarp-select-1.12.4/css/select2.min.css" rel="stylesheet" />
+		<script src="../../../static/plugins/bootstarp-select-1.12.4/js/select2.min.js"></script>
+		<script src="../../../static/plugins/bootstarp-select-1.12.4/js/i18n/zh-CN.js"></script>
+		
+</html>

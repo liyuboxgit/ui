@@ -1,0 +1,89 @@
+<!-- 左侧菜单 -->
+<div class="menus clearfix">
+	<p class="intro text-center"><a href="javascript:;" title="折叠" id="foldBtn"><i class="fa fa-chevron-left"></i></a></p>
+	<ul class="list-unstyled" id="menuList"></ul>
+</div>
+<script type="text/javascript"> 
+	$(function(){
+		//折叠
+		$(document).on("click","#foldBtn",function(e){
+			var leftWidth = $("#fkLeft").width(),speed=300;
+			if(leftWidth !== 10){
+				$(this).html('<i class="fa fa-chevron-right"></i>').attr("title","展开");
+				$("#fkLeft").animate({width:"10px"},speed);
+				$("#fkTabs,#fkRight").animate({"paddingLeft":"10px"},speed);
+				$("#menuList").fadeOut(speed);
+				//$("#menuList").hide();
+			}else{
+				$(this).html('<i class="fa fa-chevron-left"></i>').attr("title","折叠");
+				$("#fkLeft").animate({width:"150px"},speed);
+				$("#fkTabs,#fkRight").animate({"paddingLeft":"150px"},speed);
+				$("#menuList").fadeIn(speed);
+			}
+			processEvent(e);
+		});
+		
+		//修改用户菜单
+		var menuJsonUrl = sessionStorage.getItem("url");
+		
+		//初始化菜单
+		$.getJSON(menuJsonUrl,function(data){
+		//$.get(menuJsonUrl,function(data){
+			if(data && $.isArray(data) && data.length>0){
+				var $menuList = $("#menuList");
+				$.each(data,function(i,item){
+					var $dl = $('<li><a id="'+item.id+'" href="javascript:void(0);" class="clearfix" data-href="'+item.url+'"><i class="'+item.leftIcon+'"></i>'+item.name+'<i class="'+item.rightIcon+'"></i></a><dl></dl></li>').appendTo($menuList).find("dl");
+					if(item.children && $.isArray(item.children) && item.children.length>0){
+						$.each(item.children,function(i,el){
+							$('<dd><a id="'+el.id+'" href="javascript:void(0);" data-href="'+el.url+'">'+el.name+'</a></dd>').appendTo($dl);
+						});
+					}
+				});
+			}
+		});
+		
+		//左侧菜单鼠标移入移出
+		$("#menuList").on("mouseenter","li",function(e){
+			$(this).addClass("active").siblings().removeClass("active");
+			$(this).siblings().find("dl").hide();
+			$(this).find("dl").show();
+			processEvent(e);
+		}).on("mouseleave","li",function(e){
+			$(this).removeClass("active");
+			$(this).find("dl").hide();
+			processEvent(e);
+		});
+		
+		//左侧菜单点击
+		$("#menuList").on("click","li dl dd a,li>a",function(e){
+			//隐藏dl和去掉li的当前样式
+			if($(this).parent().is("dd")){
+				$(this).parent().parent().removeClass("active").hide();
+			}
+			//获取标题和链接
+			var title = $.trim($(this).text()),href = $.trim($(this).attr("data-href"));
+			if(href){
+				//选中或者创建tab
+				openTab(title,href,true);
+				//修改右侧宽度
+				changeRightTabWidth("fkTabs");
+			}
+			processEvent(e);
+		});
+		
+		/*
+		//没有二级菜单的点击
+		$("#menuList").on("click","li>a",function(e){
+			var title = $.trim($(this).text());
+			var href = $.trim($(this).attr("data-href"));
+			if(href){
+				//选中或者创建tab
+				openTab(title,href);
+				//修改右侧宽度
+				changeRightTabWidth("fkTabs");
+			}
+			processEvent(e);
+		});
+		*/
+	});
+</script>

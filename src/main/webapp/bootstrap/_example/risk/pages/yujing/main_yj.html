@@ -1,0 +1,289 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><!--Bootstrap 不支持 IE 古老的兼容模式。为了让 IE 浏览器运行最新的渲染模式建议添加一下meta-->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"><!--自适应设备宽度-->
+	<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+	<title>外贸综合服务企业出口退税风险管控信息系统-风险预警</title>
+	<meta name="Keywords" content="外贸综合服务企业出口退税风险管控信息系统">
+	<meta name="description" content="外贸综合服务企业出口退税风险管控信息系统">
+	<link rel="stylesheet" href="../../static/plugins/bootstrap-3.3.7/css/bootstrap.min.css" />
+	<script type="text/javascript" src="../../static/plugins/jquery-2.1.1/jquery-2.1.1.js"></script>
+	<script type="text/javascript" src="../../static/plugins/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="../../static/plugins/font-awesome-4.7.0/css/font-awesome.css" /><!-- icon字体图标 -->
+	<link rel="stylesheet" href="../../static/plugins/bootstrap-table-1.11.1/bootstrap-table.css" /><!-- 表格 -->
+	<script type="text/javascript" src="../../static/plugins/bootstrap-table-1.11.1/bootstrap-table.js"></script>
+	<script type="text/javascript" src="../../static/plugins/bootstrap-table-1.11.1/locale/bootstrap-table-zh-CN.js"></script>
+	<link rel="stylesheet" href="../../static/plugins/layer-v3.1.0/theme/default/layer.css"/><!-- 弹窗 -->
+	<script type="text/javascript" src="../../static/plugins/layer-v3.1.0/layer.js"></script>
+	<script type="text/javascript" src="../../static/js/common.js"></script>
+	<link rel="stylesheet" href="../../static/css/common.css" />
+	<link rel="stylesheet" href="../../static/css/main.css" /><!-- 本页专用 -->
+	
+	</head>
+	<style> 
+		.top { height:186px; }
+		.top li {margin-bottom:10px; border-bottom:1px dotted #999;}
+		.top li:nth-child(1) { background-color:#eee; padding:5px;  }
+		.top li:nth-child(2), .top li:nth-child(2) a { color:#FF4500;  }
+		.top li:nth-child(3), .top li:nth-child(3) a { color:#FF7F50; }
+		.top li:nth-child(4), .top li:nth-child(4) a { color: #F4A460; }
+		.top li:nth-child(5), .top li:nth-child(5) a { color: #D2B48C; }
+		.top li:nth-child(6), .top li:nth-child(6) a { color: #F5DEB3; }
+		.top li b {font-weight:normal;  }
+		.top li>span:last-of-type { float: right; }
+		#include_main_box .panel-body .font{color: #fb7009; }
+		#include_main_box .panel-heading a {float:right;}
+		#include_main_box .panel-heading a i {font-size:16px; }
+		.ghsfxsj:hover { cursor:pointer;}
+	</style>
+<body>
+	<div class="container-fluid" id="include_main_box">
+		<div class="row">
+			<div class="col-sm-4">
+				<div class="panel panel-default">
+					<div class="panel-heading">供货商预警<a class="ghsyj" href="javascript:;">更多<i class="fa fa-angle-double-right"></i></a></div>
+					<div class="panel-body">
+						<a class="fa fa-bell-o ghsyj" href="javascript:;"></a> <span class="font"></span>
+						<ul class="list-unstyled top">
+							<li><span>供货商排名</span><span>风险指数</span></li>
+							<!-- <li><b>1、</b><span title="北京供应商1">北京供应商18个字符截取</span><span title="风险等级:60">60</span></li> -->
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-4">
+				<div class="panel panel-default">
+					<div class="panel-heading">收汇预警<a class="shyj" href="javascript:;">更多<i class="fa fa-angle-double-right"></i></a></div>
+					<div class="panel-body">
+						<a class="fa fa-exchange shyj" href="javascript:;"></a> <span class="font"></span>
+						<ul class="list-unstyled top">
+							<li><span>关单排名</span><span>期限时间</span></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-4">
+				<div class="panel panel-default">
+					<div class="panel-heading">申报预警<a class="sbyj" href="javascript:;">更多<i class="fa fa-angle-double-right"></i></a></div>
+					<div class="panel-body">
+						<a class="fa fa-tasks sbyj" href="javascript:void(0);"></a> <span class="font"></span>
+						<ul class="list-unstyled top">
+							<li><span>申报排名</span><span>剩余天数</span></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<!-- 
+			<div class="col-sm-4">
+				<div class="panel panel-default">
+					<div class="panel-heading">代办提醒</div>
+					<div class="panel-body">
+						<a class="fa fa-tasks dptx" href="javascript:void(0);"></a> <span class="font">12</span>
+						<ul class="list-unstyled top">
+							<li><b>1、</b><span title="北京供应商1">北京供应商1</span><span title="风险等级:60">60</span></li>
+							<li><b>2、</b><span title="北京供应商1">北京供应商2</span><span title="风险等级:70">70</span></li>
+							<li><b>3、</b><span title="北京供应商1">北京供应商3</span><span title="风险等级:80">80</span></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			 -->
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		$(function() {
+			function myTrigger(key){
+				//var $a = parent.getEleByKey(key);
+				var $a = parent.$("#"+key, parent.document);
+				var href = $a.attr('data-href');
+            	$a.attr('data-href',href+"?inactive=1").trigger('click').attr('data-href',href);
+			}
+			$("#include_main_box a.ghsyj").on('click', function() {
+                try {
+                    //top.openTabs("ckts_5020000", null, null, null);
+                    top.openTabs("ckts_5020000", null, "&inactive=1", null);
+                } catch (err) {
+                	myTrigger("menu_yj_gq");
+                }
+			});
+			$("#include_main_box a.shyj").on('click', function() {
+                try {
+                    //top.openTabs("ckts_5040000", null, null, null);
+                    top.openTabs("ckts_5040000", null, "&inactive=1", null);
+                } catch (err) {
+                    myTrigger("menu_yj_sh");
+                }
+			});
+			//$("#include_main_box a.dptx").on('click', function() { parent.$('#menu_yj_renwu', parent.document).trigger('click'); });
+			$("#include_main_box a.sbyj").on('click', function() {
+                try {
+                    //top.openTabs("ckts_5030000", null, null, null);
+                    top.openTabs("ckts_5030000", null, "&inactive=1", null);
+                } catch (err) {
+                    myTrigger("menu_yj_sb");
+                }
+			});
+			//handlerYj(top);
+			
+			//供货商预警top
+			ajaxHelper(
+				"../../../gongHuoShangYj/findPageByCondition",
+				{pageNo:1,pageSize:5,inactive:"1"},
+				function(result){
+					if(result.success && result.data.thisPageElements){
+						$("#include_main_box a.ghsyj").next("span").html(result.data.totalCount);
+						//handlerYj(result.data.thisPageElements);
+						var arr = [];
+						var data = result.data.thisPageElements;
+						var len = data.length <= 5 ?  data.length : 5;
+						for(var i=0; i<len; i++){
+							var ghsmc = data[i].ghsmc;
+							if(ghsmc.length>18){ ghsmc = ghsmc.substr(0,18)+"..."; }
+							//arr.push('<li style="color:rgba(255,0,0,'+(1-i*0.1)+')"><b>'+(i+1)+'、</b><span title="'+data[i].ghsmc+'">'+ghsmc+'</span><span title="风险等级:'+data[i].taxCreditRating+'">'+data[i].taxCreditRating+'</span></li>');
+							//arr.push('<li><b>'+(i+1)+'、</b><span title="'+data[i].ghsmc+'">'+ghsmc+'</span><span title="风险等级:'+data[i].taxCreditRating+'">'+data[i].taxCreditRating+'</span></li>');
+							arr.push('<li><a data-id="'+data[i].ghsid+'" href="javascript:;" class="lookInfoGhs"><span title="'+data[i].ghsmc+'">'+ghsmc+'</span></a><span class="pull-right ghsfxsj" title="风险等级:'+data[i].taxCreditRating+'" id="'+data[i].ghsid+'">'+data[i].taxCreditRating+'</span></li>');
+							//arr.push('<li><a data-id="'+data[i].ghsid+'" href="javascript:;" class="lookInfoGhs"><span title="'+data[i].ghsmc+'">'+ghsmc+'</span></a><span class="pull-right pingfen" title="风险等级:'+data[i].taxCreditRating+'" style="cursor: pointer;" id="'+data[i].ghsid+'">'+data[i].taxCreditRating+'</span></li>');
+						}
+						$("#include_main_box a.ghsyj").parent().find("ul").append(arr.join(""));
+					}
+				}
+			);
+			
+			
+			//收汇预警top
+			ajaxHelper(
+				"../../../shouHuiYj/findPageByCondition",
+				{pageNo:1,pageSize:5,inactive:"1"},
+				function(result){
+					if(result.success && result.data.thisPageElements){
+						$("#include_main_box a.shyj").next("span").html(result.data.totalCount);
+						//handlerYj(result.data.thisPageElements);
+						var arr = [];
+						var data = result.data.thisPageElements;
+						var len = data.length <= 8 ?  data.length : 8;
+						for(var i=0; i<len; i++){
+							var bgdh = data[i].bgdh;
+							if(bgdh.length>18){ bgdh = bgdh.substr(0,18)+"..."; }
+							//arr.push('<li style="color:rgba(255,0,0,'+(1-i*0.1)+')"><b>'+(i+1)+'、</b><span title="'+data[i].bgdh+'">'+bgdh+'</span><span title="风险等级:'+data[i].taxCreditRating+'">'+data[i].taxCreditRating+'</span></li>');
+							//arr.push('<li><b>'+(i+1)+'、</b><span title="'+data[i].bgdh+'">'+bgdh+'</span><span title="期限时间:'+data[i].qxsj+'">'+data[i].qxsj.substring(0,10)+'</span></li>');
+							arr.push('<li><a data-id="'+data[i].bgd+'" href="javascript:;" class="lookInfoSh"><span title="'+data[i].bgdh+'">'+bgdh+'</span></a><span class="pull-right" title="期限时间:'+data[i].qxsj+'">'+data[i].qxsj.substring(0,10)+'</span></li>');
+						}
+						$("#include_main_box a.shyj").parent().find("ul").append(arr.join(""));
+					}
+				}
+			);
+			
+			//申报预警top
+			ajaxHelper(
+				"../../../shenBaoYj/findPage",
+				{pageNo:1,pageSize:5,inactive:"1"},
+				function(result){
+					if(result.success && result.data.thisPageElements){
+						$("#include_main_box a.sbyj").next("span").html(result.data.totalCount);
+						//handlerYj(result.data.thisPageElements);
+						var arr = [];
+						var data = result.data.thisPageElements;
+						var len = data.length <= 8 ?  data.length : 8;
+						for(var i=0; i<len; i++){
+							var bgdh = data[i].bgdh;
+							if(bgdh.length>18){ bgdh = bgdh.substr(0,18)+"..."; }
+							//arr.push('<li style="color:rgba(255,0,0,'+(1-i*0.1)+')"><b>'+(i+1)+'、</b><span title="'+data[i].bgdh+'">'+bgdh+'</span><span title="风险等级:'+data[i].taxCreditRating+'">'+data[i].taxCreditRating+'</span></li>');
+							//arr.push('<li><b>'+(i+1)+'、</b><span title="'+data[i].bgdh+'">'+bgdh+'</span><span title="剩余天数:'+data[i].sysj+'">'+data[i].sysj+'</span></li>');
+							arr.push('<li><a data-id="'+data[i].bgd+'" href="javascript:;" class="lookInfoSh"><span title="'+data[i].bgdh+'">'+bgdh+'</span></a><span class="pull-right" title="剩余天数:'+data[i].sysj+'">'+data[i].sysj+'</span></li>');
+						}
+						$("#include_main_box a.sbyj").parent().find("ul").append(arr.join(""));
+					}
+				}
+			);
+			
+			//处理预警top
+			function handlerYj(data){
+				//<li><b>1、</b><span title="北京供应商1">北京供应商18个字符截取</span><span title="风险等级:60">60</span></li>
+				var arr = [];
+				for(var i=0; i<5; i++){
+					var ghsmc = data[i].ghsmc;
+					if(ghsmc.lenght>18){ ghsmc = ghsmc.substr(0,18)+"..."; }
+					//arr.push('<li style="color:rgba(255,0,0,'+(1-i*0.1)+')"><b>'+(i+1)+'、</b><span title="'+data[i].ghsmc+'">'+ghsmc+'</span><span title="风险等级:'+data[i].taxCreditRating+'">'+data[i].taxCreditRating+'</span></li>');
+					//arr.push('<li><b>'+(i+1)+'、</b><span title="'+data[i].ghsmc+'">'+ghsmc+'</span><span title="风险等级:'+data[i].taxCreditRating+'">'+data[i].taxCreditRating+'</span></li>');
+					arr.push('<li><span title="'+data[i].ghsmc+'">'+ghsmc+'</span><span title="风险等级:'+data[i].taxCreditRating+'">'+data[i].taxCreditRating+'</span></li>');
+				}
+				$("#include_main_box a.ghsyj").parent().find("ul").append(arr.join(""));
+			}
+			
+			
+			//小铃铛总数接口  ” ../../../gongHuoShangYj/selectYjAllCount “
+			/*
+			ajaxHelper(
+				"../../../gongHuoShangYj/selectYjAllCount",{},
+				function(result){
+					//alert("总数:"+result.data);
+				}
+			);
+			*/
+			
+			//查看供货商详情
+			$(document).on("click", ".lookInfoGhs", function() {
+				params.uuid = $(this).attr("data-id");
+				var name = $(this).find("span").attr("title");
+				openLayer({
+		            title : '<i class="glyphicon glyphicon-pencil" style="padding-right:3px;font-size:12px;"></i>查看供货商信息【供货商名称：<font color="red">'+name+'</font>】',
+		            url : "../../pages/ruzhu/add.html?editflag=detail&branch=0&tempTime="+new Date().getTime()
+		        });
+			});
+			
+			//查看供货商评分
+			$(document).on("click", ".pingfen", function() {
+				var id = $(this).attr("id");
+				$.ajax({
+					url:'../../../yujing/ghsxydj',
+					data:{nsrsbh:id},
+					success:function(ret){
+						if(ret.success){
+							//alert(JSON.stringify(ret.data));
+							console.log(JSON.stringify(ret.data));
+						}else{
+							//alert(ret.msg);
+							console.log(ret.msg);
+						}
+					}
+				});
+				
+				//layer.msg($(this).text())
+				
+				/* openLayer({
+		            title : '<i class="glyphicon glyphicon-pencil" style="padding-right:3px;font-size:12px;"></i>查看供货商信息【供货商名称：<font color="red">'+name+'</font>】',
+		            url : "../../pages/ruzhu/add.html?editflag=detail&branch=0&tempTime="+new Date().getTime()
+		        });  */
+			});
+			
+			//查看收汇/申报详情
+			$(document).on("click",".lookInfoSh", function(){
+				var shid = $(this).attr("data-id");
+				var bgdNo = $(this).find("span").attr("title");
+				openLayer({
+					id : shid,
+					title : '<i class="glyphicon glyphicon-file" style="padding-right:3px;font-size:12px;"></i>报关单详情【报关单号：<font color="red">'+bgdNo+'</font>】',
+					url : "../../pages/guandan/guandan/xiangqing.html"
+				});
+			});
+			
+			//查看供货商分析数据
+			$(document).on("click",".ghsfxsj",function(){
+// 				window.ghsid = ($(this).attr("id"));
+				params.ghs = $(this).siblings("a").attr("data-id");
+				name = $(this).siblings("a").find("span").attr("title");
+				layer.open({
+					type : 2,
+					title : '【供货商名称：<font color="red">'+name+'</font>】',
+					area : ["46%","60%"],
+					content : "./ghs_fx.html"
+				});
+			});
+			
+		});
+	</script>
+</body>
+</html>

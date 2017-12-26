@@ -1,0 +1,28 @@
+/*@charset "UTF-8";*/
+#include_main_box { padding-top:15px; }
+#include_main_box .main_dbrw {  /* cursor:pointer; */}
+#include_main_box .main_dbrw li {line-height:30px; letter-spacing:1px; padding-left:10px;  }
+#include_main_box .daiban .panel-body{ height:173px; overflow-y:scroll;  }
+#include_main_box .daiban .badge { margin-left:8px; }
+#include_main_box .panel { margin-bottom:15px;}
+#include_main_box .panel-body .fa {
+	cursor:pointer;
+	padding-top: 20px;
+	display: block;
+	text-align: center;
+	font-size: 50px;
+	color: #666; 
+}
+#include_main_box .panel-body .font {
+	padding-top: 20px;
+	padding-bottom: 20px;
+	display: block;
+	text-align: center;
+	font-size: 30px;
+	color: #666; 
+}
+#include_main_box .panel-body .col-sm-4:hover .fa,
+#include_main_box .panel-body .col-sm-4:hover .font {color:#333; }
+
+.sbData {}
+.sbData>thead>tr>th, .sbData>tbody>tr>td{ text-align:center; }

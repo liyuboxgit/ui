@@ -1,0 +1,340 @@
+<!-- 模块管理 -->
+<div class="container-fluid">
+	
+	<div class="col-sm-3 height100 treeBg">
+		<ul id="module_Tree" class="ztree"></ul>
+	</div>
+	
+	<div class="col-sm-9 height100 gridBox pr0" id="module_gridBox">
+		<table id="module_jqGrid"></table>
+		<div id="module_jqGridPager"></div>
+	</div>
+	
+</div>
+
+<!-- 新增/修改弹窗 -->
+<div id="module_jqGrid_formBox" class="layerFormBox">
+	<form class="form-horizontal layerForm">
+		<div class="form-group">
+			<label for="inputEmail3" class="col-xs-3 control-label">
+				模块名称:
+			</label>
+			<div class="col-xs-8">
+				<input type="text" id="module_title" name="name" class="form-control input-sm"  placeholder="模块名称">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-xs-3 control-label">
+				优先级:
+			</label>
+			<div class="col-xs-8">
+				<input type="text" id="module_priority" name="priority" class="form-control input-sm"  placeholder="优先级">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-xs-3 control-label">
+				URL:
+			</label>
+			<div class="col-xs-8">
+				<input type="text" id="module_url" name="url"  class="form-control input-sm"  placeholder="地址">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-xs-3 control-label">
+				授权名称:
+			</label>
+			<div class="col-xs-8">
+				<input type="text" id="module_parent" name="parent"  class="form-control input-sm"  placeholder="父级名称">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-xs-3 control-label">
+				描述:
+			</label>
+			<div class="col-xs-8">
+				<textarea class="form-control input-sm" id="module_description" name="description"   rows="3" placeholder="描述。。。。"></textarea>
+			</div>
+		</div>
+		<input type="hidden" name="operation" />
+		<p class="text-center">
+			<button type="button" class="saveBtn btn btn-ckts btn-sm" id="module_save_btn">
+				保存
+			</button>
+			<button type="reset" class="saveBtn btn btn-ckts btn-sm">
+				重置
+			</button>
+			<button type="button" class="saveBtn btn btn-ckts btn-sm qx" id="module_cacle_btn">
+				取消
+			</button>
+		</p>
+	</form>
+</div>
+<script type="text/javascript">
+
+$(function(){
+	//权限树		
+	var zTreeObj;
+	var setting = {view : { showIcon : false } };
+	//树数据
+	$.getJSON('data/nodes.json',function(data){
+		var zNodes = data;
+		zTreeObj = $.fn.zTree.init($("#module_Tree"), setting, zNodes);
+	});
+	
+	var layerIndex = null; //弹窗id,关闭所用
+	var flag = ''; //添加修改标记
+	var dataUrl = 'data/module.json';//数据源链接
+	var gridId = 'module_jqGrid'; //表格id
+	var gridPager = 'module_jqGridPager'; //表格分页id
+	var formBoxId = 'module_jqGrid_formBox'; //添加修改窗口元素id
+	var layerCloseClassName = 'qx';
+	var dataSaveBtn = 'module_save_btn'; //弹窗保存id
+	var gridBoxId = 'module_gridBox';//表格尺寸
+	var layerCloseTime = 1200; //1200毫秒提示消息关闭延迟时间
+	var gridWidth = $('#'+gridBoxId).width();
+	var gridHeight = $('#'+gridBoxId).height()-118;
+	
+	var colModel = [
+		{label: '组织名称',name: 'name',width: 80,/*formatter: formatTitle,*/ align: 'center',},
+		{label: '优先级',name: 'priority',width: 35,sorttype: 'integer',align: 'center',search:false},
+		{label: '父模块',name: 'parent',width: 50,sorttype: 'integer',align: 'center'},
+		{label: '模块地址',name: 'url',width: 80,align: 'center',search:false},
+		{label: '操作',name: 'operation',width: 30,align: 'center',search:false,formatter: formatLink,sortable:false}
+	];
+	
+	/*
+	//后台返回的json配置
+	var jsonReader = {
+		 root: "rows",  //实际数据的数组
+		 page: "page",  //当前页
+		 total: "total",  //总页数
+		 records: "records",   //查询出的记录数
+		 repeatitems: true,  //指明每行的数据是可以重复的，如果设为false，则会从返回的数据中按名字来搜索元素，这个名字就是colModel中的名字
+		 cell: "cell",  //当前行的所有单元格
+		 id: "id",  //当前行的id
+		 userdata: "userdata", //从服务器端返回一些参数但并不想直接把他们显示到表格中
+		 subgrid: {
+			root:"rows",
+			repeatitems: true,   
+		    cell:"cell"  
+		 }  
+	};*/
+	
+	$('#'+gridId).jqGrid({
+		width: gridWidth,
+		height: gridHeight,
+		url: dataUrl,
+		datatype: "json",
+		loadonce: true, //加载到本地操作
+		rownumbers: true, //显示顺序编号
+		multiselect: true, //定义多选
+		viewrecords: true, //显示总记录数
+		sortname: 'name', //排序字段
+		sortorder: 'asc', //排序顺序，升序或者降序（asc or desc）
+		altRows : true, //设置表格隔行变色
+		rowNum: 12, //每页显示的记录数
+		rowList:[10,12,15,18,20,25], //
+		rownumWidth: 30, 
+		recordtext: "当前显示: <b>{0}</b>至<b>{1}</b> 总数: <b>{2}</b>",
+		//emptyrecords: "No records to view",
+		//loadtext: "Loading...",
+		pager: '#'+gridPager,
+		colModel: colModel
+		//jsonReader : jsonReader
+		
+	}).navGrid('#'+gridPager,{ // the buttons to appear on the toolbar of the grid
+		edit:false,add:false,del:false,search:false,refresh:false
+	}).navButtonAdd('#'+gridPager,{
+		//caption: '新增',
+		caption: '',
+		title : '添加',
+		buttonicon : 'glyphicon-plus',
+		onClickButton : function(){addLayer();}, //调用添加的函数
+		position : 'last'
+		
+	}).navButtonAdd('#'+gridPager,{
+		//caption: '修改',
+		caption: '',
+		title : '修改',
+		buttonicon : 'glyphicon-edit',
+		onClickButton : function(){updateLayer();}, //调用更新的函数
+		position : 'last'
+		
+	}).navButtonAdd('#'+gridPager,{
+		//caption: '删除',
+		caption: '',
+		title : '删除',
+		buttonicon : 'glyphicon-trash',
+		//onClickButton : deleteLayer(gridId), //调用删除的函数
+		onClickButton : function(){ deleteLayer(gridId); },
+		position : 'last'
+		
+	}).navSeparatorAdd('#'+gridPager,{
+		sepcontent: '',
+		sepclass : "ui-separator"
+	});
+	
+	//表格添加搜索框按钮
+	$('#'+gridId).jqGrid('filterToolbar');
+	//修改工具条
+	changeSearch(); 
+	
+	//editGridRow新增记录；viewGridRow查看记录详情；delGridRow删除记录。
+	
+	//弹框保存按钮
+	$(document).on('click','#'+dataSaveBtn,function(){
+		if(flag == 'add'){
+			var data = getFormData(formBoxId);
+			var currentNumber = uuid.v4();
+			var result = jQuery('#'+gridId).addRowData(currentNumber,data,'first');
+			if(result){
+				layer.msg('添加成功',{time:layerCloseTime});
+				layer.close(layerIndex);
+				
+				jQuery('#'+gridId).setSelection(currentNumber,true);
+				
+			}else{
+				layer.msg('添加失败!',{time:layerCloseTime});
+			}
+		}else if(flag == 'update'){
+			
+			//删除
+			var rowIds = getSelectedRow(gridId);
+			jQuery('#'+gridId).delRowData(rowIds[0]);
+			//添加
+			var data = getFormData(formBoxId);
+			console.log(data);
+			var currentNumber = uuid.v4();
+			var result = jQuery('#'+gridId).addRowData(currentNumber,data,'first');
+			
+			if(result){
+				layer.msg('更新成功',{time:layerCloseTime});
+				layer.close(layerIndex);
+				jQuery('#'+gridId).setSelection(currentNumber,true);
+			}else{
+				layer.msg('更新失败!',{time:layerCloseTime});
+			}
+		}
+		
+	});
+	
+	//弹框取消按钮
+	$('.'+layerCloseClassName).on('click',function(){
+		layer.close(layerIndex);
+	});
+	
+	//左下角新增按钮
+	function addLayer(){
+		flag = 'add';
+		$('#'+formBoxId+' .form-control').val('');
+		layerIndex = layer.open({
+			type: 1,
+			title : '添加模块',
+			area: ['40%', '70%'], //宽高
+			content: $('#'+formBoxId)
+		});
+	}
+	
+	//左下角编辑按钮
+	function updateLayer(){
+		flag = 'update';
+		var setting = {
+			gridId : gridId,
+			formBoxId : formBoxId,
+			title : '修改模块',
+			area : ['40%', '70%']
+		};
+		layerIndex = updateGridData(setting);
+	}
+	
+	//左下角删除按钮
+	function deleteLayer(gridId){
+		deleteGridData(gridId);
+	}
+	
+	//左下角编辑按钮
+	/*
+	function updateLayer(){
+		flag = 'update';
+		var rowIds = getSelectedRow(gridId);
+		if(rowIds && $.isArray(rowIds) && rowIds.length == 1 ){
+			var rowData = $('#'+gridId).getRowData(rowIds[0]);
+			setFormData(formBoxId,rowData);
+			title = '修改模块';
+			layerIndex = layer.open({
+				type: 1,
+				title : title,
+				area: ['40%', '70%'], //宽高
+				content: $('#'+formBoxId)
+			});
+		}else{
+			layer.msg('同时只能选择一条记录!',{time:layerCloseTime});
+		}
+	}
+	*/
+	
+	
+	/*
+	//左下角删除按钮
+	function deleteLayer(){
+		var rowIds = getSelectedRow(gridId);
+		var len = rowIds.length;
+		if(rowIds && $.isArray(rowIds) && rowIds.length>0){
+			var deletindex = layer.confirm('确定要删除吗？', {
+			  btn: ['确定','取消'] 
+			}, function(){
+				for(var i=0; i<len; i++){
+					jQuery('#'+gridId).delRowData(rowIds[0]);  
+				}
+			    layer.msg('删除成功', {icon: 1,time:layerCloseTime});
+			}, function(){
+			  	layer.close(deletindex);
+			});
+			
+		}else{
+			layer.msg('请选择记录!',{time:layerCloseTime});
+		}
+		
+	}
+	*/
+	
+	
+	
+	
+	/*
+	//获取json数据
+	function fetchGridData() {
+		var gridArrayData = [];
+		// show loading message
+		$('#'+gridId)[0].grid.beginReq();
+		$.ajax({
+			url: "data/module.json",
+			success: function(result) {
+				for (var i = 0; i < result.items.length; i++) {
+					var item = result.items[i];
+					
+					gridArrayData.push({
+						title: item.title,
+						url: item.url,
+						parent: item.parent,
+						//operation: item.operation,
+						priority: item.priority
+					});
+				}
+				// set the new data
+				$('#'+gridId).jqGrid('setGridParam', {
+					data: gridArrayData
+				});
+				// hide the show message
+				$('#'+gridId)[0].grid.endReq();
+				// refresh the grid
+				$('#'+gridId).trigger('reloadGrid');
+			}
+		});
+	}*/
+	
+});
+
+
+	
+</script>

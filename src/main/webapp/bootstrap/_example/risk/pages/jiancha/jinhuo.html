@@ -1,0 +1,194 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+	<head>
+		<meta charset="UTF-8">
+		<!--Bootstrap 不支持 IE 古老的兼容模式。为了让 IE 浏览器运行最新的渲染模式建议添加一下meta-->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<!--自适应设备宽度-->
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+		<title>外贸综合服务企业出口退税风险管控信息系统-进货数据的校验检查</title>
+		<meta name="Keywords" content="外贸综合服务企业出口退税风险管控信息系统">
+		<meta name="description" content="外贸综合服务企业出口退税风险管控信息系统">
+		<link rel="stylesheet" href="../../static/plugins/bootstrap-3.3.7/css/bootstrap.min.css"/>
+		<script type="text/javascript" src="../../static/plugins/jquery-2.1.1/jquery-2.1.1.js"></script>
+		<script type="text/javascript" src="../../static/plugins/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" href="../../static/plugins/font-awesome-4.7.0/css/font-awesome.css"/><!-- icon字体图标 -->
+		<link rel="stylesheet" href="../../static/plugins/bootstrap-table-1.11.1/bootstrap-table.css"/><!-- 表格 -->
+		<script type="text/javascript" src="../../static/plugins/bootstrap-table-1.11.1/bootstrap-table.js"></script>
+		<script type="text/javascript" src="../../static/plugins/bootstrap-table-1.11.1/extensions/export/bootstrap-table-export.js"></script><!-- 表格导出 -->
+		<script type="text/javascript" src="../../static/plugins/tableExport.jquery.plugin/tableExport.js"></script>
+		<script type="text/javascript" src="../../static/plugins/bootstrap-table-1.11.1/locale/bootstrap-table-zh-CN.js"></script>
+		<script type="text/javascript" src="../../static/plugins/jquery-validation-1.17.0/jquery.validate.js"></script><!-- 表单验证 -->
+		<script type="text/javascript" src="../../static/plugins/jquery-validation-1.17.0/jquery.validate.extends.js"></script>
+		<link rel="stylesheet" href="../../static/plugins/poshytip-1.2/tip-yellowsimple/tip-yellowsimple.css" type="text/css"/>
+		<script type="text/javascript" src="../../static/plugins/poshytip-1.2/jquery.poshytip.js"></script>
+		<script type="text/javascript" src="../../static/js/common.js"></script><!-- 自定义公用js -->
+		<link rel="stylesheet" href="../../static/css/common.css"/><!-- 自定义公用css -->
+		<link rel="stylesheet" href="../../static/plugins/layer-v3.1.0/theme/default/layer.css"/><!-- 弹窗 -->
+		<script type="text/javascript" src="../../static/plugins/layer-v3.1.0/layer.js"></script>
+		<script type="text/javascript" src="../../static/plugins/My97DatePicker-4.8/WdatePicker.js"></script><!-- 日历 -->
+	</head>
+	<body style="overflow-y:hidden;background:#fff;">
+		<div class="myContainer" style="background:#fff; height:100%; border:15px solid #f4f4f4;">
+			<form id="addInfoForm" class="form-horizontal layerForm" action=""  method="post" enctype="multipart/form-data">
+				<!-- 基本信息 -->
+				<div  class="tab-pane clearfix active" id="info"></div>
+				<!-- 基本信息 -->
+				<p class="text-center">
+					<button type="reset" class="btn btn-ckts btn-sm"><i class="glyphicon glyphicon-repeat" style="margin-right:5px;"></i>重置</button>
+					<button type="button" class="btn btn-ckts btn-sm" id="save"><i class="glyphicon glyphicon-saved" style="margin-right:5px;"></i>保存</button>
+				</p>
+			</form>
+		</div>
+		<script type="text/javascript"> 
+			$(function(){
+				/*
+				1 关联号 申报年月＋四位流水号 出口企业自行 编写 是 风控 
+				2 税种 系统默认 V，可手动修改 系统默认带出 是 风控 
+				3 部门代码 无需填写  否  北京 融通慧达电子商务科技有限公司
+				4 部门名称 无需填写  否  
+				5 申报年月 与关联号前六位相同 根据登录申报 系统的所属期 自动生成 是 风控 
+				6 申报批次 同该笔业务出口明细中的申 报批次 通过出口明细 中相同关联号 自动生成 是 风控 
+				7 序号 同一批数据中的序号不重复 物理排序，不 重复 是 风控 
+				8 发票号码 按发票填写（仅限已导入发 票情况） 手动填写 否  
+				9 发票代码 输入发票号码后回车带出 （仅限已导入发票情况） 通过导入的发 票信息自动获 取 否  
+				10 进货凭证号 按发票填写，10 位发票代码 ＋8 位发票号码共同组成的 18 位数字 通过导入的发 票信息自动获 取 是 风控 
+				11 分批批次 该项填写第几次分批，若第 一次申报，则填写 0001，以 此类推； 手动填写 否 风控 
+				12 供货方纳税号 发票下方销方信息的纳税人 识别号 通过导入的发 票信息自动获 取 是 风控 
+				13 发票开票日期 按发票上的开票日期填写 通过导入的发 票信息自动获 取 是 风控 
+				14 商品代码 按出口报关单的商品代码填 写 通过关联号手 动选择所对应 的商品代码 是 风控 
+				15 商品名称 输入商品代码后系统自动带 出 回车带出 是 2.0 
+				16 单位 无需填写 回车带出 是 2.0 
+				17 数量 如果增值税专用发票上该商 品的计量单位与报关单该商 品第一计量单位不符，则应 按报关单计量单位折算进货手动填写 是 风控 北京 融通慧达电子商务科技有限公司数量。加工费、辅料、配套 产品等（视同）委托加工方 式的进货凭证，数量项填 0， 备注项目填英文字母 WT； 
+				18 计税金额 如果增值税发票开具的货物 或应税劳务名称项对应的出 口报关单为同一商品代码， 可录入发票计税金额总和， 否则应分项填写 通过导入的发 票信息自动获 取 是 风控 
+				19 法定征税税率 回车带出税率库对应商品代 码的征税率，如遇小规模发 票需手动修改为 3 通过导入的发 票信息自动获 取 是 风控 
+				20 税额 申报系统自动计算 申报系统自动 计算 是 风控 
+				21 退税率 输入商品代码后回车自动带 出 回车带出 是 风控 
+				22 可退税额 申报系统自动计算 申报系统自动 计算 是 风控 
+				23 专用税票号 1 位（0 代表缴款书，1 代表 分割单）+3 位字轨+8 位号码 +2 位项号。 输入进货凭证 号后自动带出 （限消费税缴 款书） 否  
+				24 业务代码 一般贸易无需填写，其他类 型按实际业务类型选择 通过关联号匹 配对应的出口 明细的业务代 码 否 风控 
+				25 业务类型 无需填写 申报系统自动 生成 否 2.0 
+				26 备注 数量为 0 时字段前两位应录 入 WT；2003 年 8 月 1 日以前 开具的或税务机关代开的专 用发票录入 FSK，其余的按 税务机关规定的录入；对外 承包业务，需备注合同号 手动填写 否  
+				27 暂缓标志 无需填写 读入税务局反 馈信息后系统 标记 否  
+				28 不予退税标志 无需填写 读入税务局反 馈信息后系统 标记 否  
+				29 标识 无需填写 系统检查后自 否  北京 融通慧达电子商务科技有限公司动生成 
+				30 申报标志 无需填写 申报系统自动 生成 否  
+				31 调整标志 无需填写 读入税务局反 馈信息后系统 标记 
+				*/
+				//基本信息
+				var config = {
+					container:"info",
+					columns:[
+						{col:"glh",label:"关联号",type:"text",validate:{required:true}},
+						{col:"sz",label:"税种",type:"text",validate:{required:true}},
+						{col:"bmdm",label:"部门代码",type:"text"},
+						{col:"bmmc",label:"部门名称",type:"text"},
+						{col:"sbny",label:"申报年月",type:"text",validate:{required:true}},
+						{col:"sbpc",label:"申报批次",type:"text",validate:{required:true}},
+						{col:"xh",label:"序号",type:"text",validate:{required:true}},
+						{col:"fphm",label:"发票号码",type:"text"},
+						{col:"fpdm",label:"发票代码",type:"text"},
+						{col:"jhPzh",label:"进货凭证号",type:"text",validate:{required:true,number:true,minlength:18,maxlength:18}},
+						{col:"fppc",label:"分批批次",type:"text"},
+						{col:"supplierNsrsbh",label:"供货方纳税号",type:"text",validate:{required:true}},
+						{col:"fpKprq",label:"发票开票日期",type:"date",validate:{required:true}},
+						{col:"goodsCode",label:"商品代码",type:"text",validate:{required:true}},
+						{col:"goodsName",label:"商品名称",type:"text",validate:{required:true}},
+						{col:"unit",label:"单位",type:"text",validate:{required:true}},
+						{col:"num",label:"数量",type:"text",validate:{required:true,number:true}},
+						{col:"jsje",label:"计税金额 ",type:"text",validate:{required:true,number:true}},
+						{col:"fdzssl",label:"法定征税税率 ",type:"text",validate:{required:true}},
+						{col:"se",label:"税额",type:"text",validate:{required:true,number:true}},
+						{col:"tsl",label:"退税率",type:"text",validate:{required:true}},
+						{col:"ktsje",label:"可退税额",type:"text",validate:{required:true}},
+						{col:"zysph",label:"专用税票号",type:"text"},
+						{col:"ywdm",label:"业务代码",type:"text"},
+						{col:"ywlx",label:"业务类型",type:"select",options:getDicts("serviceType")},
+						{col:"bz",label:"备注",type:"text"},
+						{col:"zhbz",label:"暂缓标志",type:"text"},
+						{col:"bytsbz",label:"不予退税标志",type:"text"},
+						{col:"bs",label:"标识",type:"text"},
+						{col:"sbbz",label:"申报标志",type:"text"},
+						{col:"tzbz",label:"调整标志",type:"text"}
+						
+						/*
+						{col:"contractCode",label:"合同编号",type:"text",validate:{required:true},search:true},
+						{col:"contractName",label:"合同名称",type:"text",validate:{required:true},search:true},
+						{col:"serviceType",label:"业务类型",type:"select",validate:{required:true},options:getDicts("serviceType")},
+						{col:"signDate",label:"签约日期",type:"date",validate:{required:true,date:true,dateLEInput:"beginDate"}},
+						{col:"beginDate",label:"生效日期",type:"date",validate:{required:true,dateGEInput:"signDate"}},
+						{col:"currency",label:"币制",type:"select",validate:{required:true},options:getDicts("currency")},
+						{col:"contractAmount",label:"合同金额",type:"text",validate:{required:true,number:true},search:true},
+						{col:"checkoutMode",label:"结汇方式",type:"select",validate:{required:true},options:getDicts("jiehuifs")},
+						{col:"dealMode",label:"成交方式",type:"select",validate:{required:true},options:getDicts("dealMode")},
+						{col:"transportMode",label:"运输方式",type:"select",validate:{required:true},options:getDicts("transportMode")},
+						{col:"exportCountry",label:"出口国别",type:"select",validate:{required:true},options:getDicts("nation")},
+						{col:"exportPort",label:"出口口岸",type:"select",validate:{required:true},options:getDicts("exportPortName")},
+						{col:"arrivingCountry",label:"运抵国",type:"select",validate:{required:true},options:getDicts("nation")},
+						{col:"fingerPort",label:"指运港",type:"text",validate:{required:true}},
+						{col:"approvalNumber",label:"批准文号",type:"text" },
+						{col:"operatingUnit",label:"经营单位",type:"text" },
+						{col:"licenseKey",label:"许可证",type:"text" },
+						{col:"shipmentTime",label:"装运期",type:"date" },
+						{col:"forwardUnitCode",label:"发货单位代码",type:"text" },
+						{col:"forwardUnit",label:"发货单位",type:"text" },
+						{col:"totalMaterial",label:"件数",type:"text" },
+						{col:"gqqsrq",label:"工期起始时间",type:"date",validate:{dateLTInput:"gqjssj"} },
+						{col:"gqjsrq",label:"工期结束时间",type:"date",validate:{dateGTInput:"gqqssj"}  },
+						{col:"gq",label:"工期（天）",type:"text" },
+						{col:"drawbackIs",label:"是否退税",type:"select",
+							options:[
+								{
+									value:"0",text:"退税"
+								},
+								{
+									value:"1",text:"不退税"
+								}
+							]
+						},
+			            {col:"state",label:"有效标志",type:"select",
+			                options:[
+			                    {
+			                        value:"1",text:"有效"
+			                    },
+			                    {
+			                        value:"0",text:"无效"
+			                    }
+			                ]
+			            }
+						*/
+					]
+				};
+				
+				//基本信息添加到页面
+				formGenerator(config);
+				
+				//验证表单
+				registerValidate("addInfoForm",config);
+
+                //保存点击事件
+				$("#save").on("click",function(){
+                    var data = $("#addInfoForm").serialize();
+                    $.ajax({
+                        url : "../../../sbpc/saveShangPinXiaoFeiShui",
+                        type : "post",
+                        data : data,
+//                        contentType: 'application/json',
+                        dataType : "json",
+                        success : function(res){
+                            if(res.success){
+                                layer.msg("保存成功!");
+                            } else {
+                                layer.msg(res.msg);
+                            }
+                        }
+                    });
+
+				});
+			});
+		</script>
+	</body>
+</html>
+
+

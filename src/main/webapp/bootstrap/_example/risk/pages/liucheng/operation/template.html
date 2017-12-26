@@ -1,0 +1,88 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>供货商审核</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="stylesheet" href="static/plugins/bootstrap-3.3.7/css/bootstrap.min.css" />
+<script type="text/javascript" src="static/plugins/jquery-2.1.1/jquery-2.1.1.js"></script>
+<script type="text/javascript" src="static/plugins/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="static/plugins/font-awesome-4.7.0/css/font-awesome.css"/>
+
+<link rel="stylesheet" href="static/plugins/jquery-zTree-3.5.23/zTreeStyle.css"/>
+<script type="text/javascript" src="static/plugins/jquery-zTree-3.5.23/js/jquery.ztree.all.js"></script>
+
+<link rel="stylesheet" href="static/plugins/jqGrid_JS_5.2.1/css/ui.jqgrid-bootstrap.css"/>
+<script type="text/javascript" src="static/plugins/jqGrid_JS_5.2.1/js/i18n/grid.locale-cn.js"></script>
+<script type="text/javascript" src="static/plugins/jqGrid_JS_5.2.1/js/jquery.jqGrid.min.js"></script>
+
+<link rel="stylesheet" href="static/plugins/layer-v3.1.0/theme/default/layer.css"/>
+<script type="text/javascript" src="static/plugins/layer-v3.1.0/layer.js"></script>
+
+<script type="text/javascript" src="static/plugins/Highcharts-5.0.14/highcharts.js"></script>
+<script type="text/javascript" src="static/plugins/Highcharts-5.0.14/highcharts-3d.js"></script>
+<script type="text/javascript" src="static/plugins/Highcharts-5.0.14/highcharts-more.js"></script>
+<script type="text/javascript" src="static/plugins/Highcharts-5.0.14/modules/solid-gauge.js"></script>
+<script type="text/javascript" src="static/plugins/Highcharts-5.0.14/modules/exporting.js"></script>
+
+<script type="text/javascript" src="static/plugins/My97DatePicker-4.8/WdatePicker.js"></script>
+
+<link rel="stylesheet" href="static/plugins/jQuery-File-Upload-9.18.0/css/jquery.fileupload.css" />
+<link rel="stylesheet" href="static/plugins/jQuery-File-Upload-9.18.0/css/jquery.fileupload-ui.css"/>
+
+<script type="text/javascript" src="static/plugins/node-uuid-1.4.8/uuid.min.js"></script>
+
+<link rel="stylesheet" href="static/css/style.css" />
+</head>
+<body>
+	
+<!-- 审核 -->
+<div id="shenhe_ruzhu_formBoxId"> 
+	<div class="row"><div class="col-sm-12" style="padding-top:15px;"><div class="radio-inline"><label><input type="radio" name="a" checked="true"/>审核不通过</label></div><div class="radio-inline"><label><input type="radio" name="a"/>审核通过</label></div><textarea class="form-control" rows="3" placeholder="审核意见..."></textarea><p class="text-center" style="margin-top:15px;"><button class="btn btn-ckts btn-sm qx">保存</button></p></div></div>
+	<div class="col-sm-12" id="shenheruzhu_history"> 
+			<table id="tj" class="table table-striped table-condensed table-bordered">
+				<thead>
+					<tr class="d9">
+						<th>审核人</th>
+						<th>审核日期</th>
+						<th>审核状态</th>
+						<th>说明</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>admin</td>
+						<td>2015-01-10</td>
+						<td>已通过</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>admin</td>
+						<td>2015-01-06</td>
+						<td>未通过</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>admin</td>
+						<td>2015-01-04</td>
+						<td>未通过</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>admin</td>
+						<td>2015-01-02</td>
+						<td>未通过</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>合计</td>
+						<td colspan="5" class="textRight">总记录 : 4</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+</div>
+</body>
+</html>

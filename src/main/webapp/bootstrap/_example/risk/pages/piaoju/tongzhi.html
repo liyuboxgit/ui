@@ -1,0 +1,483 @@
+<!--开票通知 -->
+<style type="text/css">
+	/*td{
+		text-align:center; vertical-align:middle !important; 
+	}*/
+	h4{margin-right: 64px;}
+	.form-group .text-center,.col-xs-4{text-align: center; vertical-align:middle !important}
+	.form-horizontal input,.form-horizontal textarea {border: none !important;outline: none !important;border:0 !important;}
+	.goumai{width: 30px;text-decoration: row;height: 150px;line-height: 50px;}
+	#tongzhi_jqGrid td{text-align: center; vertical-align:middle !important}
+	.text-left{text-align: left !important;}
+	#tongzhi_qingdan{margin: }
+</style>
+<div class="container-fluid">
+	<div class="col-sm-12 plr0 height100 gridBox" id="tongzhi_gridBox">
+		<table id="tongzhi_jqGrid"></table>
+		<div id="tongzhi_jqGridPager"></div>
+	</div>
+</div>
+	<!-- 查看通知单详情 -->
+<div id="tongzhi_formBox" class="layerFormBox">
+	<form class="form-horizontal layerForm col-xs-12">
+			<div class="form-group col-xs-12">
+				<p class="text-center">
+					开票通知单
+				</p>
+			</div>
+			<div class="form-group col-xs-12">
+				<div class="col-xs-6">
+					<p class="text-left">
+						通知单号: 200120171015142410
+					</p>
+				</div>
+				<div class="col-xs-6">
+					<p class="text-right">
+						日期: 2017-09-27
+					</p>
+				</div>
+			</div>
+			
+			<div class="form-group col-xs-12">
+				<div class="col-xs-2">
+					<p style="padding-top:45px;">购买方</p>
+				</div>
+				<div class="col-xs-8">
+					<p>名称 : 某集团工程有限公司</p>
+					<p>纳税人识别号： 110105678200970</p>
+					<p>地址，电话： 北京市朝阳区XX路123号  010-56780000</p>
+					<p>开户行及账号：工行北京支行 010020203998009</p>
+				</div>
+			</div>
+			
+			<div class="col-xs-12">
+				<table class="renwu_tzd table table-bordered  table-condensed">
+					<thead class="bg-info">
+						<tr>
+							<th>名称</th>
+							<th>规格型号</th>
+							<th>单位</th>
+							<th>数量</th>
+							<th>单价</th>
+							<th>金额</th>
+							<th>征税率</th>
+							<th>税额</th>
+						</tr>
+					</thead>
+					<tbody> 
+						<tr>
+							<td>液晶显示器</td>
+							<td></td>
+							<td>台</td>
+							<td>3</td>
+							<td>4896.29</td>
+							<td>9954.71</td>
+							<td >17%</td>
+							<td >1692.30</td>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td ></td>
+							<td ></td>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td ></td>
+							<td ></td>
+						</tr>
+						<tr>
+							<td >合计:</td>
+							<td colspan="3">9954.71</td>
+							<td >备注:</td>
+							<td colspan="3">通知单号: 200120171015142410 </td>
+						</tr>
+					</tbody>
+					
+				</table>
+			</div>
+			<div class="form-group col-xs-12">
+				<div class="col-xs-2">
+					<p style="padding-top:45px;">销售方</p>
+				</div>
+				<div class="col-xs-8">
+					<p>名称 : 南京某自动化系统工程有限公司</p>
+					<p>纳税人识别号：913201059901289019</p>
+					<p>地址，电话： 南京安替大街68号3号楼  025-88908765</p>
+					<p>开户行及账号：农行南京支行 320000199900100900</p>
+				</div>
+			</div>
+			<p class="text-center col-xs-12" style="margin:20px 0 50px 0">
+                <button type="button" class="saveBtn btn btn-ckts btn-sm qx" style="margin-top:0; margin-left:15px;">
+                    取消
+                </button>
+            </p>
+	</form>
+</div>
+<!-- 新增弹窗 -->
+<div id="guandan_jqGrid_formBox" class="layerFormBox">
+	<form class="form-horizontal layerForm">
+		<div class="form-group col-xs-6">
+			<label for="inputEmail3" class="col-xs-3 control-label">
+				关单号:
+			</label>
+			<div class="col-xs-8">
+				<input type="text" id="role_relName" name="relName" class="form-control input-sm"  placeholder="关单号">
+			</div>
+		</div>
+		<div class="form-group col-xs-6">
+			<label class="col-xs-3 control-label">
+				供货商:
+			</label>
+			<div class="col-xs-8">
+				<input type="text" id="role_name" name="name" class="form-control input-sm"  placeholder="供货商">
+			</div>
+		</div>
+		<div class="form-group col-xs-6">
+			<label class="col-xs-3 control-label">
+				征税率:
+			</label>
+			<div class="col-xs-8">
+				<input type="text" id="role_name" name="name" class="form-control input-sm"  placeholder="征税率">
+			</div>
+		</div>
+		<div class="form-group col-xs-6">
+			<label class="col-xs-3 control-label">
+				退税率:
+			</label>
+			<div class="col-xs-8">
+				<input type="text" id="role_name" name="name" class="form-control input-sm"  placeholder="退税率">
+			</div>
+		</div>
+		<div class="form-group col-xs-6">
+			<label class="col-xs-3 control-label">
+				开票品名:
+			</label>
+			<div class="col-xs-8 col-xs-6">
+				<input type="text" id="role_name" name="name" class="form-control input-sm"  placeholder="开票品名">
+			</div>
+		</div>
+		<div class="form-group col-xs-6">
+			<label class="col-xs-3 control-label">
+				数量:
+			</label>
+			<div class="col-xs-8 col-xs-6">
+				<input type="text" id="role_name" name="name" class="form-control input-sm"  placeholder="数量">
+			</div>
+		</div>
+		<div class="form-group col-xs-6">
+			<label class="col-xs-3 control-label">
+				单位:
+			</label>
+			<div class="col-xs-8">
+				<input type="text" id="role_name" name="name" class="form-control input-sm"  placeholder="单位">
+			</div>
+		</div>
+		<div class="form-group col-xs-6">
+			<label class="col-xs-3 control-label">
+				金额:
+			</label>
+			<div class="col-xs-8">
+				<input type="text" id="role_name" name="name" class="form-control input-sm"  placeholder="金额">
+			</div>
+		</div>
+		<p class="text-center">
+			<button type="button" class="saveBtn btn btn-ckts btn-sm" id="role_save_btn">
+				保存
+			</button>
+			<button type="reset" class="saveBtn btn btn-ckts btn-sm">
+				重置
+			</button>
+			<button type="button" class="saveBtn btn btn-ckts btn-sm qx" id="role_cacle_btn">
+				取消
+			</button>
+		</p>
+	</form>
+</div>
+<script type="text/javascript">
+
+	
+$(function(){
+	var dataUrl = 'data/tongzhi.json';
+	var index = null;
+	var flag = '';
+	var rowNumber = 1000000;
+
+	//表格数据
+	var gridWidth = $('#tongzhi_gridBox').width();
+	var gridHeight = $('#tongzhi_gridBox').height()-122;
+	$("#tongzhi_jqGrid").jqGrid({
+		
+		hidegrid : false, 
+		altRows : true, 
+		colModel: [
+			{label : '通知单号', name : 'numbers', align: 'center', width: 100, formatter: formatName},
+			{label : '供货商', name : 'company', align: 'center', width:80},
+			{label : '关单号', name : 'number', align: 'center', width: 100},
+			{label : '任务号', name : 'tongzhi', align: 'center', width: 100}
+			// {label : '纸质发票个数', name : 'anotherNumber', align: 'center', width:60},
+			// {label : '报关单号', name : 'numbers', align: 'center', width:120}
+			],
+
+		viewrecords: true,
+		loadonce:true,
+		width: gridWidth,
+		//width: 'auto',
+		//width : '100%',
+		height: gridHeight,
+		//height : 'auto',
+		rowNum: 12,
+		rowList:[10,15,20,25],
+		datatype: 'local',
+		pager: "#tongzhi_jqGridPager",
+		multiselect: true,
+		rownumbers: true,
+		rownumWidth: 30,
+		recordtext: "当前显示: <b>{0}</b>至<b>{1}</b> 总数: <b>{2}</b>",
+	    //emptyrecords: "No records to view",
+		loadtext: "Loading...",
+                    // 调用合并方法
+		// gridComplete: function() {
+  //           var gridName = "tongzhi_jqGrid";
+  //           Merger(gridName, 'number');
+  //       }
+	}).navGrid('#tongzhi_jqGridPager',{ 
+	// the buttons to appear on the toolbar of the grid
+		edit:false,add:false,del:false,search:false,refresh:false
+	}).navButtonAdd('#tongzhi_jqGridPager',{
+			//caption: '导出',
+		caption: '',
+		title : '导出',
+		buttonicon : 'fa fa-download',
+		onClickButton : tongzhi_importLayer, //调用导出函数
+		position : 'last'
+	}).navButtonAdd('#tongzhi_jqGridPager',{
+				//caption: '新增',
+			caption: '',
+			title : '打印',
+			buttonicon : 'fa fa-print',
+			onClickButton : tongzhi_addLayer, //调用添加的函数
+			position : 'last'
+	}).navSeparatorAdd("#tongzhi_jqGridPager",{
+			sepcontent: '',
+			sepclass : "ui-separator"
+	});
+
+	//搜索框按钮,开启搜索框需要重新调整高度
+	$('#tongzhi_jqGrid').jqGrid('filterToolbar');
+	// 导出函数
+	function tongzhi_importLayer(){
+		var rowd = getSelectedRow();
+		var len = rowd.length;
+		if(rowd && $.isArray(rowd) && rowd.length>0){
+			//删除
+			var deletindex = layer.confirm('确定要导出吗？', {
+			  btn: ['确定','取消'] //按钮
+			}, function(){
+				/*for(var i=0; i<len; i++){
+					jQuery("#yulu_jqGrid").delRowData(rowd[0]);  
+				}*/
+			    layer.msg('导出成功', {icon: 1});
+			}, function(){
+			  	layer.close(deletindex);
+			});
+			
+		}else{
+			layer.msg('请选择记录!');
+		}
+	}
+
+	$('.qx').on('click',function(){
+		layer.close(layerIndex);
+	});
+	$('#tongzhi_save_btn').on('click',function(){
+		layer.msg('打印成功!',{time:layerCloseTime});
+	});
+	//弹框保存按钮
+	$(document).on('click','#role_save_btn',function(){
+		if(flag == 'add'){
+			var data = getFormData('guandan_jqGrid_formBox');
+			var currentNumber = uuid.v4();
+			var result = jQuery('#tongzhi_jqGrid').addRowData(currentNumber,data,'first');
+			if(result){
+				layer.msg('添加成功',{time:layerCloseTime});
+				layer.close(layerIndex);
+				
+				jQuery('#tongzhi_jqGrid').setSelection(currentNumber,true);
+				
+			}else{
+				layer.msg('添加失败!',{time:layerCloseTime});
+			}
+		}else if(flag == 'update'){
+			
+			//删除
+			var rowIds = getSelectedRow('tongzhi_jqGrid');
+			jQuery('#tongzhi_jqGrid').delRowData(rowIds[0]);
+			//添加
+			var data = getFormData('guandan_jqGrid_formBox');
+			console.log(data);
+			var currentNumber = uuid.v4();
+			var result = jQuery('#tongzhi_jqGrid').addRowData(currentNumber,data,'first');
+			
+			if(result){
+				layer.msg('更新成功',{time:layerCloseTime});
+				layer.close(layerIndex);
+				jQuery('#tongzhi_jqGrid').setSelection(currentNumber,true);
+			}else{
+				layer.msg('更新失败!',{time:layerCloseTime});
+			}
+		}
+		
+	});
+	//左下角编辑按钮
+	function updateLayer(){
+		flag = 'update';
+		var setting = {
+			gridId : 'tongzhi_jqGrid',
+			formBoxId : 'guandan_jqGrid_formBox',
+			title : '修改',
+			area : ['98%', '98%']
+		};
+		layerIndex = updateGridData(setting);
+	}
+	//打印按钮
+	function tongzhi_addLayer(){
+		var rowIds = getSelectedRow('yulu_jqGrid');
+		if(rowIds && $.isArray(rowIds) && rowIds.length >= 1 ){
+			layer.msg('打印成功!',{time:layerCloseTime});
+		}else{
+			layer.msg('请选择一条记录!',{time:layerCloseTime});
+		}
+	};
+	$('#yulu_save_btn').on('click',function(){
+		layer.msg('打印成功!',{time:layerCloseTime});
+	});
+	//格式化标题
+	function formatName(cellValue, options, rowObject) {
+		var len = cellValue.length;
+		if(len>50){
+			cellValue = cellValue.substring(0, 50) + "...";
+		}
+		return '<a href="javascript:;" onclick="lookInfo(\''+options.gid+'\',\''+options.rowId+'\')">'+cellValue+'</a>';
+	};
+	
+	fetchGridData();
+
+	//公共调用方法
+	function Merger(gridName, CellName) {
+        //得到显示到界面的id集合
+        var mya = $("#" + gridName + "").getDataIDs();
+        //当前显示多少条
+        var length = mya.length;
+        for (var i = 0; i < length; i++) {
+            //从上到下获取一条信息
+            var before = $("#" + gridName + "").jqGrid('getRowData', mya[i]);
+            //定义合并行数
+            var rowSpanTaxCount = 1;
+            for (j = i + 1; j <= length; j++) {
+                //和上边的信息对比 如果值一样就合并行数+1 然后设置rowspan 让当前单元格隐藏
+                var end = $("#" + gridName + "").jqGrid('getRowData', mya[j]);
+                if (before[CellName] == end[CellName]) {
+                    rowSpanTaxCount++;
+                    $("#" + gridName + "").setCell(mya[j], CellName, '', { display: 'none' });
+                } else {
+                    rowSpanTaxCount = 1;
+                    break;
+                }
+            	$("#" + CellName + "" + mya[i] + "").attr("rowspan", rowSpanTaxCount);
+            }
+        }
+    }
+	//editGridRow新增记录；viewGridRow查看记录详情；delGridRow删除记录。
+	
+	
+	
+	//弹框取消按钮
+	$('.qx').on('click',function(){
+		layer.close(index);
+	});
+
+	//获取json数据
+	function fetchGridData() {
+
+		var gridArrayData = [];
+		// show loading message
+		$("#tongzhi_jqGrid")[0].grid.beginReq();
+		$.ajax({
+			url: dataUrl,
+			success: function(result) {
+				for (var i = 0; i < result.items.length; i++) {
+					var item = result.items[i];
+					
+					gridArrayData.push({
+						number: item.number,
+						company: item.company,
+						Tarate: item.Tarate,
+						RefundRate: item.RefundRate,
+						name: item.name,
+						quantity: item.quantity,
+						unit: item.unit,
+						money: item.money,
+						anotherNumber: item.anotherNumber,
+						numbers: item.numbers,
+						tongzhi: item.tongzhi
+					});
+
+				}
+				// set the new data
+				$("#tongzhi_jqGrid").jqGrid('setGridParam', {
+					data: gridArrayData
+				});
+				// hide the show message
+				$("#tongzhi_jqGrid")[0].grid.endReq();
+				// refresh the grid
+				$("#tongzhi_jqGrid").trigger('reloadGrid');
+			}
+		});
+	}
+	//格式化标题
+	function formatTitle(cellValue, options, rowObject) {
+		return cellValue.substring(0, 50) + "...";
+	};
+	//格式化链接
+	function formatLink(cellValue, options, rowObject) {
+		return "<a href='" + cellValue + "'>" + cellValue.substring(0, 25) + "..." + "</a>";
+	};
+	//获取选择的行
+	function getSelectedRow() {
+	    var grid = $("#tongzhi_jqGrid");
+	    var rowKeys = grid.jqGrid('getGridParam',"selarrrow");
+
+	   return rowKeys;
+	}
+	
+	changeSearch(); //修改工具条
+	
+});
+function lookInfo(gid,rowId){
+	var data = $('#'+gid).getRowData(rowId);
+	data.name = $(data.name).text();
+	data.relName = $(data.relName).text();
+	setFormData(gid+'_formBox',data);
+	title = '开票通知查看信息';
+	commIndex = layer.open({
+		type: 1,
+		title : title,
+		area: ['98%', '98%'], //宽高
+		content: $('#tongzhi_formBox')
+	});
+}
+
+	
+</script>
+
+

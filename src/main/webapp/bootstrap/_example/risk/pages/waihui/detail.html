@@ -1,0 +1,215 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+	<head>
+		<meta charset="UTF-8">
+		<!--Bootstrap 不支持 IE 古老的兼容模式。为了让 IE 浏览器运行最新的渲染模式建议添加一下meta-->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<!--自适应设备宽度-->
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+		<title>外贸综合服务企业出口退税风险管控信息系统-出口合同详情</title>
+		<meta name="Keywords" content="外贸综合服务企业出口退税风险管控信息系统">
+		<meta name="description" content="外贸综合服务企业出口退税风险管控信息系统">
+		<link rel="stylesheet" href="../../static/plugins/bootstrap-3.3.7/css/bootstrap.min.css"/>
+		<script type="text/javascript" src="../../static/plugins/jquery-2.1.1/jquery-2.1.1.js"></script>
+		<script type="text/javascript" src="../../static/plugins/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" href="../../static/plugins/font-awesome-4.7.0/css/font-awesome.css"/><!-- icon字体图标 -->
+		<link rel="stylesheet" href="../../static/plugins/bootstrap-table-1.11.1/bootstrap-table.css"/><!-- 表格 -->
+		<script type="text/javascript" src="../../static/plugins/bootstrap-table-1.11.1/bootstrap-table.js"></script>
+		<script type="text/javascript" src="../../static/plugins/bootstrap-table-1.11.1/extensions/export/bootstrap-table-export.js"></script><!-- 表格导出 -->
+		<script type="text/javascript" src="../../static/plugins/tableExport.jquery.plugin/tableExport.js"></script>
+		<script type="text/javascript" src="../../static/plugins/bootstrap-table-1.11.1/locale/bootstrap-table-zh-CN.js"></script>
+		<script src="../../static/plugins/jquery.nicescroll-3.7.6/jquery.nicescroll.js"></script><!-- 美化滚动条 -->
+		<script type="text/javascript" src="../../static/plugins/My97DatePicker-4.8/WdatePicker.js"></script><!-- 日历 -->
+		<script type="text/javascript" src="../../static/js/common.js"></script><!-- 自定义公用js -->
+		<link rel="stylesheet" href="../../static/css/common.css"/><!-- 自定义公用css -->
+		<link rel="stylesheet" href="../../static/plugins/layer-v3.1.0/theme/default/layer.css"/><!-- 弹窗 -->
+		<script type="text/javascript" src="../../static/plugins/layer-v3.1.0/layer.js"></script>
+		<style>
+			#chukou_fileupload {margin: 20px 0 0 120px;}
+			#shouHuiLiShi {margin: 20px 0 20px 0px;line-height: 25px; padding-bottom:20px;}
+			#shouHuiLiShi th{border: 1px solid #ccc;background: #f5f5f5;padding: 5px 20px 5px 20px;}
+			/* #shouHuiLiShi td:hover{background: #E0DEDB;padding: 5px 20px 5px 20px;} */
+		</style>
+	</head>
+<body>
+<div id="waihui_shouhui_formBox" class="layerBodyBg">
+	<form class="form-horizontal zzxx layerForm" id="chukou_fileupload" method="POST" enctype="multipart/form-data">
+		
+		
+		<div class="form-group col-xs-12">
+			<div class="form-group col-xs-12">
+				<label class="col-xs-3 control-label text-right">
+					不能收汇:
+				</label>
+				<div class="col-sm-8">
+					<input name="nfshstate" id="bnshid"  type="checkbox"/>
+				</div>
+			</div>
+			<div class="row col-xs-12 ctform " id="shsdsc">
+					<label class="col-sm-3 control-label text-left" style="padding-left: 31px;">收汇水单上传:</label>
+					<div class="col-sm-8 text-left">
+						<span class="btn btn-default btn-sm">
+							<i class="glyphicon glyphicon-plus text-lef"></i>
+							<span>添加附件</span>
+							<input type="file" name="file" multiple>
+						</span>
+					</div>
+			</div>
+			<div class="form-group col-sm-12" id="ckshhxdbh">
+				<label class="col-xs-3 control-label text-right">
+					出口收汇核销单编号:
+				</label>
+				<div class="col-xs-8">
+					<input type="text" class="form-control" name="shhxbh" class="form-control input-sm"  placeholder="" />
+				</div>
+			</div>
+			<div class="form-group col-sm-12" id="hxrq">
+				<label class="col-xs-3 control-label text-right">
+					核销日期:
+				</label>
+				<div class="col-xs-8">
+					<input type="text" class="form-control" name="earningsTime" class="form-control input-sm"  placeholder="" onclick="WdatePicker();" />
+				</div>
+			</div>
+			<div class="form-group col-sm-12" style="display: none" id="bnshms">
+				<label class="col-xs-3 control-label text-right">
+					不能收汇描述:<!-- <input name="nfshstate" type="checkbox"/> -->
+				</label>
+				<div class="col-xs-8">
+					<textarea class="form-control" name="sm"></textarea>
+				</div>
+			</div>
+			<input name="bgd" type="hidden"/>
+		</div>
+	</form>
+	<p class="text-center col-xs-12">
+		<button type="button" class="saveBtn btn btn-ckts btn-sm qx" id="waihui_save_btn">
+			保存
+		</button>
+		<button type="button" class="saveBtn btn btn-ckts btn-sm cancel">
+			取消
+		</button>
+	</p>
+	
+	<div>
+		<table id="shouHuiLiShi" data-advanced-search="true" data-id-table="advancedTable" class="myTable table table-bordered table-condensed">
+			<tr>
+				<th>核销编号</th><th>核销日期</th><th>创建日期</th><th>水单</th><th>不能收汇原因</th><th>状态</th>
+			</tr>
+		</table>
+	</div>
+</div>
+<script type="text/javascript">
+var xz = function(url){
+	if (url == 'undefined') return;//add 2017年11月25日19:08:43 chenle
+	location.href='../../../attachment/download?attachmentId='+url;
+}
+var del = function(this_,sh){
+	if(confirm("确定要删除本次收汇记录吗？")){
+		$.ajax({
+			url:'../../../bgd/shouhuiCancel?sh='+sh,
+			success:function(ret){
+				if(ret.success){					
+					$(this_.parentNode).remove();
+				}else{
+					layer.msg(ret.msg);
+				}
+			},error:function(e){
+				alert("e:"+e);
+			}
+		});
+	}
+}
+$(function(){
+	$('input[name="bgd"]').val(parent.uuid);
+	$.ajax({
+		url:'../../../bgd/queryShouhuiList',
+		data:{bgd:parent.uuid},
+		success:function(ret){
+			if(ret.success){
+				var data = ret.data;
+				var tboty_ = $('#shouHuiLiShi').eq(0);
+				for(var i=0;i<data.length;i++){
+				    var $nfsh = "已收汇";
+                    if (data[i].nfsh) $nfsh = "不能收汇";
+					tboty_.append('<tr><td>'+(data[i].shhxbh||"")+'</td><td>'+(data[i].earningsTimeStr||"")+'</td><td>'+data[i].createTimeStr+'</td><td style="cursor: pointer;" onclick="xz(\''+data[i].fj+'\');">'+(data[i].name||"")+'</td>'+
+					//'<td style="cursor: pointer;" onclick="del(this,\''+data[i].sh+'\')">删除</td></tr>'
+					'<td>'+(data[i].sm||"")+'</td>' +'<td>'+ $nfsh +'</td>'+
+						'</tr>'
+					);
+				}	
+
+			}else{
+				layer.msg(ret.msg);
+			}
+		},error:function(e){
+			alert('errer:'+e);
+		}
+	});
+	
+	$('#waihui_save_btn').click(function(){
+	    var bnshms = $("#bnshms textarea:eq(0)").val();
+
+	    //判断是否选中不能收汇的复选框
+		if($('#bnshid').is(':checked')){
+            if(bnshms == null || bnshms == ''){
+                layer.msg("不能收汇描述不能为空");
+                return false;
+            }
+		}
+        var formData = new FormData($("#chukou_fileupload")[0]);
+        var p = this;
+        $.ajax({
+            url: '../../../bgd/shouhui' ,
+            type: 'POST',
+            data: formData,
+            async: false,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (returndata) {
+                if(returndata.success){
+                    parent.refreshTable();
+                    layer.msg("操作成功");
+                    setTimeout(function(){
+                        $(p).next().click();
+                    }, 500);
+                }else{
+                    layer.msg(returndata.msg);
+                }
+            },
+            error: function (returndata) {
+            	var index = layer.confirm();
+            	layer.confirm(returndata.responseText, {
+            	    btn: '取消', 
+            	    title: '系统错误，请联系管理员处理！',
+            	    area: ['50%','60%']
+            	}, function(index){
+            		layer.close(index);
+            	}); 
+            	
+            	console.log(returndata)
+            }
+        });
+
+	});
+	
+});
+ $("#bnshid").change(function() { 
+	 if($("#bnshid").is(':checked')) {
+		 $("#bnshms").show();
+		 $("#shsdsc").hide();
+		 $("#ckshhxdbh").hide();
+		 $("#hxrq").hide();
+	 }else{
+		 $("#shsdsc").show();
+		 $("#ckshhxdbh").show();
+		 $("#hxrq").show();
+		 $("#bnshms").hide();
+	 }
+});
+</script>
+
+</body>
+</html>

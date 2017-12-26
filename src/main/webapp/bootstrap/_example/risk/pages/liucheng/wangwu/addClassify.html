@@ -1,0 +1,215 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+		<meta charset="UTF-8">
+		<!--Bootstrap 不支持 IE 古老的兼容模式。为了让 IE 浏览器运行最新的渲染模式建议添加一下meta-->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<!--自适应设备宽度-->
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+		<title>外贸综合服务企业出口退税风险管控信息系统-李四任务管理商品具体归类</title>
+		<meta name="Keywords" content="外贸综合服务企业出口退税风险管控信息系统">
+		<meta name="description" content="外贸综合服务企业出口退税风险管控信息系统">
+		<link rel="stylesheet" href="../../../static/plugins/bootstrap-3.3.7/css/bootstrap.min.css"/>
+		<script type="text/javascript" src="../../../static/plugins/jquery-2.1.1/jquery-2.1.1.js"></script>
+		<script type="text/javascript" src="../../../static/plugins/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" href="../../../static/plugins/font-awesome-4.7.0/css/font-awesome.css"/><!-- icon字体图标 -->
+		<link rel="stylesheet" href="../../../static/plugins/bootstrap-table-1.11.1/bootstrap-table.css"/><!-- 表格 -->
+		<script type="text/javascript" src="../../../static/plugins/bootstrap-table-1.11.1/bootstrap-table.js"></script>
+		<script type="text/javascript" src="../../../static/plugins/bootstrap-table-1.11.1/extensions/export/bootstrap-table-export.js"></script><!-- 表格导出 -->
+		<script type="text/javascript" src="../../../static/plugins/tableExport.jquery.plugin/tableExport.js"></script>
+		<script type="text/javascript" src="../../../static/plugins/bootstrap-table-1.11.1/locale/bootstrap-table-zh-CN.js"></script>
+		<script src="../../../static/plugins/jquery.nicescroll-3.7.6/jquery.nicescroll.js"></script><!-- 美化滚动条 -->
+		<script type="text/javascript" src="../../../static/plugins/My97DatePicker-4.8/WdatePicker.js"></script><!-- 日历 -->
+		<script type="text/javascript" src="../../../static/js/common.js"></script><!-- 自定义公用js -->
+		<link rel="stylesheet" href="../../../static/css/common.css"/><!-- 自定义公用css -->
+		<link rel="stylesheet" href="../../../static/plugins/layer-v3.1.0/theme/default/layer.css"/><!-- 弹窗 -->
+		<script type="text/javascript" src="../../../static/plugins/layer-v3.1.0/layer.js"></script>
+		<script type="text/javascript" src="../../../static/js/liucheng/liucheng_guandan_addClassify.js"></script><!-- 本页专用 -->
+</head>
+<body>
+	<div class="layerBodyBg">
+		<div class="row">
+			<div class="col-xs-12">
+				<p>
+					<span>设置汇率(美元:人民币): </span><input name="fromCNYToUSD" type="text" width="150" value="600" />
+				</p>
+				<table id="xiangDanTable" class="myTable table-condensed"></table>
+				<!-- <table class="table table-striped">
+					<thead class="" style="background: #f4f4f4;">
+						<tr>
+							<th>商品编码</th>
+							<th width="160">商品名称、规格型号</th>
+							<th width="100">数量</th>
+							<th width="100">单位</th>
+							<th>最终目的国</th>
+							<th width="100">单价</th>
+							<th width="100">总价</th>
+							<th width="100">币制</th>
+							<th width="100">征免</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><input type="text" list="renwu_lisi_shangpinma"
+								class="form-control input-sm lisi_hgspm" /></td>
+							<td><input type="text" class="form-control input-sm" name="spmc" readonly="readonly" /></td>
+							<td><input type="text" class="form-control input-sm"
+								name="ggxh" placeholder="规格型号" /></td>
+							<td><input type="text" class="form-control input-sm" name="fddw" /></td>
+							<td><input type="text" class="form-control input-sm" name="dedw" readonly="readonly" /></td>
+							<td><input type="text" class="form-control input-sm" name="zzmdg" value="委内瑞拉"
+								readonly="readonly" /></td>
+							<td><input type="text" class="form-control input-sm" name="dj" /></td>
+							<td><input type="text" class="form-control input-sm" name="zm" /></td>
+							<td><select class="form-control input-sm" name="bz">
+									<option selected="selected">美元</option>
+									<option>英镑</option>
+							</select></td>
+							<td><input type="text" class="form-control input-sm" name="sl" /></td>
+						</tr>
+						<datalist id="renwu_lisi_shangpinma">
+							<option value="4016999090" >
+							<option value="8544492100" >
+							<option value="8528591090">
+						</datalist>
+					</tbody>
+				</table> -->
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12">
+				<table id="goodsTable" class="myTable table-condensed"></table>
+			</div>
+		</div>
+		<p class="text-center" style="margin-top: 15px;">
+			<button class="btn btn-ckts btn-sm" id="okClassify">确定</button>
+			<button class="btn btn-ckts btn-sm cancel">取消</button>
+		</p>
+		
+		<datalist id="renwu_lisi_shangpinma">
+			<option value="4016999090" >
+			<option value="8544492100" >
+			<option value="8528591090">
+		</datalist>
+	</div>
+	
+	<script> 
+		$(function(){
+			//var $table = $('#goodsTable');
+			/*
+			 * 显示行号 { formatter : function(value,row,index){ return index+1; } }
+			 */
+			/* var columns = [{
+				field : 'state',
+				checkbox : true
+			},  {
+				title : '物资名称',
+				field : 'name'
+			}, {
+				title : '数量',
+				field : 'number'
+			}, {
+				title : '规格型号',
+				field : 'guige'
+			}, {
+				title : '计量单位',
+				field : 'danwei'
+			}, {
+				title : '单价',
+				field : 'oneMoney'
+			}, {
+				title : '总价',
+				field : 'totalMoney'
+			}, {
+				title : '供货方',
+				field : 'company'
+			}],
+			
+			data = [
+				{
+					"name": "电视监控系统配件 防爆液晶显示器 ",
+					"number": 1,
+					"guige": "X-000 ",
+					"danwei": "套",
+					"oneMoney": 9662.39,
+					"totalMoney": 9662.39,
+					"company": "南京某自动化系统工程有限公司"
+				},
+				{
+					"name": "电视监控系统配件 控制器内变压器 ",
+					"number": 2,
+					"guige": "ZJYP-4-2 220VAC/15VAC*⑴",
+					"danwei": "套",
+					"oneMoney": 146.16,
+					"totalMoney": 292.32,
+					"company": "南京某自动化系统工程有限公司"
+				},
+				{
+					"name": "40钻机橡胶配件 ZJ40 钻井平台防滑板 ",
+					"number": 50,
+					"guige": "510*510*30 天然橡胶",
+					"danwei": "件",
+					"oneMoney": 1074.23,
+					"totalMoney": 53711.54,
+					"company": "宝鸡某石油机械厂"
+				},
+				{
+					"name": "铜芯塑料绝缘电力电缆 VVR ",
+					"number": 0.6,
+					"guige": "3*6+1*4mm2 1kV GB/T 127*⑴",
+					"danwei": "km",
+					"oneMoney": 13569.23,
+					"totalMoney": 8141.54,
+					"company": "扬州某点电缆股份有限公司"
+				},
+				{
+					"name": "铜芯塑料绝缘电力电缆 VVR ",
+					"number": 0.2,
+					"guige": "3*2.5+1*1.5 0.6/1kV GB/*⑴",
+					"danwei": "km",
+					"oneMoney": 7634.85,
+					"totalMoney": 1526.97,
+					"company": "扬州某点电缆股份有限公司"
+				}
+			]; */
+
+			/* $table.bootstrapTable('destroy').bootstrapTable({
+				classes : 'table table-hover table-no-bordered', // 添加样式名称
+				striped : true, // 隔行变色
+				pageNumber : 1,
+				pageSize : 5,
+				pageList : [ 10, 20, 50 ],
+				height : 230,
+				pagination : true,
+				columns : columns,
+				data : data
+			}); */
+			
+			//选择海关商品码
+			/* $(document).on('input','.lisi_hgspm',function() {
+				var value = $.trim($(this).val());
+				if (value == '4016999090') {
+					$(this).parent().siblings().find('input[name=spmc]')
+							.val('钻井台防滑板  防护垫|硫化橡胶|不是机器及仪器用|无品牌|无型号');
+					$(this).parent().siblings().find('input[name=dedw]')
+							.val('个');
+				} else if (value == '8544492100') {
+					$(this).parent().siblings().find('input[name=spmc]')
+							.val('电缆  传输电力|无接头|无品牌|无型号|400伏');
+					$(this).parent().siblings().find('input[name=dedw]')
+					.val('千米');
+				} else if (value == '8528591090') {
+					$(this).parent().siblings().find('input[name=spmc]')
+							.val('液晶显示器  监视器用|显示影像，LED显示|21.5寸|无品牌|无型号|19');
+					$(this).parent().siblings().find('input[name=dedw]')
+					.val('台');
+				} else {
+					$(this).parent().siblings().find('input').val('');
+				}
+			}); */
+		});
+	</script>
+
+</body>
+</html>

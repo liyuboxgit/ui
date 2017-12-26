@@ -1,0 +1,1117 @@
+<!--备案管理  -->
+<style type="text/css">
+	.left{
+		border-left: 1px solid #ccc;
+		border-right: 1px solid #ccc;
+		height: 700px;
+	}
+	.border{
+		height: 100px;
+		margin-left: 20px;
+		border-bottom: 1px solid #ccc;
+	}
+	#chosen{
+		/* background: none;
+		border:none;
+		outline: none; */
+	}
+	#chosen_gridBox,#chakan_gridBox{
+		 display: none; 
+	}
+	.ui-jqgrid  {
+		width: 1000px;
+	}
+	.qingdan,.qingdan2{
+		border: 1px solid #000;
+	}
+	.qingdan{
+		border-bottom: none;
+	}
+	.qingdan span,.qingdan2 span{
+		display: block;
+		margin-top: 5px;
+	}
+	.ctro span{
+		display: block;
+		vertical-align:middle !important; 
+		text-align: right;
+		margin-top: 30px;
+	}
+	.chakan {
+		color: #49dacb;
+		text-align: left;
+	}
+	#chakan_gridBox{
+		overflow: hidden;
+	}
+	.text-left{
+		text-align: left !important;
+	}
+	.zzxx_ht {padding-top:7px; }
+	#beian_ckhetong_info_box .form-group { margin-bottom:0;}
+</style>
+<div class="container-fluid">
+	
+	<!-- 查询 -->
+	<div class="panel panel-info">
+		<div class="panel-heading" style="padding:7px 15px;">
+			<a href="#collapseOne_beiand" data-toggle="collapse" class="center-block">查询<i class="pull-right glyphicon glyphicon-menu-down"></i></a>
+		</div>
+		<div id="collapseOne_beiand" class="panel-collapse collapse in">
+			<div class="panel-body" style="padding:15px 0">
+				<form class="form-horizontal">
+					<div class="form-group col-sm-3">
+						<label class="control-label col-sm-6 text-align:right">申报批次:</label>
+						<div class="col-sm-6">
+							<input type="text" class="form-control input-sm" />
+						</div>
+					</div>
+					<div class="col-sm-9">
+						<p class="text-right"><button class="btn btn-ckts btn-sm" type="button">查询</button></p>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	
+	<div class="col-sm-12 plr0 height100 gridBox" id="beian_gridBox">
+		<table id="beian_jqGrid"></table>
+		<div id="beian_jqGridPager"></div>
+	</div>
+	<div class="col-sm-12 plr0 height100 gridBox" id="chosen_gridBox">
+		<table id="chosen_jqGrid"></table>
+		<div id="chosen_jqGridPager"></div>
+		<div class="col-sm-12 text-center">
+			<button class="qx btn btn-ckts" type="button">确定</button>
+			<button class="qx btn btn-ckts" type="button">取消</button>
+		</div>
+	</div>
+	<div class="col-sm-12 plr0 height100 gridBox" id="chakan_gridBox">
+		<table id="chakan_jqGrid"></table>
+		<div class="col-sm-12 text-center">
+			<button class="qx btn btn-ckts" type="button">确定</button>
+			<button class="qx btn btn-ckts" type="button">取消</button>
+		</div>
+	</div>
+</div>
+
+<!-- 新增弹窗 -->
+<div id="beian_formBox" class="layerFormBox">
+	<form class="form-horizontal layerForm">
+		<div class="form-group col-xs-3 left">
+			<div class="col-xs-12">
+				<span class="col-sm-12">申报批次20170301</span>
+				<div class="col-sm-12">
+					<table class="table table-bordered"> 
+						<thead>
+							<tr>
+								<th></th>
+								<th>关联号</th>
+								<th>关单号</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td><input type="radio" name=""></td>
+								<td>FOB</td>
+								<td>对外出口</td>
+							</tr>
+							<tr>
+								<td><input type="radio" name=""></td>
+								<td>CFI</td>
+								<td>一般贸易</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="form-group col-xs-9 right">
+			<div class="col-sm-12 border">
+				<div class="form-group col-sm-6">
+					<label class="col-sm-6 control-label text-right">所属期:</label>
+					<div class="col-sm-6">
+						<input type="text" class="form-control input-sm" placeholder="所属期" id="beian_mydata" name="mydata">
+					</div>
+				</div>
+				<div class="form-group col-sm-6">
+					<label class="col-sm-6 control-label text-right">关联号:</label>
+					<div class="col-sm-6">
+						<input type="text" class="form-control input-sm" id="beian_relName" name="relName" placeholder="关联号" value="59b5e9a8dc254b4cd74a49f2">
+					</div>
+				</div>
+				<div class="form-group col-sm-6">
+					<label class="col-sm-6 control-label text-right">关单号:</label>
+					<div class="col-sm-6">
+						<input type="text" class="form-control input-sm" id="beian_guandan" name="guandan" placeholder="关单号">
+					</div>
+				</div>
+				<div class="form-group col-sm-6">
+					<label class="col-sm-6 control-label text-right">退税申报日期:</label>
+					<div class="col-sm-6">
+						<input type="text" class="form-control input-sm" id="beian_createTime" name="createTime" placeholder="退税申报日期" value="59b5e9a8dc254b4cd74a49f2">
+					</div>
+				</div>
+				<div class="form-group col-sm-3">
+					<div class="col-sm-10">
+						<button class="btn btn-ckts" id="chosen" type="button">选择采购合同</button>
+					</div>
+				</div>
+				<div class="qingdan col-sm-12">
+					<p class="col-sm-6">
+						<span>购货合同:购货合同1原件.pdf</span>
+						<span>出口装箱单:装箱单元件1.jpg</span>
+						<span>出口运输单:运单原件1.pdf</span>
+					</p>
+					<p class="ctro col-sm-6">
+						<span>删除</span>
+					</p>
+				</div>
+				<div class="qingdan2 col-sm-12">
+					<p class="col-sm-6">
+						<span>购货合同:购货合同2原件.pdf</span>
+						<span>出口装箱单:装箱单元件2.jpg</span>
+						<span>出口运输单:运单原件2.pdf</span>
+					</p>
+					<p class="ctro col-sm-6">
+						<span>删除</span>
+					</p>
+				</div>
+				<div class="form-group col-sm-12">
+					<span class="col-sm-3">出口发票号：21213131</span>
+				</div>
+				<div class="form-group col-sm-12">
+					<span class="col-sm-3">出口货物明细：</span>
+					<span class="col-sm-1 chakan" id="chakan">查看</span>
+				</div>
+				<div class="form-group col-sm-12">
+					<label class="col-xs-2 control-label text-left">
+						其他单证:
+					</label>
+					<div class="col-xs-3 text-left">
+						<input type="text" class="form-control input-sm"  placeholder="其他单证">
+					</div>
+				</div>
+				<div class="form-group col-sm-6">
+					<label class="col-xs-4 control-label text-left">
+						自制出口发票:
+					</label>
+					<div class="col-xs-6 text-left">
+						<input type="text" class="form-control input-sm"  placeholder="自制出口发票">
+					</div>
+				</div>
+				<div class="form-group col-sm-6">
+					<label class="col-xs-4 control-label text-left">
+						企业办税员:
+					</label>
+					<div class="col-xs-6 text-left">
+						<input type="text" class="form-control input-sm"  placeholder="企业办税员">
+					</div>
+				</div>
+				<div class="form-group col-sm-6">
+					<label class="col-xs-4 control-label text-left">
+						备案日期:
+					</label>
+					<div class="col-xs-6 text-left">
+						<input type="text" id="beian_anotherTime" name="anotherTime" class="form-control input-sm"  placeholder="备案日期">
+					</div>
+				</div>
+				<div class="form-group col-sm-6">
+					<label class="col-xs-4 control-label text-left">
+						备案单证出处:
+					</label>
+					<div class="col-xs-6 text-left">
+						<input type="text" id="beian_provenance" name="provenance" class="form-control input-sm"  placeholder="备案单证出处">
+					</div>
+				</div>
+				<div class="form-group col-sm-6">
+					<label class="col-xs-4 control-label text-left">
+						页数:
+					</label>
+					<div class="col-xs-6 text-left">
+						<input type="text" class="form-control input-sm"  placeholder="页数">
+					</div>
+				</div>
+				<div class="form-group col-sm-6">
+					<label class="col-xs-4 control-label text-left">
+						标志:
+					</label>
+					<div class="col-xs-6 text-left">
+						<input type="text" id="beian_sign" name="sign" class="form-control input-sm"  placeholder="标志">
+					</div>
+				</div>
+				<div class="form-group col-sm-6">
+					<label class="col-xs-4 control-label text-left">
+						备注:
+					</label>
+					<div class="col-xs-8 text-left">
+						<textarea type="text" class="form-control input-sm"  placeholder="备注"></textarea>
+					</div>
+				</div>
+			</div>
+		</div>
+		<p class="text-center col-xs-12">
+			<button type="button" class="saveBtn btn btn-ckts btn-sm" id="beian_save_btn">
+				保存
+			</button>
+			<button type="reset" class="saveBtn btn btn-ckts btn-sm">
+				重置
+			</button>
+			<button type="button" class="saveBtn btn btn-ckts btn-sm qx" id="beian_cacle_btn">
+				取消
+			</button>
+		</p>
+	</form>
+</div>
+<!-- 采购合同弹窗 -->
+<div class="caigou">
+	
+</div>
+
+<script type="text/javascript">
+
+$(function(){
+	
+	
+	//-------------------------------//
+	var layerIndex = null; //弹窗id,关闭所用
+	var flag = ''; //添加修改标记
+	var dataUrl = 'data/zhengshi_beian.json';//数据源链接
+	var gridId = 'beian_jqGrid'; //表格id
+	var gridPager = 'beian_jqGridPager'; //表格分页id
+	var formBoxId = 'beian_jqGrid_formBox'; //添加修改窗口元素id
+	var layerCloseClassName = 'qx';
+	var dataSaveBtn = 'beian_save_btn'; //弹窗保存id
+	var gridBoxId = 'beian_gridBox';//表格尺寸
+	var layerCloseTime = 1200; //1200毫秒提示消息关闭延迟时间
+	var gridWidth = $('#'+gridBoxId).width();
+	var gridHeight = $('#'+gridBoxId).height()-118;
+	
+	var colModel = [
+		{label : '申报年月', name : 'outTime', align: 'center', width: 120},
+		{label : '申报批次', name : 'pici', align: 'center', width:80},
+		{label : '关联检查', name : 'check', align: 'center', width:80,hidden:true},
+		{label : '换汇成本', name : 'chengben', align: 'left', width:80,hidden:true},
+		{label : '误差比例', name : 'wucha', align: 'left', width:80,hidden:true},
+		{label : '备案状态', name : 'active', align: 'center', width: 80},
+		/* {label : '审核状态', name : 'shactive', align: 'center', width: 80},
+		{label : '审核结果信息', name : 'activeCheck', align: 'center', width: 150}, */
+		{label : '退税金额', name : 'money', align: 'center', width: 80},
+		{label : '提交人', name : 'ctrol', align: 'center', width: 80},
+		{label : '提交时间', name : 'ctrolTime', align: 'center', width: 80}
+	];
+	
+	$('#'+gridId).jqGrid({
+		width: gridWidth,
+		height: gridHeight,
+		url: dataUrl,
+		datatype: "json",
+		loadonce: true, //加载到本地操作
+		rownumbers: true, //显示顺序编号
+		multiselect: true, //定义多选
+		viewrecords: true, //显示总记录数
+		sortname: 'name', //排序字段
+		sortorder: 'asc', //排序顺序，升序或者降序（asc or desc）
+		altRows : true, //设置表格隔行变色
+		rowNum: 12, //每页显示的记录数
+		rowList:[10,12,15,18,20,25], //
+		rownumWidth: 30, 
+		recordtext: "当前显示: <b>{0}</b>至<b>{1}</b> 总数: <b>{2}</b>",
+		//emptyrecords: "No records to view",
+		//loadtext: "Loading...",
+		pager: '#'+gridPager,
+		colModel: colModel
+		//jsonReader : jsonReader
+		
+	}).navGrid('#'+gridPager,{ // the buttons to appear on the toolbar of the grid
+		edit:false,add:false,del:false,search:false,refresh:false
+	}).navButtonAdd('#'+gridPager,{
+		caption: '',
+		title : '生成备案',
+		buttonicon : 'fa fa-file-o',
+		onClickButton : function(){shengchengbeian();}, //调用添加的函数
+		position : 'last'
+		
+	});
+	
+	
+		/* colModel: [{label : '批次', name : 'pici', align: 'center', width: 120},
+			{label : '关联号', name : 'relName', align: 'center', width:120},
+			{label : '所属期', name : 'mydata', align: 'center', width:120},
+			{label : '出口发票号', name : 'guandan', align: 'center', width:120},
+			{label : '退税申报日期', name : 'createTime', align: 'center', width:120},
+			{label : '备案日期', name : 'anotherTime', align: 'center', width:120},
+			{label : '标志', name : 'sign', align: 'center', width:120},
+			{label : '页数', name : 'yeshu', align: 'center', width:80},
+			{label : '备注', name : 'beizhu', align: 'center', width:80},
+			
+			], */
+		
+	
+			//选择
+
+	//左下角新增按钮
+	function beian_addLayer(){
+			flag = 'add';
+			$('.form-control').val('');
+			index = layer.open({
+				type: 1,
+				title : '生成备案',
+				area: ['98%', '98%'], //宽高
+				content: $('#beian_formBox')
+		});
+	}
+	//弹框保存按钮
+	$(document).on('click','#beian_save_btn',function(){
+		//var total = jQuery("#beian_jqGrid").jqGrid('getGridParam', 'records'); 
+		////console.log(total);
+		//addRowData
+		//rowid,data, position, srcrowid
+		//console.log(flag);
+		if(flag == 'add'){
+			$('#beian_name').val("20170301");
+			var data = {
+					"name": $.trim($('#beian_name').val()),
+				    "relName": $.trim($('#beian_relName').val()),
+				    "mydata": $.trim($('#beian_mydata').val()),
+				    "guandan": $.trim($('#beian_guandan').val()),
+				    "createTime": $.trim($('#beian_createTime').val()),
+				    "anotherTime": $.trim($('#beian_anotherTime').val()),
+				    "provenance": $.trim($('#beian_provenance').val()),
+				    "sign": $.trim($('#beian_sign').val())
+			};
+			var currentNumber = rowNumber++;
+			var result = jQuery("#beian_jqGrid").addRowData(currentNumber,data,'first');
+			
+			if(result){
+				layer.msg('添加成功');
+				layer.close(index);
+				
+				jQuery("#beian_jqGrid").setSelection(currentNumber,true);
+				
+			}else{
+				layer.msg('添加失败!');
+			}
+		}else if(flag == 'update'){
+			
+			//删除
+			var rowIds = getSelectedRow();
+			jQuery("#beian_jqGrid").delRowData(rowIds[0]);
+			//添加
+			$('#beian_name').val("20170301");
+			var data = {
+					"name": $.trim($('#beian_name').val()),
+				    "relName": $.trim($('#beian_relName').val()),
+				    "mydata": $.trim($('#beian_mydata').val()),
+				    "guandan": $.trim($('#beian_guandan').val()),
+				    "createTime": $.trim($('#beian_createTime').val()),
+				    "anotherTime": $.trim($('#beian_anotherTime').val()),
+				    "provenance": $.trim($('#beian_provenance').val()),
+				    "sign": $.trim($('#beian_sign').val())
+			};
+			var currentNumber = rowNumber++;
+			var result = jQuery("#beian_jqGrid").addRowData(currentNumber,data,'first');
+			
+			if(result){
+				layer.msg('更新成功');
+				layer.close(index);
+				jQuery("#beian_jqGrid").setSelection(currentNumber,true);
+			}else{
+				layer.msg('更新失败!');
+			}
+		}
+		
+	});
+	// 导出函数
+	function beian_importLayer(){
+		var rowd = getSelectedRow();
+		var len = rowd.length;
+		if(rowd && $.isArray(rowd) && rowd.length>0){
+			//删除
+			var deletindex = layer.confirm('确定要导出吗？', {
+			  btn: ['确定','取消'] //按钮
+			}, function(){
+				/*for(var i=0; i<len; i++){
+					jQuery("#beian_jqGrid").delRowData(rowd[0]);  
+				}*/
+			    layer.msg('导出成功', {icon: 1});
+			}, function(){
+			  	layer.close(deletindex);
+			});
+			
+		}else{
+			layer.msg('请选择记录!');
+		}
+	}
+	
+	
+	changeSearch(); //修改工具条
+	
+	function shengchengbeian(){
+		/* layerIndex = layer.open({
+			type: 1,
+			title : '生成备案',
+			area: ['90%', '90%'], //宽高
+			content: $('#beian_sc_box')
+		});
+		 */
+		layer.confirm('是否生成备案?',['确定','取消'],function(){
+			layer.msg('生成备案成功!',{time:1500});
+		},function(index){
+			layer.close(index);
+		});
+	}
+	
+	$(document).on('click','.beian_pici_info',function(){
+		layerIndex = layer.open({
+			type: 1,
+			title : '备案详情',
+			area: ['90%', '90%'], //宽高
+			content: $('#beian_pici_box')
+		})
+		
+	});
+	
+	$('.qx').click(function(){
+		
+	});
+	//出口合同
+	$('.beian_ckhetong_info').click(function(){
+		
+		
+		
+		layer.open({
+			type: 1,
+			title : '出口合同详情',
+			area: ['90%', '90%'], //宽高
+			content: $('#beian_ckhetong_info_box')
+		});
+		
+		/* $('#beian_ckhetong_info_box :input').attr("disabled","disabled").css({
+			"border": "none",
+			"background": "#fff"
+		}); */
+		
+	});
+	
+	$('.beian_ckhwmx_info').click(function(){
+		layer.open({
+			type: 1,
+			title : '出口货物详情',
+			area: ['90%', '90%'], //宽高
+			content: $('#beian_ckhwmx_info_box')
+		});
+		
+		var caigouWidth =  $('#beian_ckhwmx_info_box').width()-2;
+		var caigouHeight =  $('#beian_ckhwmx_info_box').height()-148;
+		console.log(caigouHeight);
+		$("#ckhwmx_jqGrid").jqGrid({
+			url: 'data/wuzi.json',
+			// we set the changes to be made at client side using predefined word clientArray
+			editurl: 'clientArray',
+			datatype: "json",
+			sortname: 'name',
+			sortorder: 'asc',
+			loadonce: true,
+			viewrecords: true,
+			multiselect: true,
+			rownumbers: true,
+			altRows : true,
+			width: caigouWidth,
+			height: 300,
+			rowNum: 8,
+			colModel: [
+				{label : '物资名称', name : 'name', align: 'left', width: 100,
+				
+				},
+				{label : '数量', name : 'number', align: 'center', width:30,search: false
+					
+				},
+				{label : '规格型号 ', name : 'guige', align: 'left', width:60,search: false},
+				{label : '计量单位', name : 'danwei', align: 'center', width:30,search: false},
+				{label : '单价', name : 'oneMoney', align: 'center', width:30,search: false},
+				{label : '总价', name : 'totalMoney', align: 'center',width:50,search: false},
+				{label : '供货方', name : 'company', align: 'left',width:100},
+				],
+			
+			pager: "#ckhwmx_jqGridPager"
+		
+		});
+	});
+	
+});
+
+</script>
+
+
+<!-- 出口自货物明细 -->
+<div id="beian_ckhwmx_info_box" class="layerFormBox">
+	<table id="ckhwmx_jqGrid"></table>
+	<div id="ckhwmx_jqGridPager"></div>
+</div>
+
+<!-- 出口合同详情 -->
+<div id="beian_ckhetong_info_box" class="layerFormBox">
+
+	<div class="form-horizontal layerForm zzxx">
+		<div class="row">
+			<div class="form-group col-xs-4">
+				<label for="inputEmail3" class="col-xs-4 control-label">
+					合同名称:
+				</label>
+				<div class="col-xs-8">
+					<p class="zzxx_ht">电子配件出口合同</p>
+					<!-- <input type="text" id="chukou_relName" name="relName" class="form-control input-sm" value="电子配件出口合同"> -->
+				</div>
+			</div>
+			<div class="form-group col-xs-4">
+				<label class="col-xs-4 control-label">
+					合同编号:
+				</label>
+				<div class="col-xs-8">
+					<p class="zzxx_ht">HT181898891984</p>
+					<!-- <input type="text" id="chukou_numBer" name="numBer" class="form-control input-sm" value="HT181898891984"> -->
+				</div>
+			</div>
+			<div class="form-group col-xs-4">
+				<label class="col-xs-4 control-label">
+					业务类型:
+				</label>
+				<div class="col-xs-8">
+					<!-- <select id="chukou_bus" name="bus" class="form-control input-sm">
+						<option value="外综服务" selected="true">外综服务</option>
+						<option value="一般贸易">一般贸易</option>
+						<option value="承包商">承包商</option>
+					</select> -->
+					<p class="zzxx_ht">外综服务</p>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group col-xs-4">
+				<label class="col-xs-4 control-label">
+					签约日期:
+				</label>
+				<div class="col-xs-8">
+					<p class="zzxx_ht">2015-01-02</p>
+					<!-- <input type="text" id="chukou_creatTime" onclick="WdatePicker();" name="createTime" class="form-control input-sm" value="2015-01-02"> -->
+				</div>
+			</div>
+			<div class="form-group col-xs-4">
+				<label class="col-xs-4 control-label">
+					生效日期:
+				</label>
+				<div class="col-xs-8">
+					<p class="zzxx_ht">2017-01-02</p>
+					<!-- <input type="text" onclick="WdatePicker();" class="form-control input-sm" value="2017-01-02"> -->
+				</div>
+			</div>
+			<div class="form-group col-xs-4">
+				<label class="col-xs-4 control-label">
+					币制:
+				</label>
+				<div class="col-xs-8">
+					<!-- <select id="" class="form-control input-sm">
+						<option value="" selected="true">人民币</option>
+						<option value="">美元</option>
+						<option value="">欧元</option>
+					</select> -->
+					<p class="zzxx_ht">人民币</p>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group col-xs-4">
+				<label class="col-xs-4 control-label">
+					合同金额:
+				</label>
+				<div class="col-xs-8">
+					<p class="zzxx_ht">1000$</p>
+					<!-- <input type="text" id="chukou_hetongmoney" name="hetongmoney" class="form-control input-sm" value="1000$"> -->
+				</div>
+			</div>
+			<div class="form-group col-xs-4">
+				<label class="col-xs-4 control-label">
+					结汇方式:
+				</label>
+				<div class="col-xs-8">
+					<!-- <select id="" class="form-control input-sm">
+						<option value="" selected="true">汇付</option>
+						<option value="">托收</option>
+						<option value="">信用证</option>
+					</select> -->
+					<p class="zzxx_ht">汇付</p>
+				</div>
+			</div>
+			<div class="form-group col-xs-4">
+				<label class="col-xs-4 control-label">
+					成交方式:
+				</label>
+				<div class="col-xs-8">
+					<!-- <select id="" class="form-control input-sm">
+						<option value="" selected="true">FOB</option>
+						<option value="">CIF</option>
+						<option value="">CFR</option>
+					</select> -->
+					<p class="zzxx_ht">FOB</p>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group col-xs-4">
+				<label class="col-xs-4 control-label">
+					运输方式:
+				</label>
+				<div class="col-xs-8">
+					<!-- <select id="" class="form-control input-sm">
+						<option value="" selected="true">海洋运输</option>
+						<option value="">空中运输</option>
+						<option value="">陆地运输</option>
+					</select> -->
+					<p class="zzxx_ht">航空运输</p>
+				</div>
+			</div>
+			<div class="form-group col-xs-4">
+				<label class="col-xs-4 control-label">
+					出口国别:
+				</label>
+				<div class="col-xs-8">
+					<!-- <select id="chukou_county" name="county" class="form-control input-sm">
+						<option value="泰国" selected="true">泰国</option>
+						<option value="美国">美国</option>
+						<option value="英国">英国</option>
+						<option value="德国">德国</option>
+						<option value="日本">日本</option>
+					</select> -->
+					<p class="zzxx_ht">泰国</p>
+				</div>
+			</div>
+			<div class="form-group col-xs-4">
+				<label class="col-xs-4 control-label">
+					出口口岸:
+				</label>
+				<div class="col-xs-8">
+					<p class="zzxx_ht">网走</p>
+					<!-- <input type="text" class="form-control input-sm" value="网走"> -->
+				</div>
+			</div>
+			<div class="form-group col-xs-4">
+				<label class="col-xs-4 control-label">
+					运抵国:
+				</label>
+				<div class="col-xs-8">
+					<p class="zzxx_ht">泰国</p>
+					<!-- <select id="" class="form-control input-sm">
+						<option value="" selected="true">泰国</option>
+						<option value="">美国</option>
+						<option value="">英国</option>
+						<option value="">德国</option>
+						<option value="">日本</option>
+					</select> -->
+				</div>
+			</div>
+			<div class="form-group col-xs-4">
+				<label class="col-xs-4 control-label">
+					指运港:
+				</label>
+				<div class="col-xs-8">
+					<p class="zzxx_ht">泰国港</p>
+					<!-- <select id="" class="form-control input-sm">
+						<option value="" selected="true">泰国港</option>
+						<option value="">美国港</option>
+						<option value="">英国港</option>
+						<option value="">德国港</option>
+						<option value="">日本港</option>
+					</select> -->
+				</div>
+			</div>
+			<div class="form-group col-xs-4">
+				<label class="col-xs-4 control-label">
+					批准文号:
+				</label>
+				<div class="col-xs-8">
+					<!-- <input type="text" class="form-control input-sm"> -->
+				</div>
+			</div>
+			<div class="form-group col-xs-4">
+				<label class="col-xs-4 control-label">
+					经营单位:
+				</label>
+				<div class="col-xs-8">
+					<!-- <input type="text" class="form-control input-sm"> -->
+				</div>
+			</div>
+			<div class="form-group col-xs-4">
+				<label class="col-xs-4 control-label">
+					许可证:
+				</label>
+				<div class="col-xs-8">
+					<!-- <input type="text" class="form-control input-sm"> -->
+				</div>
+			</div>
+			<div class="form-group col-xs-4">
+				<label class="col-xs-4 control-label">
+					装运期:
+				</label>
+				<div class="col-xs-8">
+					<!-- <input type="text" onclick="WdatePicker();" class="form-control input-sm"> -->
+				</div>
+			</div>
+			<div class="form-group col-xs-4">
+				<label class="col-xs-4 control-label">
+					发货单位代码:
+				</label>
+				<div class="col-xs-8">
+					<!-- <input type="text" class="form-control input-sm"> -->
+				</div>
+			</div>
+			<div class="form-group col-xs-4">
+				<label class="col-xs-4 control-label">
+					发货单位:
+				</label>
+				<div class="col-xs-8">
+					<!-- <input type="text" class="form-control input-sm"> -->
+				</div>
+			</div>
+			<div class="form-group col-xs-4">
+				<label class="col-xs-4 control-label">
+					件数:
+				</label>
+				<div class="col-xs-8">
+					<!-- <input type="text" class="form-control input-sm"> -->
+				</div>
+			</div>
+			<div class="form-group col-xs-4">
+				<label class="col-xs-4 control-label">
+					工期起始时间:
+				</label>
+				<div class="col-xs-8">
+					<!-- <input type="text" class="form-control input-sm"> -->
+				</div>
+			</div>
+			<div class="form-group col-xs-4">
+				<label class="col-xs-4 control-label">
+					工期结束时间:
+				</label>
+				<div class="col-xs-8">
+					<!-- <input type="text" class="form-control input-sm"> -->
+				</div>
+			</div>
+			<div class="form-group col-xs-4">
+				<label class="col-xs-4 control-label">
+					工期（天）:
+				</label>
+				<div class="col-xs-8">
+					<!-- <input type="text" class="form-control input-sm"> -->
+				</div>
+			</div>
+			<div class="form-group col-xs-4">
+				<label class="col-xs-4 control-label">
+					不退税标志:
+				</label>
+				<div class="col-xs-8">
+					<!-- <input type="radio" class="input-sm"> -->
+				</div>
+			</div>
+		</div>
+		<form action="" class="col-xs-12 zzxx" style="margin-bottom: 50px;">
+			<div class="row col-xs-6 ctrol_form" style="border: 1px solid #000;border-right: none;margin-left: 20px;">
+				<div class="form-group col-xs-12">
+					<label class="col-xs-4 control-label">
+						买方名称:
+					</label>
+					<div class="col-xs-8">
+						<p class="zzxx_ht">美国Kri公司</p>
+						<!-- <input type="text" id="chukou_company" name="company" class="form-control input-sm" value="美国Kri公司"> -->
+					</div>
+				</div>
+				<div class="form-group col-xs-12">
+					<label class="col-xs-4 control-label">
+						买方签约人:
+					</label>
+					<div class="col-xs-8">
+						<!-- <input type="text" class="form-control input-sm"> -->
+					</div>
+				</div>
+				<div class="form-group col-xs-12">
+					<label class="col-xs-4 control-label">
+						买方联系电话:
+					</label>
+					<div class="col-xs-8">
+						<!-- <input type="text" class="form-control input-sm"> -->
+					</div>
+				</div>
+				<div class="form-group col-xs-12">
+					<label class="col-xs-4 control-label">
+						买方地址:
+					</label>
+					<div class="col-xs-8">
+						<!-- <textarea type="text" class="form-control input-sm"></textarea> -->
+					</div>
+				</div>
+			</div>
+			<div class="row col-xs-6 ctrol_form" style="border: 1px solid #000;">
+				<div class="form-group col-xs-12">
+					<label class="col-xs-4 control-label">
+						卖方名称:
+					</label>
+					<div class="col-xs-8">
+						<p class="zzxx_ht">中国进出口贸易公司</p>
+						<!-- <input type="text" id="chukou_anothorCompany" name="anothorCompany" class="form-control input-sm" value="中国进出口贸易公司"> -->
+					</div>
+				</div>
+				<div class="form-group col-xs-12">
+					<label class="col-xs-4 control-label">
+						卖方签约人:
+					</label>
+					<div class="col-xs-8">
+						<!-- <input type="text" class="form-control input-sm"> -->
+					</div>
+				</div>
+				<div class="form-group col-xs-12">
+					<label class="col-xs-4 control-label">
+						卖方联系电话:
+					</label>
+					<div class="col-xs-8">
+						<!-- <input type="text" class="form-control input-sm"> -->
+					</div>
+				</div>
+				<div class="form-group col-xs-12">
+					<label class="col-xs-4 control-label">
+						卖方地址:
+					</label>
+					<div class="col-xs-8">
+						<!-- <textarea type="text" class="form-control input-sm"></textarea> -->
+					</div>
+				</div>
+			</div>
+		</form>
+		<!-- <div class="row col-xs-12 ctform">
+			<label class="col-xs-2 control-label text-right">
+				备注:
+			</label>
+			<div class="col-xs-10">
+				<textarea type="text" class="form-control input-sm"></textarea>
+			</div>
+		</div> -->
+		<form class="form-horizontal zzxx" id="chukou_fileupload" method="POST" enctype="multipart/form-data">
+			<div class="row col-xs-12 ctform">
+				<!-- <label class="col-xs-3 control-label">
+					合同源文件:
+				</label>
+				<div class="col-xs-3">
+					<input type="file" class="input-sm"  placeholder="选择文件">
+				</div> -->
+				<label class="col-sm-2 control-label text-right">合同源文件:</label>
+				<div class="col-sm-8">
+					<p class="zzxx_ht"><span><a href="#">合同源文件.zip</a></span></p>
+				</div>
+			</div>
+			<div class="row col-xs-12 ctform">
+				<!-- <label class="col-xs-3 control-label">
+					合同源文件:
+				</label>
+				<div class="col-xs-3">
+					<input type="file" class="input-sm"  placeholder="选择文件">
+				</div> -->
+				<label class="col-sm-2 control-label text-right">投标文件:</label>
+				<div class="col-sm-8">
+					<p class="zzxx_ht"><span><a href="#">投标文件.zip</a></span></p>
+				</div>
+			</div>
+			<div class="row col-xs-12 ctform">
+				<!-- <label class="col-xs-3 control-label">
+					合同源文件:
+				</label>
+				<div class="col-xs-3">
+					<input type="file" class="input-sm"  placeholder="选择文件">
+				</div> -->
+				<label class="col-sm-2 control-label text-right"><span></span>中标文件:</label>
+				<div class="col-sm-8">
+					<p class="zzxx_ht"><span><a href="#">中标文件.zip</a></span></p>
+				</div>
+			</div>
+			<div class="row col-xs-12 ctform">
+				<!-- <label class="col-xs-3 control-label">
+					合同源文件:
+				</label>
+				<div class="col-xs-3">
+					<input type="file" class="input-sm"  placeholder="选择文件">
+				</div> -->
+				<label class="col-sm-2 control-label text-right"><span></span>其他:</label>
+				<div class="col-sm-8">
+					<p class="zzxx_ht"><span><a href="#">其他.zip</a></span></p>
+				</div>
+			</div>
+			<div class="col-xs-6">
+
+			</div>
+			<!-- 用于显示上传文件的浏览 样式files是必须的-->
+			<ul style="text-align:center;margin:10px auto;padding:0;" class="thumbnails list-unstyled clearfix files"></ul>
+		</form>
+		<!-- <p class="text-center col-xs-12" id="ctrl">
+			<button type="button" class="saveBtn btn btn-ckts btn-sm" id="shenhe_save_btn">
+				审核
+			</button>
+			<button type="button" class="saveBtn btn btn-ckts btn-sm qx" id="chukou_cacle_btn">
+				取消
+			</button>
+		</p> -->
+	</div>
+</div>
+
+<!-- 备案详情 -->
+<div id="beian_pici_box" class="layerFormBox">
+	<p style="border-bottom:1px dotted #666; ">备案信息</p>
+	<div class="form-horizontal layerForm clearfix">
+		<div class="form-group col-xs-4">
+			<label for="inputEmail3" class="col-xs-4 control-label">
+				所属期:
+			</label>
+			<div class="col-xs-8">
+				<p  class="form-control input-sm" style="border:none; box-shadow:none" >201709</p>
+			</div>
+		</div>
+
+		<div class="form-group col-xs-4">
+			<label class="col-xs-4 control-label">
+				批次:
+			</label>
+			<div class="col-xs-8">
+				<p  class="form-control input-sm"  style="border:none; box-shadow:none"  >05</p>
+			</div>
+		</div>
+		<div class="form-group col-xs-4">
+			<label class="col-xs-4 control-label">
+				备案日期:
+			</label>
+			<div class="col-xs-8">
+				<p  class="form-control input-sm" style="border:none; box-shadow:none"  >2017-09-27</p>
+			</div>
+		</div>
+		
+		
+	</div>
+	
+	<div class="row" style="margin-left:0px; padding:0">
+		<p style="border-bottom:1px dotted #666; ">备案数据</p>
+		<table class="renwu_tzd table table-bordered  table-condensed">
+					<thead class="bg-info">
+						<tr>
+							<th>序号</th>
+							<th>关联号</th>
+							<th>出口发票号</th>
+							<th>退税申报日期</th>
+							<th>备案日期</th>
+							<th>企业办税员</th>
+							<th>页数</th>
+							<th>标志</th>
+							<th>备注</th>
+						</tr>
+					</thead>
+					<tbody> 
+						<tr>
+							<td>01</td>
+							<td>2017080001</td>
+							<td>10254251687</td>
+							<td>2017-09-27</td>
+							<td>2017-09-27</td>
+							<td>郑九</td>
+							<td>20</td>
+							<td>R</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>02</td>
+							<td>2017080001</td>
+							<td>10254251687</td>
+							<td>2017-09-27</td>
+							<td>2017-09-27</td>
+							<td>郑九</td>
+							<td>20</td>
+							<td>R</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>03</td>
+							<td>2017080001</td>
+							<td>10254251687</td>
+							<td>2017-09-27</td>
+							<td>2017-09-27</td>
+							<td>郑九</td>
+							<td>20</td>
+							<td>R</td>
+							<td></td>
+						</tr>
+					</tbody>
+					
+				</table>
+	</div>
+	
+	<!-- 操作历史 -->
+		<p style="border-bottom:1px dotted #666; margin-top:30px;">备案单证</p>
+		<!-- <div class="panel panel-info" style="margin-top: 15px;">
+			<div class="panel-body"
+				<div class="row">
+					<div class="col-xs-3">出口合同: <a href="javascript:;" class="beian_hetong_info">HT1818991184284</a></div>
+					<div class="col-xs-1"><a class="btn btn-ckts btn-xs">关联</a></div>
+					<div class="col-xs-3">备案单证出处: <input type="text" /></div>
+				</div>
+			</div>
+		</div> -->
+		<table class="renwu_tzd table table-bordered  table-condensed">
+			<tbody> 
+				<tr>
+					<td width="100">出口合同</td>
+					<td><a href="javascript:;" class="beian_ckhetong_info">HT1818991184284</a></td>
+					<td  width="40"><a class="btn btn-ckts btn-xs">关联</a></td>
+					<td>备案单证出处: <input type="text" style="width:350px;" value="档案室3-01"/></td>
+				</tr>
+				<tr>
+					<td >采购合同</td>
+					<td><a href="javascript:;" class="beian_hetong_info">HT4718992534206</a></td>
+					<td  width="40"><a class="btn btn-ckts btn-xs">关联</a></td>
+					<td>备案单证出处: <input type="text" style="width:350px;" value="档案室5-07"/></td>
+				</tr>
+				<tr>
+					<td >出口货物明细</td>
+					<td><a href="javascript:;" class="beian_ckhwmx_info">查看</a></td>
+					<td  width="40"><a class="btn btn-ckts btn-xs">关联</a></td>
+					<td>备案单证出处: <input type="text" style="width:350px;" /></td>
+				</tr>
+				<tr>
+					<td >出口装箱单</td>
+					<td><a href="javascript:;" class="beian_hetong_info">查看</a></td>
+					<td  width="40"><a class="btn btn-ckts btn-xs">关联</a></td>
+					<td>备案单证出处: <input type="text" style="width:350px;" /></td>
+				</tr>
+				<tr>
+					<td >运输单</td>
+					<td><a href="javascript:;" class="beian_hetong_info">28135902</a></td>
+					<td  width="40"><a class="btn btn-ckts btn-xs">关联</a></td>
+					<td>备案单证出处: <input type="text" style="width:350px;" /></td>
+				</tr>
+				<tr>
+					<td >出口发票</td>
+					<td><a href="javascript:;" class="beian_hetong_info">查看</a></td>
+					<td  width="40"><a class="btn btn-ckts btn-xs">关联</a></td>
+					<td>备案单证出处: <input type="text" style="width:350px;" value=""/></td>
+				</tr>
+				<tr>
+					<td width="80">其他</td>
+					<td><a href="javascript:;" class="beian_hetong_info"></a></td>
+					<td  width="40"><a class="btn btn-ckts btn-xs">关联</a></td>
+					<td>备案单证出处: <input type="text" style="width:350px;" /></td>
+				</tr>
+			</tbody>
+			
+		</table>
+		
+		<p class="text-center" style="margin-top:30px"><a class="qx btn btn-ckts btn-sm">保存 </a></p>
+	
+</div>
+
+
+
+
+

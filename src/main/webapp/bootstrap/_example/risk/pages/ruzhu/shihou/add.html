@@ -1,0 +1,331 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+	<head>
+		<meta charset="UTF-8">
+		<!--Bootstrap 不支持 IE 古老的兼容模式。为了让 IE 浏览器运行最新的渲染模式建议添加一下meta-->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<!--自适应设备宽度-->
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+		<title>外贸综合服务企业出口退税风险管控信息系统-新增供货商信息</title>
+		<meta name="Keywords" content="外贸综合服务企业出口退税风险管控信息系统">
+		<meta name="description" content="外贸综合服务企业出口退税风险管控信息系统">
+		<link rel="stylesheet" href="../../../static/plugins/bootstrap-3.3.7/css/bootstrap.min.css"/>
+		<script type="text/javascript" src="../../../static/plugins/jquery-2.1.1/jquery-2.1.1.js"></script>
+		<script type="text/javascript" src="../../../static/plugins/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" href="../../../static/plugins/font-awesome-4.7.0/css/font-awesome.css"/><!-- icon字体图标 -->
+		<link rel="stylesheet" href="../../../static/plugins/bootstrap-table-1.11.1/bootstrap-table.css"/><!-- 表格 -->
+		<script type="text/javascript" src="../../../static/plugins/bootstrap-table-1.11.1/bootstrap-table.js"></script>
+		<script type="text/javascript" src="../../../static/plugins/bootstrap-table-1.11.1/extensions/export/bootstrap-table-export.js"></script><!-- 表格导出 -->
+		<script type="text/javascript" src="../../../static/plugins/tableExport.jquery.plugin/tableExport.js"></script>
+		<script type="text/javascript" src="../../../static/plugins/bootstrap-table-1.11.1/locale/bootstrap-table-zh-CN.js"></script>
+		<script type="text/javascript" src="../../../static/plugins/jquery-validation-1.17.0/jquery.validate.js"></script><!-- 表单验证 -->
+		<script type="text/javascript" src="../../../static/plugins/jquery-validation-1.17.0/jquery.validate.extends.js"></script>
+		<link rel="stylesheet" href="../../../static/plugins/poshytip-1.2/tip-yellowsimple/tip-yellowsimple.css" type="text/css"/>
+		<script type="text/javascript" src="../../../static/plugins/poshytip-1.2/jquery.poshytip.js"></script>
+		<script src="../../../static/plugins/jquery.nicescroll-3.7.6/jquery.nicescroll.js"></script>
+		<script type="text/javascript" src="../../../static/js/common.js"></script><!-- 自定义公用js -->
+		<link rel="stylesheet" href="../../../static/css/common.css"/><!-- 自定义公用css -->
+		<link rel="stylesheet" href="../../../static/plugins/layer-v3.1.0/theme/default/layer.css"/><!-- 弹窗 -->
+		<script type="text/javascript" src="../../../static/plugins/layer-v3.1.0/layer.js"></script>
+		<style type="text/css">
+/* 			input[name='registeredAddress']{width: 200px !important;}
+ */			#check select{width:60px !important;}
+ 			.heg_chose{margin-top: 3px;}
+ 			.bezh_sign{margin-top: 4px;}
+ 		</style>
+	</head>
+	<body>
+		<div class="layerBodyBg">
+			<form id="addInfoForm" class="form-horizontal layerForm">
+				<div class=row>
+					<div class="col-xs-12" >
+						<div class="pull-right text-right" style="position:absolute; right:15px; top:10px;">
+							<button type="submit" class="btn btn-ckts btn-xs" title="保存" id="saveOrUupdateBtn" ><i class="glyphicon glyphicon-saved"></i>保存</button>
+							<!--<button type="reset" class="btn btn-ckts btn-xs" title="重置" style="margin-left:15px;"><i class="glyphicon glyphicon-repeat"></i>重置</button>-->
+							<button type="button" class="btn btn-ckts btn-xs cancel" title="取消" style="margin-left:15px;"><i class="glyphicon glyphicon-remove"></i>取消</button>
+						</div>
+					</div>
+				</div>
+				
+				<div class="tab-content">
+
+					<!-- 附件 -->
+				<!--	<div  class="tab-pane" id="fujian">
+						&lt;!&ndash;事前核查附件&ndash;&gt;
+						<input id="shhcfj1" type="hidden"/>
+						<input id="shhcfj2" type="hidden"/>
+						<input id="shhcfj3" type="hidden"/>
+						<input id="shhcfj4" type="hidden"/>
+						<input id="shhcfj5" type="hidden"/>
+						<input id="shhcfj6" type="hidden"/>
+					</div>-->
+					<!-- 附件 -->
+					<!-- 事前检查 -->
+
+
+					<div class="tab-pane clearfix active" id="check">
+	                    <input type="hidden" id="ghshc" name="ghshc"/>
+	                    <input type="hidden" id="ghs" name="ghs"/>
+	                    <input type="hidden" id="nsrsbh" name="nsrsbh"/>
+	                    <input type="hidden" id="ghsName" name="ghsName"/>
+	                    <input type="hidden" id="tse" name="tse"/>
+	                    <input type="hidden" id="year" name="year"/>
+						<div class="col-xs-12" style="padding-bottom:10px;">
+							<h4 class="text-center">
+								经营情况和生产能力核查
+							</h4>
+							<div class="col-xs-12">
+								<div class="tab-pane active" id="info" style="margin-top:10px;padding-bottom:30px;"></div>
+							</div>
+
+							<div class="col-xs-12" style="vertical-align: middle;">
+								<div class="col-xs-3 heg_chose">
+									<label class="text-right col-xs-7">合同订单:</label>
+									<select name="htdszt" class="form-control input-sm text-right col-xs-1">
+										<option value="1" selected="selected">合格</option>
+										<option value="0">不合格</option>
+									</select>
+								</div>
+								
+								<div class="form-group col-xs-6 text-right">
+									<label class="col-xs-2 control-label text-right">附件:</label>
+									<div class="col-xs-10"><input data_type="fj1" type="file" name="file" class="file inputBtn"></div>
+								</div>
+								<div class="col-xs-3 text-left bezh_sign">
+									<label class="text-right col-xs-6">备注:</label>
+									<textarea name="htds" class="col-xs-12 text-center col-xs-6" rows="1" cols=""></textarea>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12" style="margin-top:10px;padding-bottom:10px;">
+							<div class="col-xs-12">
+								<div class="col-xs-3 heg_chose">
+									<label class="text-right col-xs-7">生产设备:</label>
+									<select name="scsbzt" class="form-control input-sm text-right col-xs-1">
+										<option value="1" selected="selected">合格</option>
+										<option value="0">不合格</option>
+									</select>
+								</div>
+								
+								<div class="form-group col-xs-6 text-right">
+									<label class="col-xs-2 control-label text-right">附件:</label>
+									<div class="col-xs-10"><input data_type="fj2" type="file" name="file" class="file inputBtn"></div>
+								</div>
+								<div class="col-xs-3 text-left bezh_sign">
+									<label class="text-right col-xs-6">备注:</label>
+									<textarea class="col-xs-12 text-center col-xs-6" rows="1" cols="" name="scsb"></textarea>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12" style="margin-top:10px;padding-bottom:10px;">
+							<div class="col-xs-12">
+								<div class="col-xs-3 heg_chose">
+									<label class="text-right col-xs-7">经营场所:</label>
+									<select name="jycszt" class="form-control input-sm text-right col-xs-1">
+										<option value="1" selected="selected">合格</option>
+										<option value="0">不合格</option>
+									</select>
+								</div>
+								
+								<div class="form-group col-xs-6 text-right">
+									<label class="col-xs-2 control-label text-right">附件:</label>
+									<div class="col-xs-10"><input data_type="fj3" type="file" name="file" class="file inputBtn"></div>
+								</div>
+								<div class="col-xs-3 text-left bezh_sign">
+									<label class="text-right col-xs-6">备注:</label>
+									<textarea name="jycs" class="col-xs-12 text-center col-xs-6" rows="1" cols=""></textarea>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12" style="margin-top:10px;padding-bottom:10px;">
+							<div class="col-xs-12">
+								<div class="col-xs-3 heg_chose">
+									<label class="text-right col-xs-7">企业人员:</label>
+									<select name="qyryzt" class="form-control input-sm text-right col-xs-1">
+										<option value="1" selected="selected">合格</option>
+										<option value="0">不合格</option>
+									</select>
+								</div>
+								
+								<div class="form-group col-xs-6 text-right">
+									<label class="col-xs-2 control-label text-right">附件:</label>
+									<div class="col-xs-10"><input data_type="fj4" type="file" name="file" class="file inputBtn"></div>
+								</div>
+								<div class="col-xs-3 text-left bezh_sign">
+									<label class="text-right col-xs-6">备注:</label>
+									<textarea name="qyry" class="col-xs-12 text-center col-xs-6" rows="1" cols=""></textarea>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12" style="margin-top:10px;padding-bottom:10px;">
+							<div class="col-xs-12">
+								<div class="col-xs-3 heg_chose">
+									<label class="text-right col-xs-7">会计账簿:</label>
+									<select name="kjzbzt" class="form-control input-sm text-right col-xs-1">
+										<option value="1" selected="selected">合格</option>
+										<option value="0">不合格</option>
+									</select>
+								</div>
+								
+								<div class="form-group col-xs-6 text-right">
+									<label class="col-xs-2 control-label text-right">附件:</label>
+									<div class="col-xs-10"><input data_type="fj5" type="file" name="file" class="file inputBtn"></div>
+								</div>
+								<div class="col-xs-3 text-left bezh_sign">
+									<label class="text-right col-xs-6">备注:</label>
+									<textarea name="kjzb" class="col-xs-12 text-center col-xs-6" rows="1" cols=""></textarea>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12" style="margin-top:10px;padding-bottom:10px;border-bottom:1px dashed #ccc;">
+							<div class="col-xs-12">
+								<div class="col-xs-3 heg_chose">
+									<label class="text-right col-xs-7">生产能力:</label>
+									<select name="scnlzt" class="form-control input-sm text-right col-xs-1">
+										<option value="1" selected="selected">合格</option>
+										<option value="0">不合格</option>
+									</select>
+								</div>
+								
+								<div class="form-group col-xs-6 text-right">
+									<label class="col-xs-2 control-label text-right">附件:</label>
+									<div class="col-xs-10"><input data_type="fj6" type="file" name="file" class="file inputBtn"></div>
+								</div>
+								<div class="col-xs-3 text-left bezh_sign">
+									<label class="text-right col-xs-6">备注:</label>
+									<textarea name="scnl" class="col-xs-12 text-center col-xs-6" rows="1" cols=""></textarea>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12" style="margin-top:10px;padding-bottom:10px;">
+							<h4 class="text-center">
+								出口货物真实性核查
+							</h4>
+							<div class="col-xs-12">
+								<div class="col-xs-6">
+									<label class="text-right col-xs-7">出口货物真实性核查：</label>
+									<select name="ckhwzszt" class="form-control input-sm text-right col-xs-1">
+										<option value="1" selected="selected">是</option>
+										<option value="0">否</option>
+									</select>
+								</div>
+
+								<div class="col-xs-4 text-right">
+									<label class="text-right col-xs-6">备注:</label>
+									<textarea name="ckhwzs" class="col-xs-6 text-center" rows="1" cols=""></textarea>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-xs-12" style="margin-top:10px;padding-bottom:10px;">
+							<div class="col-xs-12">
+								<div class="col-xs-6">
+									<label class="text-right col-xs-7">出口货物与关单是否一致：</label>
+									<select name="ckgdzt" class="form-control input-sm text-right col-xs-1">
+										<option value="1" selected="selected">是</option>
+										<option value="0">否</option>
+									</select>
+								</div>
+
+								<div class="col-xs-4 text-right">
+									<label class="text-right col-xs-6">备注:</label>
+									<textarea name="ckgd" class="col-xs-6 text-center col-xs-6" rows="1" cols=""></textarea>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12" style="margin-top:10px;padding-bottom:10px;">
+							<div class="col-xs-12">
+								<div class="col-xs-6">
+									<label class="text-right col-xs-7">生产能力是否匹配：</label>
+									<select name="scnlppxzt" class="form-control input-sm text-right col-xs-1">
+										<option value="1" selected="selected">是</option>
+										<option value="0">否</option>
+									</select>
+								</div>
+
+								<div class="col-xs-4 text-left">
+									<label class="text-right col-xs-6">备注:</label>
+									<textarea name="scnlppx" class="col-xs-6 text-center col-xs-6" rows="1" cols=""></textarea>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12" style="margin-top:10px;padding-bottom:10px;">
+							<div class="col-xs-12">
+								<div class="col-xs-6">
+									<label class="text-right col-xs-7">物流凭证是否齐全：</label>
+									<select name="wlpzzt" class="form-control input-sm text-right col-xs-1">
+										<option value="1" selected="selected">是</option>
+										<option value="0">否</option>
+									</select>
+								</div>
+
+								<div class="col-xs-4 text-left">
+									<label class="text-right col-xs-6">备注:</label>
+									<textarea name="wlpz" class="col-xs-6 text-center col-xs-6" rows="1" cols=""></textarea>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12" style="margin-top:10px;padding-bottom:10px;">
+							<div class="col-xs-12">
+								<div class="col-xs-6">
+									<label class="text-right col-xs-7">出口收入凭证是否齐全：</label>
+									<select name="cksrpzzt" class="form-control input-sm text-right col-xs-1">
+										<option value="1" selected="selected">是</option>
+										<option value="0">否</option>
+									</select>
+								</div>
+
+								<div class="col-xs-4 text-left">
+									<label class="text-right col-xs-6">备注:</label>
+									<textarea name="cksrpz" class="col-xs-6 text-center col-xs-6" rows="1" cols=""></textarea>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12" style="margin-top:10px;padding-bottom:10px;">
+							<div class="col-xs-12">
+								<div class="col-xs-6">
+									<label class="text-right col-xs-7">核查率是否大于75%：</label>
+									<select name="hcdyzt" class="form-control input-sm text-right col-xs-1">
+										<option value="1" selected="selected">是</option>
+										<option value="0">否</option>
+									</select>
+								</div>
+
+								<div class="col-xs-4 text-left">
+									<label class="text-right col-xs-6">备注:</label>
+									<textarea name="chdy" class="col-xs-6 text-center col-xs-6" rows="1" cols=""></textarea>
+								</div>
+							</div>
+						</div>
+
+
+					</div>
+					<!-- 事前检查 -->
+				</div>
+			</form>
+			<!-- 添加供货商信息 -->
+		</div>
+	
+		<!-- 日历 -->
+		<script type="text/javascript" src="../../../static/plugins/My97DatePicker-4.8/WdatePicker.js"></script>
+		<!-- 文件上传 -->
+		<link rel="stylesheet" href="../../../static/plugins/bootstrap-fileinput-4.4.6/css/fileinput.css"/>
+		<script type="text/javascript" src="../../../static/plugins/bootstrap-fileinput-4.4.6/js/fileinput.js"></script>
+		<script type="text/javascript" src="../../../static/plugins/bootstrap-fileinput-4.4.6/js/locales/zh.js"></script>
+		<!-- 文件上传 -->
+		<!-- 本页专用 -->
+		<!--<link rel="stylesheet" href="../../static/css/ruzhu.css"/>-->
+		<script type="text/javascript" src="../../../static/js/ruzhu/shihou_add.js"></script>
+	</body>
+</html>

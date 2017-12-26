@@ -1,0 +1,265 @@
+[
+    {
+        "name": "代办业务",
+        "leftIcon": "l fa fa-building",
+        "rightIcon": "r fa fa-angle-right",
+        "id": "60001",
+        "children": [
+            {
+                "name": "风险评估",
+                "url": "gonghuo/pinggu1.html",
+                "id": "00001"
+            },
+            {
+                "name": "供货商维护",
+                "url": "ruzhu/list.html?branch=1",
+                "id": "00002"
+            },
+            {
+                "name": "供货商核查",
+                "url": "ruzhu/shihou/list.html",
+                "id": "00003"
+            },
+            {
+                "name": "生产企业备案",
+                "url": "shenbaobeian/shengchanqiye/list.html",
+                "id": "00004"
+            },
+            {
+                "name": "外综服备案",
+                "url": "shenbaobeian/waizongfu/list.html",
+                "id": "00005"
+            },
+            {
+                "name": "出口合同",
+                "url": "hetong/chukou/list.html?branch=1",
+                "id": "00006"
+            },
+            {
+                "name": "服务合同",
+                "url": "fuwuhetong/list.html",
+                "leftIcon": "l fa fa-credit-card",
+                "id": "00007"
+            },
+            {
+                "name": "补充合同",
+                "url": "hetong/buchonghetong/bchtlist.html",
+                "id": "00008"
+            },
+            {
+                "name": "运输协议",
+                "url": "hetong/wuliu/list.html?branch=1",
+                "id": "00009"
+            },
+            {
+                "name": "预报关单",
+                "url": "guandan/yuluru/list.html",
+                "id": "10001"
+            },
+            {
+                "name": "报关单",
+                "url": "guandan/guandan/list.html",
+                "id": "10002"
+            },
+            {
+                "name": "开票通知单",
+                "url": "piaoju/tongzhi/list.html?branch=1",
+                "id": "10003"
+            },
+            {
+                "name": "发票管理",
+                "url": "piaoju/fapiao/list.html?branch=1",
+                "id": "10004"
+            },
+            {
+                "name": "收汇管理",
+                "url": "waihui/list.html",
+                "leftIcon": "l fa fa-credit-card",
+                "id": "10005"
+            },
+            {
+                "name": "智能申报",
+                "url": "tuishui/picidl2/dl_list2.html",
+                "id": "10006"
+            },
+            {
+                "name": "退税款明细管理",
+                "url": "mingxi/list.html",
+                "leftIcon": "l fa fa-credit-card",
+                "id": "10007"
+            },
+            {
+                "name": "备案单证",
+                "url": "system/beianDL/list.html",
+                "leftIcon": "l fa fa-camera-retro",
+                "id": "10008"
+            },
+            {
+                "id": "menu_rw_gl",
+                "name": "发起出口",
+                "url": "liucheng/renwu.html?branch=1",
+                "leftIcon": "l fa fa-tasks"
+            }
+        ]
+    },
+    {
+        "name": "自营业务",
+        "leftIcon": "l fa fa-building",
+        "rightIcon": "r fa fa-angle-right",
+        "id": "50001",
+        "children": [
+            {
+                "name": "风险评估",
+                "url": "gonghuo/pinggu1.html",
+                "id": "20001"
+            },
+            {
+                "name": "供货商维护",
+                "url": "ruzhu/list.html?branch=0",
+                "id": "20002"
+            },
+            {
+                "name": "出口合同",
+                "url": "hetong/chukou/list.html?branch=0",
+                "id": "20002"
+            },
+            {
+                "name": "采购合同",
+                "url": "hetong/caigou/list.html",
+                "id": "20002"
+            },
+            {
+                "name": "运输协议",
+                "url": "hetong/wuliu/list.html?branch=0",
+                "id": "20003"
+            },
+            {
+                "name": "预报关单",
+                "url": "guandan/yuluru/list.html",
+                "id": "20004"
+            },
+            {
+                "name": "报关单",
+                "url": "guandan/guandan/list.html",
+                "id": "20005"
+            },
+            {
+                "name": "开票通知单",
+                "url": "piaoju/tongzhi/list.html?branch=0",
+                "id": "20006"
+            },
+            {
+                "name": "发票管理",
+                "url": "piaoju/fapiao/list.html?branch=0",
+                "id": "20007"
+            },
+            {
+                "name": "收汇管理",
+                "url": "waihui/list.html",
+                "leftIcon": "l fa fa-credit-card",
+                "id": "20008"
+            },
+            {
+                "name": "智能申报",
+                "url": "tuishui/pici/list.html",
+                "id": "20009"
+            },
+            {
+                "name": "备案单证",
+                "url": "system/beian/list.html",
+                "leftIcon": "l fa fa-camera-retro",
+                "id": "20010"
+            },
+            {
+                "id": "menu_rw_gl",
+                "name": "发起出口",
+                "url": "liucheng/renwu.html",
+                "leftIcon": "l fa fa-tasks"
+            }
+        ]
+    },
+    {
+        "name": "预警评估",
+        "leftIcon": "l fa fa-exclamation-triangle",
+        "rightIcon": "r fa fa-angle-right",
+        "url": "yujing/main_yj.html",
+        "id": "70001",
+        "children": [
+            {
+                "id": "menu_yj_gq",
+                "name": "供货商预警",
+                "url": "yujing/gonghuoshangyj/list.html"
+            },
+            {
+                "id": "menu_yj_sh",
+                "name": "收汇预警",
+                "url": "yujing/shouhuiyj/list.html"
+            },
+            {
+                "id": "menu_yj_sb",
+                "name": "申报预警",
+                "url": "yujing/shenbao/list.html"
+            },
+            {
+                "name": "预警管理",
+                "url": "system/yujing.html",
+                "id": "30001"
+            }
+        ]
+    },
+    {
+        "name": "系统管理",
+        "leftIcon": "l fa fa-cogs",
+        "rightIcon": "r fa fa-angle-right",
+        "id": "80001",
+        "children": [
+            {
+                "name": "用户管理",
+                "url": "system/user.html",
+                "id": "30002"
+            },
+            {
+                "name": "角色管理",
+                "url": "system/role.html",
+                "id": "30003"
+            },
+            {
+                "name": "组织机构管理",
+                "url": "system/organization.html",
+                "id": "30004"
+            }
+        ]
+    },
+    {
+        "name": "统计分析",
+        "leftIcon": "l fa fa-bar-chart",
+        "rightIcon": "r fa fa-angle-right",
+        "id": "80001",
+        "children": [
+            {
+                "name": "退税额年统计",
+                "url": "tongji/tuishui/list.html",
+                "id": "30005"
+            },
+            {
+                "name": "按出口国统计",
+                "url": "tongji/hetong/list.html",
+                "id": "30006"
+            }
+        ]
+    },
+    {
+        "name": "其它",
+        "leftIcon": "l fa fa-bar-chart",
+        "rightIcon": "r fa fa-angle-right",
+        "id": "80001",
+        "children": [
+            {
+                "name": "进货数据检查",
+                "url": "jiancha/jinhuo.html",
+                "leftIcon": "l fa fa-tasks",
+                "id": "40001"
+            }
+        ]
+    }
+]

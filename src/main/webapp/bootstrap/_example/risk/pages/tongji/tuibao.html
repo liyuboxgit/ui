@@ -1,0 +1,30 @@
+<!-- 情况备案 -->
+<style type="text/css">
+.tuibao{background: #fff;position: relative;}
+.tuibao .row{text-align: center;position: absolute;top: 20px;left: 50px;z-index: 1}
+.tuibao .font .name{position: absolute;font-size: 12px;
+            -webkit-transform-origin-x: 0;
+            -webkit-transform: scale(0.90);
+            color: rgba(106,146,169);
+            left: 150px;
+            top: 71px;
+        }
+.tuibao .col-xs-8{position: absolute;z-index: 2}
+</style>
+<div class="container-fluid tuibao tongji col-sm-12">
+<p class="col-xs-8"> 
+	<button type="button" class="btn btn-ckts btn-sm tubiao_daochu">导出</button>		
+	<button type="button" class="btn btn-ckts btn-sm tubiao_dayin">打印</button>		
+</p>
+	<div class="row">
+		<img src="static/img/qingkang2.png">
+	</div>
+</div>
+<script type="text/javascript">
+$('.tubiao_daochu').click(function(){
+    layer.msg('导出成功!',{time:layerCloseTime});
+});
+$('.tubiao_dayin').click(function(){
+    layer.msg('打印成功!',{time:layerCloseTime});
+});
+</script>

@@ -1,0 +1,777 @@
+<!--预录入报关单  -->
+<div class="container-fluid">
+	
+	<!-- 查询 -->
+	<div class="panel panel-info">
+		<div class="panel-heading" style="padding:7px 15px;">
+			<a href="#collapseOne_pici" data-toggle="collapse" class="center-block">查询<i class="pull-right glyphicon glyphicon-menu-down"></i></a>
+		</div>
+		<div id="collapseOne_pici" class="panel-collapse collapse in">
+			<div class="panel-body" style="padding:15px 0">
+				<form class="form-horizontal">
+					<div class="form-group col-sm-2">
+						<label class="control-label col-sm-6 text-align:right">关单号:</label>
+						<div class="col-sm-6">
+							<input type="text" class="form-control input-sm" />
+						</div>
+					</div>
+					<div class="form-group col-sm-3">
+						<label class="control-label col-sm-6 text-align:right">出口国别:</label>
+						<div class="col-sm-6">
+							<select class="form-control input-sm">
+								<option value="委内瑞拉">委内瑞拉</option>
+								<option value="英国">英国</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group col-sm-3">
+						<label class="control-label col-sm-6 text-align:right">业务类型:</label>
+						<div class="col-sm-6">
+							<select class="form-control input-sm">
+								<option value="一般贸易">一般贸易</option>
+								<option value="承包工程">承包工程</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group col-sm-3">
+						<label class="control-label col-sm-6 text-align:right">运输方式:</label>
+						<div class="col-sm-6">
+							<select class="form-control input-sm">
+								<option value="水路运输">水路运输</option>
+								<option value="航空运输">航空运输</option>
+							</select>
+						</div>
+					</div>
+					<div class="col-sm-1">
+						<p class="text-right"><button class="btn btn-ckts btn-sm" type="button">查询</button></p>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	
+	<div class="col-sm-12 plr0 height100 gridBox" id="pici_gridBox">
+		<table id="pici_jqGrid"></table>
+		<div id="pici_jqGridPager"></div>
+	</div>
+</div>
+
+<!-- 新增弹窗 -->
+<div id="pici_jqGrid_formBox" class="layerFormBox">
+	<form class="form-horizontal layerForm">
+		<div class="form-group">
+			<label for="inputEmail3" class="col-xs-3 control-label">
+				所属期:
+			</label>
+			<div class="col-xs-8">
+				<input type="text" id="pici_relName" value="201709" name="relName" onclick="WdatePicker({dateFmt:'yyyyMM'})" class="form-control input-sm"  >
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-xs-3 control-label">
+				批次号:
+			</label>
+			<div class="col-xs-8">
+				<input type="text" id="pici_name" name="name" class="form-control input-sm" value="05">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-xs-3 control-label">
+				起始关联号:
+			</label>
+			<div class="col-xs-8">
+				<!-- <input type="text" id="pici_createTime" name="createTime" class="form-control input-sm"  placeholder="创建时间"> -->
+				<div class="input-group">
+				  <span class="input-group-addon" id="basic-addon3">201709</span>
+				  <input type="text" class="form-control input-sm" id="basic-url" value="0001" aria-describedby="basic-addon3">
+				</div>
+			</div>		
+		</div>
+		<div class="form-group">
+			<label class="col-xs-3 control-label">
+				业务类型:
+			</label>
+			<div class="col-xs-8">
+				<select name="company" class="form-control input-sm">
+					<option value="一般贸易" selected="true">一般贸易</option>
+					<option value="承包工程">承包工程</option>
+				</select>
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<label class="col-xs-3 control-label">
+				备注:
+			</label>
+			<div class="col-xs-8">
+				<textarea class="form-control" rows="5"></textarea>
+			</div>
+		</div>
+		
+		<p class="text-center">
+			<button type="button" class="saveBtn btn btn-ckts btn-sm qx" id="pici_save_btn">
+				生成
+			</button>
+			<!-- <button type="reset" class="saveBtn btn btn-ckts btn-sm">
+				重置
+			</button>
+			<button type="button" class="saveBtn btn btn-ckts btn-sm qx">
+				取消
+			</button> -->
+		</p>
+	</form>
+</div>
+<script type="text/javascript">
+
+	
+$(function(){
+	
+	//-------------------------------//
+	var layerIndex = null; //弹窗id,关闭所用
+	var flag = ''; //添加修改标记
+	var dataUrl = 'data/pici.json';//数据源链接
+	var gridId = 'pici_jqGrid'; //表格id
+	var gridPager = 'pici_jqGridPager'; //表格分页id
+	var formBoxId = 'pici_jqGrid_formBox'; //添加修改窗口元素id
+	var layerCloseClassName = 'qx';
+	var dataSaveBtn = 'pici_save_btn'; //弹窗保存id
+	var gridBoxId = 'pici_gridBox';//表格尺寸
+	var layerCloseTime = 1200; //1200毫秒提示消息关闭延迟时间
+	var gridWidth = $('#'+gridBoxId).width();
+	var gridHeight = $('#'+gridBoxId).height()-118;
+	
+	/* var colModel = [
+		{label : '报关单号', name : 'number', align: 'center', width: 120},
+		{label : '贸易类型', name : 'bus', align: 'center', width:50,search:false},
+		{label : '成交方式 ', name : 'pay', align: 'center', width:50,search:false},
+		{label : '出口日期', name : 'outTime', align: 'center', width:80},
+		{label : '关单检验状态', name : 'active', align: 'center', width:80},
+		{label : '发票检验状态', name : 'anotherActive', align: 'center', width: 80},
+		{label : '剩余商品数', name : 'lastNumber', align: 'center', width:60,search:false},
+		{label : '发票数量', name : 'fapiao', align: 'center', width:50,search:false},
+		{label : '操作人', name : 'ctrol', align: 'center', width:60,search:false},
+		{label : '操作时间', name : 'ctrolTime', align: 'center', width:60,search:false}
+	]; */
+	
+	var colModel = [
+		{label : '报关单号', name : 'number', align: 'center', width: 120,formatter: formatterGdInfo},
+		{label : '贸易类型', name : 'bus', align: 'center', width:50,search:false},
+		{label : '出口国家', name : 'ckgj', align: 'center', width:50,search:false},
+		{label : '成交方式 ', name : 'pay', align: 'center', width:50,search:false},
+		{label : '出口日期', name : 'outTime', align: 'center', width:80},
+		{label : '发票数量', name : 'fapiao', align: 'center', width:50,search:false,formatter:formatterFaPiao},
+		{label : '提交人', name : 'ctrol', align: 'center', width:60,search:false},
+		{label : '提交时间', name : 'ctrolTime', align: 'center', width:60,search:false}
+	]; 
+	
+	$('#'+gridId).jqGrid({
+		width: gridWidth,
+		height: gridHeight,
+		url: dataUrl,
+		datatype: "json",
+		loadonce: true, //加载到本地操作
+		rownumbers: true, //显示顺序编号
+		multiselect: true, //定义多选
+		viewrecords: true, //显示总记录数
+		sortname: 'name', //排序字段
+		sortorder: 'asc', //排序顺序，升序或者降序（asc or desc）
+		altRows : true, //设置表格隔行变色
+		rowNum: 12, //每页显示的记录数
+		rowList:[10,12,15,18,20,25], //
+		rownumWidth: 30, 
+		recordtext: "当前显示: <b>{0}</b>至<b>{1}</b> 总数: <b>{2}</b>",
+		pager: '#'+gridPager,
+		colModel: colModel
+		
+	}).navGrid('#'+gridPager,{ // the buttons to appear on the toolbar of the grid
+		edit:false,add:false,del:false,search:false,refresh:false
+	}).navButtonAdd('#'+gridPager,{
+		//caption: '新增',
+		caption: '',
+		title : '生成批次',
+		buttonicon : 'fa fa-file-text-o',
+		onClickButton : function(){ addPici();}, //调用生成批次的函数
+		position : 'last'
+		
+	});
+	
+	/*
+	.navGrid('#'+gridPager,{ // the buttons to appear on the toolbar of the grid
+		edit:false,add:false,del:false,search:false,refresh:false
+	}).navButtonAdd('#'+gridPager,{
+		//caption: '新增',
+		caption: '',
+		title : '添加',
+		buttonicon : 'glyphicon-plus',
+		onClickButton : function(){addLayer();}, //调用添加的函数
+		position : 'last'
+		
+	}).navButtonAdd('#'+gridPager,{
+		//caption: '修改',
+		caption: '',
+		title : '修改',
+		buttonicon : 'glyphicon-edit',
+		onClickButton : function(){updateLayer();}, //调用更新的函数
+		position : 'last'
+		
+	}).navButtonAdd('#'+gridPager,{
+		//caption: '删除',
+		caption: '',
+		title : '删除',
+		buttonicon : 'glyphicon-trash',
+		//onClickButton : deleteLayer(gridId), //调用删除的函数
+		onClickButton : function(){ deleteLayer(gridId); },
+		position : 'last'
+		
+	}).navSeparatorAdd('#'+gridPager,{
+		sepcontent: '',
+		sepclass : "ui-separator"
+	});*/
+	
+	//表格添加搜索框按钮
+	//$('#'+gridId).jqGrid('filterToolbar');
+	//修改工具条
+	changeSearch(); 
+	
+	//弹框保存按钮
+	$(document).on('click','#'+dataSaveBtn,function(){
+		if(flag == 'add'){
+			var data = getFormData(formBoxId);
+			var currentNumber = uuid.v4();
+			var result = jQuery('#'+gridId).addRowData(currentNumber,data,'first');
+			if(result){
+				layer.msg('添加成功',{time:layerCloseTime});
+				layer.close(layerIndex);
+				
+				jQuery('#'+gridId).setSelection(currentNumber,true);
+				
+			}else{
+				layer.msg('添加失败!',{time:layerCloseTime});
+			}
+		}else if(flag == 'update'){
+			
+			//删除
+			var rowIds = getSelectedRow(gridId);
+			jQuery('#'+gridId).delRowData(rowIds[0]);
+			//添加
+			var data = getFormData(formBoxId);
+			console.log(data);
+			var currentNumber = uuid.v4();
+			var result = jQuery('#'+gridId).addRowData(currentNumber,data,'first');
+			
+			if(result){
+				layer.msg('更新成功',{time:layerCloseTime});
+				layer.close(layerIndex);
+				jQuery('#'+gridId).setSelection(currentNumber,true);
+			}else{
+				layer.msg('更新失败!',{time:layerCloseTime});
+			}
+		}
+		
+	});
+	
+	//弹框取消按钮
+	$('.'+layerCloseClassName).on('click',function(){
+		layer.close(layerIndex);
+	});
+	
+	//左下角新增按钮
+	function addLayer(){
+		flag = 'add';
+		$('#'+formBoxId+' .form-control:not(select)').val('');
+		layerIndex = layer.open({
+			type: 1,
+			title : '添加模块',
+			area: ['50%', '60%'], //宽高
+			content: $('#'+formBoxId)
+		});
+	}
+	//生成批次
+	function addPici(){
+		//$('#'+formBoxId+' .form-control:not(select)').val('');
+		layerIndex = layer.open({
+			type: 1,
+			title : '生成批次',
+			area: ['50%', '80%'], //宽高
+			content: $('#'+formBoxId)
+		});
+	}
+	//左下角编辑按钮
+	function updateLayer(){
+		flag = 'update';
+		var setting = {
+			gridId : gridId,
+			formBoxId : formBoxId,
+			title : '修改模块',
+			area : ['50%', '60%']
+		};
+		layerIndex = updateGridData(setting);
+	}
+	
+	//左下角删除按钮
+	function deleteLayer(gridId){
+		deleteGridData(gridId);
+	}
+	
+	
+	//-------------------------------//
+	
+	$(document).on('click','.pici_info',function(){
+		layer.open({
+			type : 1,
+			title : "关单信息",
+			area :["100%","100%"],
+			//content : $('#pici_rewu_look_ygd_info')
+			//content : '123'
+			//content : $('#pici_rewu_fapiao_look_ygd_info')
+			content : $('#pici_rewu_look_ygd_info')
+		});
+	});
+	
+	$(document).on('click','.pici_fapiao_info',function(){
+		layer.open({
+			type : 1,
+			title : "发票信息",
+			area :["80%","60%"],
+			content : $('#pici_rewu_fapiao_look_ygd_info')
+		});
+	});
+	
+	
+	
+});
+
+
+function formatterGdInfo(cellValue, options, rowObject){
+	var len = cellValue.length;
+	if(len>50){
+		cellValue = cellValue.substring(0, 50) + "...";
+	}
+	return '<a href="javascript:;" class="pici_info">'+cellValue+'</a>';
+}
+
+function formatterFaPiao(cellValue, options, rowObject){
+	var len = cellValue.length;
+	if(len>50){
+		cellValue = cellValue.substring(0, 50) + "...";
+	}
+	return '<a href="javascript:;" class="pici_fapiao_info">'+cellValue+'</a>';
+}
+
+
+	
+</script>
+
+<!-- 发票信息 -->
+<div id="pici_rewu_fapiao_look_ygd_info" class="layerFormBox">
+	<div class="contaienr-fluid" >
+				
+		<!-- 通知单列表 -->
+		<div class="row">
+			<div class="col-xs-12">
+				<table class="renwu_tzd table table-bordered  table-condensed">
+					<caption style="border:1px solid #ddd; ">关单号: 220120090519142814</caption>
+					<thead class="bg-info">
+						
+						<tr>
+							<th>项号</th>
+							<th>发票凭证号</th>
+							<th>供货商</th>
+							<th>名称</th>
+							<th>单位</th>
+							<th>数量</th>
+							<th>单价</th>
+							<th>金额</th>
+							<th>征税率</th>
+							<th>税额</th>
+							<th>退税率</th>
+							<th>存在状态</th>
+							<th>开票日期</th>
+						</tr>
+					</thead>
+					<tbody> 
+						
+						<tr>
+							<td>1.</td>
+							<td >610021452548765214</td>
+							<td>宝鸡某石油机械厂</td>
+							<td>钻井台防滑板</td>
+							<td>个</td>
+							<td>50</td>
+							<td>1074.23</td>
+							<td>53711.54</td>
+							<td>13%</td>
+							<td >6982.43</td>
+							<td>13%</td>
+							<td class="text-center" >-</td>
+							<td>2017-9-27</td>
+						</tr>
+						<tr>
+							<td>2.</td>
+							<td>610021452548732045</td>
+							<td>扬州某点电缆股份有限公司</td>
+							<td>电缆</td>
+							<td>千米</td>
+							<td>0.8</td>
+							<td>23060.25</td>
+							<td>9667.95</td>
+							<td>17%</td>
+							<td>3920.24</td>
+							<td>17%</td>
+							<td class="text-center" >-</td>
+							<td>2017-9-27</td>
+						</tr>
+						<tr>
+							<td>3.</td>
+							<td id="renwu_fppzh">610021452548785425</td>
+							<td >南京某自动化系统工程有限公司</td>
+							<td>液晶显示器</td>
+							<td>台</td>
+							<td>3</td>
+							<td>4896.29</td>
+							<td>9954.71</td>
+							<td >17%</td>
+							<td >1692.30</td>
+							<td>17%</td>
+							<td class="text-center" id="renwu_spzt"><i class="text-success fa fa-check-circle"></i></td>
+							<td>2017-9-27</td>
+						</tr>
+					</tbody>
+					
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+	
+<!-- 关单性情 -->
+<div id="pici_rewu_look_ygd_info" class="layerFormBox">
+	<div class="contaienr-fluid" >
+		<div class="row">
+			<div class="col-xs-12">
+				<!-- 左侧关单 -->
+		     		<form class="form-horizontal layerForm col-xs-12">
+		<h4 class="col-xs-12 text-center">中华人民共和国海关出口报关单</h4>
+		<div class="col-xs-12 index">
+			<div class="form-group col-xs-6 head">
+				<label for="inputEmail3" class="col-xs-3 control-label">
+					<span class="necessary">*</span>预录入编号:
+				</label>
+				<div class="col-xs-8">
+					<input type="text" id="yulu_number" name="number" value="183936071964" class="form-control input-sm"  placeholder="预录入编号">
+				</div>
+			</div>
+			<div class="form-group col-xs-6 head">
+				<label class="col-xs-3 control-label">
+					海关编号:
+				</label>
+				<div class="col-xs-8">
+					<input type="text" class="form-control input-sm"  placeholder="海关编号">
+				</div>
+			</div>
+			<div class="form-group col-xs-3">
+				<label class="col-xs-5 control-label">
+					<span class="necessary">*</span>出口口岸
+				</label>
+				<div class="col-xs-7">
+					<select  class="form-control input-sm"> 
+						<option>天津新港</option>
+						<option selected="true">北京机场</option>
+					</select>
+					<!-- <input type="text" id="yulu_bus" value="天津新港" name="bus" class="form-control input-sm"  placeholder="出口口岸"> -->
+				</div>		
+			</div>
+			<div class="form-group col-xs-3">
+				<label class="col-xs-5 control-label">
+					备案号
+				</label>
+				<div class="col-xs-7">
+					<input type="text" class="form-control input-sm"  placeholder="备案号">
+				</div>		
+			</div>
+			<div class="form-group col-xs-3">
+				<label class="col-xs-5 control-label">
+					出口日期
+				</label>
+				<div class="col-xs-7">
+					<input type="text" id="yulu_outTime" name="outTime" class="form-control input-sm"  placeholder="出口日期">
+				</div>		
+			</div>
+			<div class="form-group col-xs-3">
+				<label class="col-xs-5 control-label">
+					申报日期
+				</label>
+				<div class="col-xs-7">
+					<input type="text" id="yulu_anotherTime" name="createTime" class="form-control input-sm"  placeholder="申报日期">
+				</div>		
+			</div>
+
+			<div class="form-group col-xs-3">
+				<label class="col-xs-5 control-label">
+					<span class="necessary">*</span>经营单位
+				</label>
+				<div class="col-xs-7">
+					<input type="text" class="form-control input-sm"  placeholder="经营单位">
+				</div>		
+			</div>
+			<div class="form-group col-xs-3">
+				<label class="col-xs-5 control-label">
+					运输方式
+				</label>
+				<div class="col-xs-7">
+					<input type="text" class="form-control input-sm"  placeholder="运输方式">
+				</div>		
+			</div>
+			<div class="form-group col-xs-3">
+				<label class="col-xs-5 control-label">
+					运输工具
+				</label>
+				<div class="col-xs-7">
+					<input type="text" class="form-control input-sm"  placeholder="运输工具">
+				</div>		
+			</div>
+			<div class="form-group col-xs-3">
+				<label class="col-xs-5 control-label">
+					提运单号
+				</label>
+				<div class="col-xs-7">
+					<input type="text" class="form-control input-sm"  placeholder="提运单号">
+				</div>		
+			</div>
+
+			<div class="form-group col-xs-3">
+				<label class="col-xs-5 control-label">
+					<span class="necessary">*</span>发货单位
+				</label>
+				<div class="col-xs-7">
+					<input type="text" class="form-control input-sm"  placeholder="发货单位">
+				</div>		
+			</div>
+			<div class="form-group col-xs-3">
+				<label class="col-xs-5 control-label">
+					贸易方式
+				</label>
+				<div class="col-xs-7">
+					<input type="text" id="yulu_property" name="property" class="form-control input-sm"  placeholder="运输方式">
+				</div>		
+			</div>
+			<div class="form-group col-xs-3">
+				<label class="col-xs-5 control-label">
+					征免性质
+				</label>
+				<div class="col-xs-7">
+					<input type="text" class="form-control input-sm"  placeholder="征免性质">
+				</div>		
+			</div>
+			<div class="form-group col-xs-3">
+				<label class="col-xs-5 control-label">
+					提运单号
+				</label>
+				<div class="col-xs-7">
+					<input type="text" class="form-control input-sm"  placeholder="提运单号">
+				</div>		
+			</div>
+
+			<div class="form-group col-xs-3">
+				<label class="col-xs-5 control-label">
+					许可证号
+				</label>
+				<div class="col-xs-7">
+					<input type="text" class="form-control input-sm"  placeholder="许可证号">
+				</div>		
+			</div>
+			<div class="form-group col-xs-3">
+				<label class="col-xs-6 control-label">
+					抵运国（地区）
+				</label>
+				<div class="col-xs-6">
+					<select   class="form-control input-sm"> 
+						<option>美国</option>
+						<option selected="true">英国</option>
+					</select>
+					<!-- <input type="text" id="yulu_company" name="company" class="form-control input-sm"  placeholder="抵运国（地区）"> -->
+				</div>		
+			</div>
+			<div class="form-group col-xs-3">
+				<label class="col-xs-5 control-label">
+					指运港
+				</label>
+				<div class="col-xs-7">
+					<input type="text" id="yulu_anotherBus" name="anotherBus" class="form-control input-sm"  placeholder="指运港">
+				</div>		
+			</div>
+			<div class="form-group col-xs-3">
+				<label class="col-xs-5 control-label">
+					境内货源地
+				</label>
+				<div class="col-xs-7">
+					<input type="text" class="form-control input-sm"  placeholder="境内货源地">
+				</div>		
+			</div>
+
+			<div class="form-group col-xs-3">
+				<label class="col-xs-5 control-label">
+					批准文号
+				</label>
+				<div class="col-xs-7">
+					<input type="text" class="form-control input-sm"  placeholder="批准文号">
+				</div>		
+			</div>
+			<div class="form-group col-xs-3">
+				<label class="col-xs-5 control-label">
+					成交方式
+				</label>
+				<div class="col-xs-7">
+					<input type="text" id="yulu_pay" name="pay" class="form-control input-sm"  placeholder="成交方式">
+				</div>		
+			</div>
+			<div class="form-group col-xs-2">
+				<label class="col-xs-5 control-label">
+					运费
+				</label>
+				<div class="col-xs-7">
+					<input type="text"  class="form-control input-sm" value="150"  placeholder="运费">
+				</div>		
+			</div>
+			<div class="form-group col-xs-2">
+				<label class="col-xs-5 control-label">
+					保费
+				</label>
+				<div class="col-xs-7">
+					<input type="text" class="form-control input-sm"  placeholder="保费">
+				</div>		
+			</div>
+			<div class="form-group col-xs-2">
+				<label class="col-xs-5 control-label">
+					杂费
+				</label>
+				<div class="col-xs-7">
+					<input type="text" class="form-control input-sm"  placeholder="杂费">
+				</div>		
+			</div>
+
+			<div class="form-group col-xs-3">
+				<label class="col-xs-5 control-label">
+					合同协议号
+				</label>
+				<div class="col-xs-7">
+					<input type="text" class="form-control input-sm"  placeholder="合同协议号">
+				</div>		
+			</div>
+			<div class="form-group col-xs-2">
+				<label class="col-xs-5 control-label">
+					件数
+				</label>
+				<div class="col-xs-7">
+					<input type="text" class="form-control input-sm"  placeholder="件数">
+				</div>		
+			</div>
+			<div class="form-group col-xs-3">
+				<label class="col-xs-6 control-label">
+					包装种类
+				</label>
+				<div class="col-xs-6">
+					<input type="text" class="form-control input-sm"  placeholder="包装种类">
+				</div>		
+			</div>
+			<div class="form-group col-xs-2">
+				<label class="col-xs-5 control-label">
+					毛重（kg）
+				</label>
+				<div class="col-xs-7">
+					<input type="text" class="form-control input-sm"  placeholder="毛重（kg）">
+				</div>		
+			</div>
+			<div class="form-group col-xs-2">
+				<label class="col-xs-5 control-label">
+					净重（kg）
+				</label>
+				<div class="col-xs-7">
+					<input type="text" class="form-control input-sm"  placeholder="净重（kg）">
+				</div>		
+			</div>
+
+			<div class="form-group col-xs-4">
+				<label class="col-xs-5 control-label">
+					集装箱号
+				</label>
+				<div class="col-xs-7">
+					<input type="text" class="form-control input-sm"  placeholder="集装箱号">
+				</div>		
+			</div>
+			<div class="form-group col-xs-4">
+				<label class="col-xs-5 control-label">
+					随附单据
+				</label>
+				<div class="col-xs-7">
+					<input type="text" id="yulu_accessory" name="accessory" class="form-control input-sm"  placeholder="随附单据">
+				</div>		
+			</div>
+			<div class="form-group col-xs-4">
+				<label class="col-xs-5 control-label">
+					生产厂家
+				</label>
+				<div class="col-xs-7">
+					<input type="text" class="form-control input-sm"  placeholder="随附单据">
+				</div>		
+			</div>
+
+			<div class="form-group col-xs-12">
+				<label class="col-xs-2 control-label text-center">
+					标记码及备注
+				</label>
+				<div class="col-xs-10">
+					<textarea type="text" class="form-control input-sm"  placeholder="标记码及备注"></textarea>.
+				</div>		
+			</div>
+			<div id="yulu_ul col-xs-12">
+				<table class="table col-xs-12">
+					<thead class="thead">
+						<tr>
+							<th>项号</th>
+							<th>商品编号</th>
+							<th>商品名称 规格型号</th>
+							<th>数量及单位</th>
+							<th>最终目的国（地区）</th>
+							<th>单价</th>
+							<th>总价</th>
+							<th>币值</th>
+							<th>征免</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>2015</td>
+							<td>汽车零件合同</td>
+							<td>23540</td>
+							<td>人民币</td>
+							<td>2017-07-08</td>
+							<td>已结清</td>
+							<td>人民币</td>
+							<td>2017-07-08</td>
+							<td>已结清</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+
+		</div>
+		<!-- <p class="text-center col-xs-12">
+			<button type="button" class="saveBtn btn btn-ckts btn-sm" id="yulu_save_btn">
+				保存
+			</button>
+			<button type="reset" class="saveBtn btn btn-ckts btn-sm">
+				重置
+			</button>
+			<button type="button" class="saveBtn btn btn-ckts btn-sm qx" id="yulu_cacle_btn">
+				取消
+			</button>
+		</p> -->
+	</form>
+		     		<!-- 左侧关单 -->
+			</div>
+		</div>
+	</div>
+</div>
+

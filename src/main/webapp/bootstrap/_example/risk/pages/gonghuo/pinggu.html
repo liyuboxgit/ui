@@ -1,0 +1,217 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<!--Bootstrap 不支持 IE 古老的兼容模式。为了让 IE 浏览器运行最新的渲染模式建议添加一下meta-->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<!--自适应设备宽度-->
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+<title>外贸综合服务企业出口退税风险管控信息系统-任务管理</title>
+<meta name="Keywords" content="外贸综合服务企业出口退税风险管控信息系统">
+<meta name="description" content="外贸综合服务企业出口退税风险管控信息系统">
+<link rel="stylesheet"
+	href="../../static/plugins/bootstrap-3.3.7/css/bootstrap.min.css" />
+<script type="text/javascript"
+	src="../../static/plugins/jquery-2.1.1/jquery-2.1.1.js"></script>
+<!-- icon字体图标 -->
+<link rel="stylesheet"
+	href="../../static/plugins/font-awesome-4.7.0/css/font-awesome.css" />
+
+<script type="text/javascript"
+	src="../../static/plugins/bootstrap-table-1.11.1/bootstrap-table.js"></script>
+<!-- 美化滚动条 -->
+<script
+	src="../../static/plugins/jquery.nicescroll-3.7.6/jquery.nicescroll.js"></script>
+<!-- 自定义公用css/js -->
+<script type="text/javascript" src="../../static/js/common.js"></script>
+<link rel="stylesheet" href="../../static/css/common.css" />
+
+<!-- 弹窗 -->
+<link rel="stylesheet"
+	href="../../static/plugins/layer-v3.1.0/theme/default/layer.css" />
+<script type="text/javascript"
+	src="../../static/plugins/layer-v3.1.0/layer.js"></script>
+	
+<script type="text/javascript" src="../../static/plugins/Highcharts-5.0.14/highcharts.js"></script>
+<script type="text/javascript" src="../../static/plugins/Highcharts-5.0.14/highcharts-more.js"></script>
+<script type="text/javascript" src="../../static/plugins/Highcharts-5.0.14/modules/solid-gauge.js"></script>
+<!-- 本页专用 -->
+<!-- <link rel="stylesheet" href="../../static/css/pinggu.css" /> -->
+
+
+</head>
+<body>
+
+<!-- 评估预警 -->
+<style type="text/css">
+	.lowresult,.highresult{position: absolute;bottom: 120px;display: none;}
+	.lowresult li,.highresult li{margin-top: 20px;}
+</style>
+<div class="container-fluid tongji">
+	<div class="row">
+		<form class="form-inline">
+			<div class="form-group">
+				<label>请填写要评估的纳税人识别号:</label>
+				<input class="nashui" type="riqi" class="form-control input-sm">
+			</div>
+			<button type="button" class="btn btn-ckts btn-sm" id="sosuo">查询</button>
+			<button type="reset" class="btn btn-danger btn-sm">重置</button>
+		</form>
+	</div>
+
+	<div class="row">
+		<div class="col-sm-12">
+			<div style="width:100%;height:100%">
+			    <div id="jsc_container-speed" class="pull-left" style="width:100%; height:100%;">
+			    	
+			    </div>
+			    <!-- <div id="container-rpm" class="pull-left" style="width:50%; height:50%;"></div> -->
+			    <ol class="lowresult">
+					<li>当前该纳税人信用较低(30以下信用较低，60以下信用良好，90以上信用较高)</li>
+					<li>建议可以进行交易</li>
+				</ol>
+				<ol class="highresult">
+					<li>当前该纳税人信用较高(30以下信用较低，60以下信用良好，90以上信用较高)</li>
+					<li>建议不可进行交易</li>
+				</ol>
+			</div>
+			
+		</div>
+		
+	</div>
+
+</div>
+	
+<script type="text/javascript">
+
+
+$('#sosuo').click(function(){
+	var nsrsbh=$('.nashui').val();
+	if(nsrsbh==''){
+		layer.msg('请输入纳税人识别号!');
+		return;
+	}
+	$.ajax({
+	    url:'../../../fxpg/queryForObject',
+	    type:'post',
+	    dataType:'json',
+	    data:{
+	        "nsrsbh":nsrsbh
+	    },
+	    success:function(result){
+	    	$('.lowresult').show();
+			$('.highresult').hide();
+			if(result.success){
+				 renderlow(parseInt(result.data.fs));
+			}else{
+				layer.msg('找不到此纳税人识别号!');
+			}
+		   
+
+	    },error:function(e){
+	    	console.log(e);
+	    }
+	})
+})
+
+
+
+
+
+/* $('#sosuo').click(function(){
+	console.log($('.nashui').val())
+	if ($('.nashui').val()==1) {
+		$('.lowresult').show();
+		$('.highresult').hide();
+	   return renderlow(10);
+	}else if ($('.nashui').val()==2) {
+		$('.lowresult').hide();
+		$('.highresult').show();
+	   return renderlow(80);
+	}
+}) */
+function renderlow(setting){
+
+	//仪表盘
+	var gaugeOptions = {
+	        chart: {
+	            type: 'solidgauge'
+	        },
+	        title: null,
+	        pane: {
+	            center: ['50%', '55%'],
+	            size: '100%',
+	            startAngle: -100,
+	            endAngle: 100,
+	            background: {
+	                backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || '#EEE',
+	                innerRadius: '60%',
+	                outerRadius: '100%',
+	                shape: 'arc'
+	            }
+	        },
+	        tooltip: {
+	            enabled: false
+	        },
+	        // the value axis
+	        yAxis: {
+	            stops: [
+	                [0.1, '#DF5353'], // green
+	                [0.6, '#DDDF0D'], // yellow
+	                [0.9, '#1E90FF'] // blue
+	            ],
+	            lineWidth: 0,
+	            minorTickInterval: null,
+	            tickPixelInterval: 400,
+	            tickWidth: 0,
+	            title: {
+	                y: -70
+	            },
+	            labels: {
+	                y: 16
+	            }
+	        },
+	        plotOptions: {
+	            solidgauge: {
+	                dataLabels: {
+	                    y: 5,
+	                    borderWidth: 0,
+	                    useHTML: true
+	                }
+	            }
+	        }
+	    };
+	    // The speed gauge
+	    $('#jsc_container-speed').highcharts(Highcharts.merge(gaugeOptions, {
+	        yAxis: {
+	            min: 0,
+	            max: 100,
+	            title: {
+	                text: ''
+	            }
+	        },
+	        credits: {
+	            enabled: false
+	        },
+
+	        series: [{
+	            name: '',
+	            data: [setting],
+	            center: ['50%', '55%'],
+	            dataLabels: {
+	                format: '<div style="text-align:center;display:block;padding-bottom:130px;"><span style="font-size:18px;color:' +
+	                ((Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black') + '">{y}</span><br/>' +
+	                '<span style="font-size:12px;color:silver">%</span></div>'
+	            },
+	            tooltip: {
+	                valueSuffix: '%'
+	            }
+	        }]
+	    }));
+}
+</script>
+
+</body>
+</html>

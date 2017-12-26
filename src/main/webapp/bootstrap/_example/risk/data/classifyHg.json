@@ -1,0 +1,85 @@
+{
+    "success": true, 
+    "msg": null, 
+    "data": {
+        "pageSize": 10, 
+        "pageNo": 1, 
+        "totalCount": 0, 
+        "lastPageNo": 3, 
+        "nextPageNo": 2, 
+        "firstPage": false, 
+        "lastPage": false, 
+        "thisPageElements": [
+        	{
+    			"cmcode": "A",
+    			"stanName":"电视监控系统配件 防爆液晶显示器",
+    			"legalNum": 1,
+    			"specificationModel": "X-000",
+    			"unitName": "套",
+    			"unitPrice": 9662.39,
+    			"destinationAreaName" : "美国",
+    			"totalPrice": 9662.39,
+    			"currency" : "人民币",
+    			"tsl": "10%",
+    			"company": "扬州某点电缆股份有限公司",
+    			"checked": true
+    		},
+    		{
+    			"cmcode":"B",
+    			"stanName": "电视监控系统配件 控制器内变压器 ",
+    			"legalNum": 2,
+    			"specificationModel": "ZJYP-4-2 220VAC/15VAC*⑴",
+    			"unitName": "套",
+    			"unitPrice": 146.16,
+    			"destinationAreaName" : "英国",
+    			"totalPrice": 292.32,
+    			"currency" : "人民币",
+    			"tsl": "10%",
+    			"company": "南京某自动化系统工程有限公司",
+    			"checked" : "aaa"
+    		},
+    		{
+    			"cmcode":"C",
+    			"stanName": "40钻机橡胶配件 ZJ40 钻井平台防滑板 ",
+    			"legalNum": 50,
+    			"specificationModel": "510*510*30 天然橡胶",
+    			"unitName": "件",
+    			"unitPrice": 1074.23,
+    			"destinationAreaName" : "德国",
+    			"totalPrice": 53711.54,
+    			"currency" : "人民币",
+    			"tsl": "10%",
+    			"company": "宝鸡某石油机械厂"
+    		},
+    		{
+    			"cmcode":"D",
+    			"stanName": "铜芯塑料绝缘电力电缆 VVR ",
+    			"legalNum": 0.6,
+    			"specificationModel": "3*6+1*4mm2 1kV GB/T 127*⑴",
+    			"unitName": "km",
+    			"unitPrice": 13569.23,
+    			"destinationAreaName" : "法国",
+    			"totalPrice": 8141.54,
+    			"currency" : "人民币",
+    			"tsl": "10%",
+    			"company": "扬州某点电缆股份有限公司"
+    		},
+    		{
+    			"cmcode":"E",
+    			"stanName": "铜芯塑料绝缘电力电缆 VVR ",
+    			"legalNum": 0.2,
+    			"specificationModel": "3*2.5+1*1.5 0.6/1kV GB/*⑴",
+    			"unitName": "km",
+    			"unitPrice": 7634.85,
+    			"destinationAreaName" : "韩国",
+    			"totalPrice": 1526.97,
+    			"currency" : "人民币",
+    			"tsl": "10%",
+    			"company": "扬州某点电缆股份有限公司"
+    		}
+        ], 
+        "thisPageLastElementNumber": 20, 
+        "previousPageNo": 0, 
+        "thisPageFirstElementNumber": 11
+    }
+}

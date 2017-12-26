@@ -1,0 +1,361 @@
+<!-- 驾驶舱 -->
+<div class="container-fluid tongji">
+	
+	<div class="row">
+		<div class="col-sm-6">
+			<div id="jsc_lineChart" style="width:100%;height:100%"></div>
+		</div>
+		<div class="col-sm-6">
+			<div id="jsc_circleChart" style="width:100%;height:100%"></div>
+		</div>
+		
+	</div>
+	<div class="row">
+		<div class="col-sm-6">
+			<div style="width:100%;height:100%">
+			    <div id="jsc_container-speed" class="pull-left" style="width:100%; height:100%;"></div>
+			    <!-- <div id="container-rpm" class="pull-left" style="width:50%; height:50%;"></div> -->
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<div id="jsc_lineChart3d" style="width:100%;height:100%"></div>
+		</div>
+	</div>
+	
+	<!-- <div class="row">
+		<div class="col-sm-6">
+			<div id="htlineChart5" style="width:100%;height:100%"></div>
+		</div>
+		<div class="col-sm-6">
+			<div id="htlineChart6" style="min-width:400px;height:400px"></div>
+		</div>
+	</div> -->
+</div>
+<script type="text/javascript">
+
+$(function(){
+	
+	//速度仪
+	$('#jsc_lineChart').highcharts({
+	    chart: {
+	        type: 'gauge',
+	        plotBackgroundColor: null,
+	        plotBackgroundImage: null,
+	        plotBorderWidth: 0,
+	        plotShadow: false
+	    },
+	    title: {
+	        text: '速度仪'
+	    },
+	    pane: {
+	        startAngle: -150,
+	        endAngle: 150,
+	        background: [{
+	            backgroundColor: {
+	                linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+	                stops: [
+	                    [0, '#FFF'],
+	                    [1, '#333']
+	                ]
+	            },
+	            borderWidth: 0,
+	            outerRadius: '109%'
+	        }, {
+	            backgroundColor: {
+	                linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+	                stops: [
+	                    [0, '#333'],
+	                    [1, '#FFF']
+	                ]
+	            },
+	            borderWidth: 1,
+	            outerRadius: '107%'
+	        }, {
+	            // default background
+	        }, {
+	            backgroundColor: '#DDD',
+	            borderWidth: 0,
+	            outerRadius: '105%',
+	            innerRadius: '103%'
+	        }]
+	    },
+	    // the value axis
+	    yAxis: {
+	        min: 0,
+	        max: 200,
+	        minorTickInterval: 'auto',
+	        minorTickWidth: 1,
+	        minorTickLength: 10,
+	        minorTickPosition: 'inside',
+	        minorTickColor: '#666',
+	        tickPixelInterval: 30,
+	        tickWidth: 2,
+	        tickPosition: 'inside',
+	        tickLength: 10,
+	        tickColor: '#666',
+	        labels: {
+	            step: 2,
+	            rotation: 'auto'
+	        },
+	        title: {
+	            text: 'km/h'
+	        },
+	        plotBands: [{
+	            from: 0,
+	            to: 120,
+	            color: '#55BF3B' // green
+	        }, {
+	            from: 120,
+	            to: 160,
+	            color: '#DDDF0D' // yellow
+	        }, {
+	            from: 160,
+	            to: 200,
+	            color: '#DF5353' // red
+	        }]
+	    },
+	    series: [{
+	        name: 'Speed',
+	        data: [80],
+	        tooltip: {
+	            valueSuffix: ' km/h'
+	        }
+	    }]
+	},
+	                           // Add some life
+	function (chart) {
+	    if (!chart.renderer.forExport) {
+	        setInterval(function () {
+	            var point = chart.series[0].points[0],
+	                newVal,
+	                inc = Math.round((Math.random() - 0.5) * 20);
+	            newVal = point.y + inc;
+	            if (newVal < 0 || newVal > 200) {
+	                newVal = point.y - inc;
+	            }
+	            point.update(newVal);
+	        }, 3000);
+	    }
+	});
+	
+	//仪表盘
+	var gaugeOptions = {
+	        chart: {
+	            type: 'solidgauge'
+	        },
+	        title: null,
+	        pane: {
+	            center: ['50%', '85%'],
+	            size: '140%',
+	            startAngle: -90,
+	            endAngle: 90,
+	            background: {
+	                backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || '#EEE',
+	                innerRadius: '60%',
+	                outerRadius: '100%',
+	                shape: 'arc'
+	            }
+	        },
+	        tooltip: {
+	            enabled: false
+	        },
+	        // the value axis
+	        yAxis: {
+	            stops: [
+	                [0.1, '#55BF3B'], // green
+	                [0.5, '#DDDF0D'], // yellow
+	                [0.9, '#DF5353'] // red
+	            ],
+	            lineWidth: 0,
+	            minorTickInterval: null,
+	            tickPixelInterval: 400,
+	            tickWidth: 0,
+	            title: {
+	                y: -70
+	            },
+	            labels: {
+	                y: 16
+	            }
+	        },
+	        plotOptions: {
+	            solidgauge: {
+	                dataLabels: {
+	                    y: 5,
+	                    borderWidth: 0,
+	                    useHTML: true
+	                }
+	            }
+	        }
+	    };
+	    // The speed gauge
+	    $('#jsc_container-speed').highcharts(Highcharts.merge(gaugeOptions, {
+	        yAxis: {
+	            min: 0,
+	            max: 200,
+	            title: {
+	                text: '速度'
+	            }
+	        },
+	        credits: {
+	            enabled: false
+	        },
+	        series: [{
+	            name: '速度',
+	            data: [80],
+	            dataLabels: {
+	                format: '<div style="text-align:center"><span style="font-size:25px;color:' +
+	                ((Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black') + '">{y}</span><br/>' +
+	                '<span style="font-size:12px;color:silver">km/h</span></div>'
+	            },
+	            tooltip: {
+	                valueSuffix: ' km/h'
+	            }
+	        }]
+	    }));
+	    // The RPM gauge
+	   /*  $('#container-rpm').highcharts(Highcharts.merge(gaugeOptions, {
+	        yAxis: {
+	            min: 0,
+	            max: 5,
+	            title: {
+	                text: 'RPM'
+	            }
+	        },
+	        series: [{
+	            name: 'RPM',
+	            data: [1],
+	            dataLabels: {
+	                format: '<div style="text-align:center"><span style="font-size:25px;color:' +
+	                ((Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black') + '">{y:.1f}</span><br/>' +
+	                '<span style="font-size:12px;color:silver">* 1000 / min</span></div>'
+	            },
+	            tooltip: {
+	                valueSuffix: ' revolutions/min'
+	            }
+	        }]
+	    })); */
+	    // Bring life to the dials
+	    setInterval(function () {
+	        // Speed
+	        var chart = $('#jsc_container-speed').highcharts(),
+	            point,
+	            newVal,
+	            inc;
+	        if (chart) {
+	            point = chart.series[0].points[0];
+	            inc = Math.round((Math.random() - 0.5) * 100);
+	            newVal = point.y + inc;
+	            if (newVal < 0 || newVal > 200) {
+	                newVal = point.y - inc;
+	            }
+	            point.update(newVal);
+	        }
+	        // RPM
+	       /*  chart = $('#container-rpm').highcharts();
+	        if (chart) {
+	            point = chart.series[0].points[0];
+	            inc = Math.random() - 0.5;
+	            newVal = point.y + inc;
+	            if (newVal < 0 || newVal > 5) {
+	                newVal = point.y - inc;
+	            }
+	            point.update(newVal);
+	        } */
+	    }, 2000);
+	    
+	    
+	    //3d环形图
+	    $('#jsc_circleChart').highcharts({
+	        chart: {
+	            type: 'pie',
+	            options3d: {
+	                enabled: true,
+	                alpha: 45
+	            }
+	        },
+	        title: {
+	            text: '每周报关单统计'
+	        },
+	        subtitle: {
+	            text: '分析直观的统计数据'
+	        },
+	        plotOptions: {
+	            pie: {
+	                innerSize: 100,
+	                depth: 45
+	            }
+	        },
+	        series: [{
+	            name: '报关单数量',
+	            data: [
+	                ['海淀', 8],
+	                ['朝阳', 3],
+	                ['东城', 1],
+	                ['西城', 6],
+	                ['昌平', 8],
+	                ['房山', 4],
+	                ['丰台', 2]
+	            ]
+	        }]
+	    });
+	    
+	    //3d柱状
+	    $('#jsc_lineChart3d').highcharts({
+	        chart: {
+	            type: 'column',
+	            options3d: {
+	                enabled: true,
+	                alpha: 15,
+	                beta: 15,
+	                viewDistance: 25,
+	                depth: 40
+	            },
+	            marginTop: 80,
+	            marginRight: 40
+	        },
+	        title: {
+	            text: '统计分析'
+	        },
+	        xAxis: {
+	            categories: ['报关单', '合同', '发票']
+	        },
+	        yAxis: {
+	            allowDecimals: false,
+	            min: 0,
+	            title: {
+	                text: '数量'
+	            }
+	        },
+	        tooltip: {
+	            headerFormat: '<b>{point.key}</b><br>',
+	            pointFormat: '<span style="color:{series.color}">\u25CF</span> {series.name}: {point.y} / {point.stackTotal}'
+	        },
+	        plotOptions: {
+	            column: {
+	                stacking: 'normal',
+	                depth: 40
+	            }
+	        },
+	        series: [{
+	            name: '海淀区',
+	            data: [5, 3, 4, 7, 2],
+	            stack: 'a'
+	        }, {
+	            name: '朝阳区',
+	            data: [3, 4, 4, 2, 5],
+	            stack: 'a'
+	        }, {
+	            name: '丰台区',
+	            data: [2, 5, 6, 2, 1],
+	            stack: 'b'
+	        }, {
+	            name: '东城区',
+	            data: [3, 0, 4, 4, 3],
+	            stack: 'b'
+	        }]
+	    });
+	    
+});
+
+
+</script>

@@ -1,0 +1,29 @@
+[
+	
+	{
+		"name" : "申报管理",
+		"leftIcon" : "l fa fa-sticky-note-o",
+		"rightIcon" : "r fa fa-angle-right",
+		"children" : [
+				{
+					"name" : "申报批次",
+					"url" : "tuishui/pici/list.html"
+				},
+				{
+					"name" : "预申报",
+					"url" : "tuishui/yushenbao/list.html"
+				},
+				{
+					"name" : "正式申报",
+					"url" : "tuishui/zhengshi/list.html"
+				}
+		]
+	},
+	
+	
+	{
+		"name" : "备案单证",
+		"url" : "system/beian/list.html",
+		"leftIcon" : "l fa fa-camera-retro"
+	}
+]

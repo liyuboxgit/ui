@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+<meta name="viewport" content="width=device-width, initial-scale=1"> 
+<title>外贸综合服务企业出口退税风险管控信息系统</title>
+<link rel="stylesheet" type="text/css" href="static/login/component.css" />
+<link rel="stylesheet" type="text/css" href="static/login/demo.css" />
+<!--必要样式-->
+<link rel="stylesheet" type="text/css" href="static/login/normalize.css" />
+<!--[if IE]>
+<script src="static/login/html5.js"></script>
+<![endif]-->
+</head>
+<body>
+		<div class="container demo-1">
+			<div class="content">
+				<div id="large-header" class="large-header">
+					<canvas id="demo-canvas"></canvas>
+					
+					<div class="logo_box" style="width:600px; margin-left:-300px;">
+						<h3>外贸综合服务企业出口退税风险管控信息系统</h3>
+						<div style="width:400px;margin-left:75px;">
+							<form action="#" name="f" method="post">
+								<div class="input_outer">
+									<span class="u_user"></span>
+									<input name="logname" id="index_loginName" class="text" style="color: #FFFFFF !important" type="text" placeholder="请输入账户" onkeydown="keyDown(event);" value="admin">
+								</div>
+								<div class="input_outer">
+									<span class="us_uer"></span>
+									<input name="logpass" id="index_pwd" class="text" style="color: #FFFFFF !important; position:absolute; z-index:100;"value="" type="password" placeholder="请输入密码" onkeydown="keyDown();">
+								</div>
+								<div class="mb2"><a class="act-but submit" id="index_login" href="javascript:;" style="color: #FFFFFF">登录</a></div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div><!-- /container -->
+		<script src="static/login/TweenLite.min.js"></script>
+		<script src="static/login/EasePack.min.js"></script>
+		<script src="static/login/rAF.js"></script>
+		<script src="static/login/demo-1.js"></script>
+		<div style="text-align:center;">
+</div>
+
+<script type="text/javascript" src="static/plugins/jquery-2.1.1/jquery-2.1.1.js"></script>
+<link rel="stylesheet" href="static/plugins/layer-v3.1.0/theme/default/layer.css"/>
+<script type="text/javascript" src="static/plugins/layer-v3.1.0/layer.js"></script>
+<script> 
+	$(function(){
+		$(document).on('click','#index_login',function(){
+			var name = 	$('#index_loginName').val();
+			//name = "admin";
+			name = $.trim(name);
+			
+			var url = '../../data/';
+			sessionStorage.setItem("url", url+"menu_"+name+".json");
+			sessionStorage.setItem("mainUrl","../include/main_"+name+".html");
+			switch(name){
+				case "admin":
+					sessionStorage.setItem("name", "管理员");
+					break;
+				case "zhangsan":
+					sessionStorage.setItem("name", "张三");
+					break;
+				case "lisi":
+					sessionStorage.setItem("name", "李四");
+					break;
+				case "wangwu":
+					sessionStorage.setItem("name", "王五");
+					break;
+				case "zhaoliu":
+					sessionStorage.setItem("name", "赵六");
+					break;
+				case "tianqi":
+					sessionStorage.setItem("name", "田七");
+					break;
+				case "qianba":
+					sessionStorage.setItem("name", "钱八");
+					break;
+				case "zhengjiu":
+					sessionStorage.setItem("name", "郑九");
+					break;
+				case "waimao":
+					sessionStorage.setItem("name", "外贸用户");
+					break;
+				default:
+					layer.msg('此用户不存在!');
+					return;
+			}
+			
+			window.location.href = "pages/layout/index.html";
+			
+		});
+		
+		//$('#index_login').trigger('click');
+	});
+	
+	function keyDown(e){
+		//console.log(event.keyCode);
+		var e = e || window.event;
+		if(e.keyCode == 13){
+			$('#index_login').trigger('click');
+		}
+	}
+</script>
+	</body>
+</html>

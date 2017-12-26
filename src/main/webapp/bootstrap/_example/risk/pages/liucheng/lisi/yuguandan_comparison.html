@@ -1,0 +1,370 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+	<head>
+		<meta charset="UTF-8">
+		<!--Bootstrap 不支持 IE 古老的兼容模式。为了让 IE 浏览器运行最新的渲染模式建议添加一下meta-->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<!--自适应设备宽度-->
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+		<title>外贸综合服务企业出口退税风险管控信息系统-任务预关单审核商品比对</title>
+		<meta name="Keywords" content="外贸综合服务企业出口退税风险管控信息系统">
+		<meta name="description" content="外贸综合服务企业出口退税风险管控信息系统">
+		<link rel="stylesheet" href="../../../static/plugins/bootstrap-3.3.7/css/bootstrap.min.css"/>
+		<script type="text/javascript" src="../../../static/plugins/jquery-2.1.1/jquery-2.1.1.js"></script>
+		<script type="text/javascript" src="../../../static/plugins/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" href="../../../static/plugins/font-awesome-4.7.0/css/font-awesome.css"/><!-- icon字体图标 -->
+		<link rel="stylesheet" href="../../../static/plugins/bootstrap-table-1.11.1/bootstrap-table.css"/><!-- 表格 -->
+		<script type="text/javascript" src="../../../static/plugins/bootstrap-table-1.11.1/bootstrap-table.js"></script>
+		<script type="text/javascript" src="../../../static/plugins/bootstrap-table-1.11.1/extensions/export/bootstrap-table-export.js"></script><!-- 表格导出 -->
+		<script type="text/javascript" src="../../../static/plugins/tableExport.jquery.plugin/tableExport.js"></script>
+		<script type="text/javascript" src="../../../static/plugins/bootstrap-table-1.11.1/locale/bootstrap-table-zh-CN.js"></script>
+		<script src="../../../static/plugins/jquery.nicescroll-3.7.6/jquery.nicescroll.js"></script><!-- 美化滚动条 -->
+		<script type="text/javascript" src="../../../static/plugins/My97DatePicker-4.8/WdatePicker.js"></script><!-- 日历 -->
+		<script type="text/javascript" src="../../../static/js/common.js"></script><!-- 自定义公用js -->
+		<link rel="stylesheet" href="../../../static/css/common.css"/><!-- 自定义公用css -->
+		<link rel="stylesheet" href="../../../static/plugins/layer-v3.1.0/theme/default/layer.css"/><!-- 弹窗 -->
+		<script type="text/javascript" src="../../../static/plugins/layer-v3.1.0/layer.js"></script>
+		<script type="text/javascript" src="../../../static/js/liucheng/liucheng_yuguandan_comparison.js"></script><!-- 本页专用 -->
+	</head>
+<body style="overflow-y:scroll">
+	<div class="layerBodyBg">
+		<div class="row">
+			<div class="col-xs-12">
+				<p style="text-align:left; border-bottom: 1px dotted #666; padding-bottom: 5px;margin-bottom:15px;">
+					<span  style="padding: 5px 10px;background:#d9edf7;font-size:14px;">基本信息</span>
+					<button type="button" class="btn btn-ckts btn-xs pull-right" title="更多"><i class="glyphicon glyphicon-menu-down"></i>更多</button>
+				</p>
+				<div class="table-responsive">
+					<table class="table table-bordered table-condensed table-striped table-hover" style="margin-bottom:0">
+						<thead style="background:#eee;">
+							<tr>
+								<th width="100px">比对项</th>
+								<th width="550px">预关单</th>
+								<th>报关行预关单</th>
+							</tr>
+						</thead>
+						<tbody>
+							<!-- 
+							基本信息的纵向排列
+							<tr>
+								<td>预录入编号</td>
+								<td>1</td>
+								<td>2</td>
+							</tr>
+							<tr>
+								<th>海关编号</th>
+								<td>1</td>
+								<td>2</td>
+							</tr>
+							<tr>	
+								<th>出口口岸</th>
+								<td>1</td>
+								<td>2</td>
+							</tr>
+							<tr>
+								<th>备案号</th>
+								<td>1</td>
+								<td>2</td>
+							</tr>
+							<tr>
+								<th>经营单位</th>
+								<td>1</td>
+								<td>2</td>
+							</tr>
+							<tr>
+								<th>运输方式</th>
+								<td>1</td>
+								<td>2</td>
+							</tr>
+							<tr>
+								<th>运输工具</th>
+								<td>1</td>
+								<td>2</td>
+							</tr>
+							<tr>
+								<th>提运单号</th>
+								<td>1</td>
+								<td>2</td>
+							</tr>
+							<tr>	
+								<th>发货单位</th>
+								<td>1</td>
+								<td>2</td>
+							</tr>
+							<tr>	
+								<th>贸易方式</th>
+								<td>1</td>
+								<td>2</td>
+							</tr>
+							<tr>	
+								<th>征免性质</th>
+								<td>1</td>
+								<td>2</td>
+							</tr>
+							<tr>	
+								<th>许可证号</th>
+								<td>1</td>
+								<td>2</td>
+							</tr>
+							<tr>
+								<th>抵运国(地区)</th>
+								<td>1</td>
+								<td>2</td>
+							</tr>
+							<tr>
+								<th>指运港</th>
+								<td>1</td>
+								<td>2</td>
+							</tr>
+							<tr>	
+								<th>境内货源地</th>
+								<td>1</td>
+								<td>2</td>
+							</tr>
+							<tr>	
+								<th>批准文号</th>
+								<td>1</td>
+								<td>2</td>
+							</tr>
+							<tr>
+								<th>成交方式</th>
+								<td>1</td>
+								<td>2</td>
+							</tr>
+							<tr>
+								<th>运费</th>
+								<td>1</td>
+								<td>2</td>
+							</tr>
+							<tr>
+								<th>保费</th>
+								<td>1</td>
+								<td>2</td>
+							</tr>
+							<tr>
+								<th>杂费</th>
+								<td>1</td>
+								<td>2</td>
+							</tr>
+							<tr>
+								<th>合同协议号</th>
+								<td>1</td>
+								<td>2</td>
+							</tr>
+							<tr>
+								<th>件数</th>
+								<td>1</td>
+								<td>2</td>
+							</tr>
+							<tr>
+								<th>包装种类</th>
+								<td>1</td>
+								<td>2</td>
+							</tr>
+							<tr>
+								<th>毛重(kg)</th>
+								<td>1</td>
+								<td>2</td>
+							</tr>
+							<tr>
+								<th>净重(kg)</th>
+								<td>1</td>
+								<td>2</td>
+							</tr>
+							<tr>
+								<th>集装箱号</th>
+								<td>1</td>
+								<td>2</td>
+							</tr>
+							<tr>
+								<th>随附单据</th>
+								<td>1</td>
+								<td>2</td>
+							</tr>
+							<tr>
+								<th>生产厂家</th>
+								<td>1</td>
+								<td>2</td>
+							</tr>
+							<tr>
+								<th>标记码及备注</th>
+								<td>1</td>
+								<td>2</td>
+							</tr>
+						 -->
+						</tbody>
+					</table>
+				</div>
+				
+				<p style="text-align:left; border-bottom: 1px dotted #666; padding-bottom: 5px;margin-top:15px; margin-bottom:15px;">
+					<span  style="padding: 5px 10px;background:#d9edf7;font-size:14px;">箱单信息</span>
+					<button type="button" class="btn btn-ckts btn-xs pull-right" title="更多"><i class="glyphicon glyphicon-menu-down"></i>更多</button>
+				</p>
+				<div class="table-responsive" id="goodsBiDui">
+					<table class="table table-bordered table-condensed table-striped table-hover">
+						<!-- 
+						商品的横向排列
+						<thead style="background:#eee;">
+							<tr>
+								<th>序号</th>
+								<th>商品编码</th>
+								<th>商品名称、规格型号</th>
+								<th>数量</th>
+								<th>单位</th>
+								<th>最终目的国</th>
+								<th>单价</th>
+								<th>总价</th>
+								<th>币制</th>
+								<th>征免</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>1</td>
+								<td>8544492100</td>
+								<td>电视监控系统配件 防爆液晶显示器,X-000 </td>
+								<td>20</td>
+								<td>套</td>
+								<td>委内瑞拉</td>
+								<td>9662.39</td>
+								<td>9662.39</td>
+								<td>人民币</td>
+								<td>10%</td>
+							</tr>
+							<tr>
+								<td>2</td>
+								<td>4016999090</td>
+								<td>40钻机橡胶配件 ZJ40 钻井平台防滑板</td>
+								<td>50</td>
+								<td>件</td>
+								<td>法国</td>
+								<td>193.36</td>
+								<td>9668.08</td>
+								<td>美元</td>
+								<td>2%</td>
+							</tr>
+						</tbody> 
+						-->
+						
+						<!-- 商品表头的纵向排列 -->
+						<tr style="background:#eee;">
+							<td style="padding:0;">
+								<table class="table table-bordered table-condensed table-striped" style="margin-bottom:-1px;">
+									<thead style="background:#eee;">
+										<tr>
+											<th width="40px">序号</th>
+											<th width="100px">比对项</th>
+											<th width="550px">预关单</th>
+											<th>报关行预关单</th>
+										</tr>
+									</thead>
+								</table>
+							</td>
+						</tr>
+						<!-- 
+						商品表体的纵向排列
+						<tr>
+							<td style="padding:0;">
+								<table class="table table-bordered table-condensed table-striped table-hover" style="margin-bottom:0">
+									<tbody>
+										<tr>
+											<td width="100px">商品编码</td>
+											<td width="550px">12</td>
+											<td>12</td>
+										</tr>
+										<tr>
+											<td width="100px">商品名称</td>
+											<td width="550px">12</td>
+											<td>12</td>
+										</tr>
+									</tbody>
+								</table>
+							</td>
+						</tr>
+						 -->
+					</table>
+				</div>
+			</div>	
+		</div>
+	</div>
+	<script type="text/javascript">
+		var $tbodys = $(".table-responsive").find("table tbody");
+		var $basicTbody=$tbodys.eq(0),$goodsTbody=$tbodys.slice(1);
+		var $button0 = $("button:eq(0)").on("click",function(){
+			$basicTbody.find("tr[result='1']").slideToggle(100);
+		});
+		var $button1 = $("button:eq(1)").on("click",function(){
+			$goodsTbody.find("tr[result='1']").slideToggle(100);
+		});
+		
+		//$.getJSON("../../../data/yuGuanDanCompare.json",function(json){
+//		ajaxHelper("../../../../lcygdsh/findGuanDanDuiBi",{"rwbh":"d529b2d31e67463588d1e7e16481dce9","bjfl":"1"},function(json){
+        ajaxHelper("../../../../lcygdsh/findGuanDanDuiBi",{"rwbh":parent.lcparams.rwbh,"bjfl":"1"},function(json){
+
+            if(!json.success){ parent.layer.msg(json.msg); return;}
+			json = json.data;
+			var basic = json.basic;
+			var basicStructure = basic.structure;
+			var basicSeq = basic.seq;
+			var basicDatas = basic.datas;
+			for(var i=0;i<basicSeq.length;i++){
+				var code = basicSeq[i];
+				var label = basicStructure[code];
+				var data = basicDatas[0][code];
+				var value1 = data.value1;
+				var value2 = data.value2;
+				var result = data.result;
+				var display = "none";
+				if(result!="1"){
+					display = "";
+					value1 = '<font color="red">' + value1 + '</font>';
+					value2 = '<font color="red">' + value2 + '</font>';
+				}
+				//array.push([code,label,value1,value2,result]);
+				$basicTbody.append('<tr code="'+code+'" result="'+result+'" style="display:'+display+';"><td>'+label+'</td><td>'+value1+'</td><td>'+value2+'</td></tr>');
+			}
+			
+			//商品信息比对
+			var goodsHtmlArray = [];
+			var goods = json.goods;
+			var goodsStructure = goods.structure;
+			var goodsSeq = goods.seq;
+			var goodsDatas = goods.datas;
+			for(var i=0; i<goodsDatas.length; i++){
+				var goodsData = goodsDatas[i];
+				var itemGoodsHtmlArray = [];
+				var itemResult = "1";
+				//商品项
+				for(var j=0;j<goodsSeq.length; j++){
+					var code = goodsSeq[j];
+					var label = goodsStructure[code];
+					var data = goodsData[code];
+					var value1 = data.value1;
+					var value2 = data.value2;
+					var result = data.result;
+					var display = "none";
+					if(result!="1"){
+						itemResult = "0";
+						display = "";
+						value1 = '<font color="red">' + value1 + '</font>';
+						value2 = '<font color="red">' + value2 + '</font>';
+					}
+					itemGoodsHtmlArray.push('<tr code="'+code+'" result="'+result+'" style="display:'+display+';">'+(j==0?('<td width="40px" rowspan="'+goodsSeq.length+'" style="text-align:center;vertical-align:middle;">'+(i+1)+'</td>'):'')+'<td width="100px">'+label+'</td><td width="550px">'+value1+'</td><td>'+value2+'</td></tr>');
+				}
+				goodsHtmlArray.push('<tr><td style="padding:0;"><table class="table table-bordered table-condensed table-striped table-hover" style="margin-bottom:0;border-top:1px solid #ddd;border-bottom:'+(i<goodsDatas.length-1?1:2)+'px solid #ddd;"><tbody>');
+				var tempStr = itemGoodsHtmlArray.join("");
+				if(itemResult!="1"){
+					tempStr = tempStr.replace('>'+(i+1)+'<','>'+('<font color="red">'+(i+1)+'</font>' + '<br/>&nbsp;&nbsp;&nbsp;' + '<a href="javascript:void(0);" title="更多"><i class="glyphicon glyphicon-plus"></i></a>')+'<');
+				}
+				goodsHtmlArray.push(tempStr);
+				goodsHtmlArray.push('</tbody></table></td></tr>');
+			}
+			$("#goodsBiDui>table").append(goodsHtmlArray.join("")).find("a").on("click",function(){
+				var $this = $(this);
+				$this.closest("tbody").find("tr[result='1']").slideToggle(100);
+			});
+		});
+	</script>
+</body>
+</html>

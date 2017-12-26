@@ -1,0 +1,182 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+	<head>
+		<meta charset="UTF-8">
+		<!--Bootstrap 不支持 IE 古老的兼容模式。为了让 IE 浏览器运行最新的渲染模式建议添加一下meta-->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<!--自适应设备宽度-->
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+		<title>外贸综合服务企业出口退税风险管控信息系统-出口合同详情</title>
+		<meta name="Keywords" content="外贸综合服务企业出口退税风险管控信息系统">
+		<meta name="description" content="外贸综合服务企业出口退税风险管控信息系统">
+		<link rel="stylesheet" href="../../../static/plugins/bootstrap-3.3.7/css/bootstrap.min.css"/>
+		<script type="text/javascript" src="../../../static/plugins/jquery-2.1.1/jquery-2.1.1.js"></script>
+		<script type="text/javascript" src="../../../static/plugins/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" href="../../../static/plugins/font-awesome-4.7.0/css/font-awesome.css"/><!-- icon字体图标 -->
+		<link rel="stylesheet" href="../../../static/plugins/bootstrap-table-1.11.1/bootstrap-table.css"/><!-- 表格 -->
+		<script type="text/javascript" src="../../../static/plugins/bootstrap-table-1.11.1/bootstrap-table.js"></script>
+		<script type="text/javascript" src="../../../static/plugins/bootstrap-table-1.11.1/extensions/export/bootstrap-table-export.js"></script><!-- 表格导出 -->
+		<script type="text/javascript" src="../../../static/plugins/tableExport.jquery.plugin/tableExport.js"></script>
+		<script type="text/javascript" src="../../../static/plugins/bootstrap-table-1.11.1/locale/bootstrap-table-zh-CN.js"></script>
+		<script src="../../../static/plugins/jquery.nicescroll-3.7.6/jquery.nicescroll.js"></script><!-- 美化滚动条 -->
+		<script type="text/javascript" src="../../../static/js/common.js"></script><!-- 自定义公用js -->
+		<link rel="stylesheet" href="../../../static/css/common.css"/><!-- 自定义公用css -->
+		<link rel="stylesheet" href="../../../static/plugins/layer-v3.1.0/theme/default/layer.css"/><!-- 弹窗 -->
+		<script type="text/javascript" src="../../../static/plugins/layer-v3.1.0/layer.js"></script>
+<!-- 		<script type="text/javascript" src="../../../static/js/guandan/guandan_detail.js"></script>本页专用 -->
+<style type="text/css">
+	.bgdtemp { position:relative;}
+	.bgdtemp .imgBox { text-align:center; }
+	.bgdtemp .imgBox img { width:1000px; }
+	.bgdDateBox { position:absolute; left:0; top:0; width:100%; height:100%; font-family:"黑体";  }
+	.bgdDateBox p { position:absolute; }
+	.bgdDateBox .ewylrbh, .bgdDateBox .ewgdbh{ font-size:20px; letter-spacing:8px; font-weight:bold;}
+	.bgdDateBox .ylrbh,.bgdDateBox .gdbh { font-size:14px; letter-spacing:3px; font-weight:bold;}
+	.bgdDateBox .ewylrbh {  left:184px; top:75px;   }
+	.bgdDateBox .ewgdbh {  left:689px; top:77px;  }
+	.bgdDateBox .ylrbh {  left:228px; top:186px;  }
+	.bgdDateBox .gdbh {  left:650px; top:187px;  }
+	
+	.bgdDateBox .sfhdw {  left:155px; top:222px; }
+	.bgdDateBox .ckka {left:532px; top:222px; }
+	.bgdDateBox .ckrq {left:733px; top:223px; }
+	.bgdDateBox .sbrq {left:911px; top:225px; }
+	
+	.bgdDateBox .scxsdw {left:155px; top:266px; }
+	.bgdDateBox .ysfs {left:495px; top:266px; }
+	.bgdDateBox .ysgjmc {left:655px; top:266px; }
+	.bgdDateBox .tydh {left:785px; top:266px; }
+	
+	.bgdDateBox .sbdw {left:155px; top:300px; }
+	.bgdDateBox .jgfs {left:535px; top:302px; }
+	.bgdDateBox .zmxz {left:726px; top:304px; }
+	.bgdDateBox .bah {left:850px; top:308px; }
+	
+	.bgdDateBox .myg {left:155px; top:345px; }
+	.bgdDateBox .ydg {left:436px; top:345px; }
+	.bgdDateBox .zyg {left:650px;  top:345px; }
+	.bgdDateBox .jnhyd {left:840px;  top:347px; }
+	
+	.bgdDateBox .xkzh {left:155px; top:388px; }
+	.bgdDateBox .cjfs {left:388px; top:388px; }
+	.bgdDateBox .yunfei {left:530px;  top:388px; }
+	.bgdDateBox .baofei {left:725px;  top:388px; }
+	.bgdDateBox .zafei {left:840px;  top:388px; }
+	
+	.bgdDateBox .htxyh {left:155px; top:424px; }
+	.bgdDateBox .jianshu {left:388px; top:424px; }
+	.bgdDateBox .bzzl {left:530px;  top:424px; }
+	.bgdDateBox .maozhong {left:725px;  top:424px; }
+	.bgdDateBox .jingzhong {left:840px;  top:424px; }
+	
+	.bgdDateBox .jzxh {left:155px; top:462px; }
+	.bgdDateBox .sfdz {left:388px; top:462px; }
+	
+	.bgdDateBox .bjmBz {left:155px; top:500px; }
+	
+	.bgdDateBox .bgdGuowuqingdan { width:905px; position:absolute; left:86px; top:600px; }
+	
+	.bgdDateBox .bgdGuowuqingdan table>tbody>tr>td { border:none;  text-align:center; }
+	
+	.bgdDateBox .tsgxqr { left:355px; bottom:278px;}
+	.bgdDateBox .jgyxqr { left:580px; bottom:278px;}
+	.bgdDateBox .zftxqsyfqr { left:855px; bottom:278px;}
+	
+	 .bgdtemp table>tbody>tr>td{ padding-bottom:0;  }
+</style>
+	</head>
+<body>
+<div class="layerBodyBg">
+	<div class="bgdtemp">
+		<p class="imgBox"><img src="../../../static/images/bgdTemp.jpg"/></p>
+		<div class="bgdDateBox">
+			<p class="ewylrbh">000000000092371271</p>
+			<p class="ewgdbh">000000000092371271</p>
+			<p class="ylrbh">000000000092371271</p>
+			<p class="gdbh">000000000092371271</p>
+			<p class="sfhdw">某集团工程有限公司</p>
+			<p class="ckka">天津新港</p>
+			<p class="ckrq"><!-- 出口日期 -->2017-07-26</p>
+			<p class="sbrq"><!-- 2014-10-19 --></p>
+			<p class="scxsdw">某集团工程有限公司</p>
+			<p class="ysfs">水路运输</p>
+			<p class="ysgjmc">轮船</p>
+			<p class="tydh">BKHX000120<!-- 提运单号 --></p>
+			<p class="sbdw">XX国际物流有限公司</p>
+			<p class="jgfs"><!-- 监管方式 --></p>
+			<p class="zmxz">其他法定<!-- 征免性质 --></p>
+			<p class="bah">备案号</p>
+			
+			<p class="myg"><!-- 贸易国 --></p>
+			<p class="ydg">美国</p>
+			<p class="zyg">波士顿</p>
+			<p class="jnhyd">朝阳区<!-- 境内货源地 --></p>
+			
+			<p class="xkzh"><!-- 许可证号 --></p>
+			<p class="cjfs">一般贸易</p>
+			<p class="yunfei"><!-- 运费 --></p>
+			<p class="baofei"><!-- 保费 --></p>
+			<p class="zafei"><!-- 杂费 --></p>
+			
+			<p class="htxyh">14/SH-AMT-EOR-DEP/15<!-- 合同协议号 --></p>
+			<p class="jianshu">53<!-- 件数 --></p>
+			<p class="bzzl"><!-- 包装种类 -->其它</p>
+			<p class="maozhong"><!-- 毛重(千克) -->52.3</p>
+			<p class="jingzhong"><!-- 净重(千克) -->45.6</p>
+			
+			<p class="jzxh">TGHU6374225*3<!-- 集装箱号 --></p>
+			<p class="sfdz"><!-- 随附单证 --></p>
+			
+			<p class="bjmBz"><!-- 标记唛码及备注 -->
+			任务编号: 201703120022<br/>
+			合同起始日期：2016年8月10日 , 合同截止日期：2026年8月9日
+			</p>
+			
+			<div class="bgdGuowuqingdan">
+				<table class="table">
+					<tr>
+						<td width="40">1</td>
+						<td width="96">4016999090</td>
+						<td width="180">钻井台防滑板<br/>防护垫|硫化橡胶|不是机器及仪器用|无品牌</td>
+						<td width="150">50<br/>个</td>
+						<td width="130">美国</td>
+						<td width="80">193.36</td>
+						<td width="90">9668.08</td>
+						<td width="60">美元</td>
+						<td>照章征免<br/>(1)</td>
+					</tr>
+					<tr>
+						<td>2</td>
+						<td>8544492100</td>
+						<td>电缆<br/>传输电力|无接头|无品牌|无型号|400伏</td>
+						<td>0.8<br/>千米</td>
+						<td>美国</td>
+						<td>1012.42</td>
+						<td>10731.69</td>
+						<td>美元</td>
+						<td>照章征免<br/>(1)</td>
+					</tr>
+					<tr>
+						<td>3</td>
+						<td>8528591090</td>
+						<td>液晶显示器<br/>监视器用|显示影像，LED<br/>显示|21.5寸</td>
+						<td>3<br/>台</td>
+						<td>美国</td>
+						<td>1739.23</td>
+						<td>6956.92</td>
+						<td>美元</td>
+						<td>照章征免<br/>(1)</td>
+					</tr>
+				</table>
+			</div>
+			
+			<p class="tsgxqr"><!-- 特殊关系确认 -->是</p>
+			<p class="jgyxqr"><!-- 价格影响确认 -->否</p>
+			<p class="zftxqsyfqr"><!-- 支付特许权使用费确认 -->否</p>
+			
+		</div>
+	</div>
+</div>
+</body>
+</html>

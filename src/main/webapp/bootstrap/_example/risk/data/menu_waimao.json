@@ -1,0 +1,33 @@
+[
+	
+	{
+		"id" : "menu_rw_gl",
+		"name" : "任务管理",
+		"leftIcon" : "l fa fa-tasks",
+		"rightIcon" : "r fa fa-angle-right",
+		"children" : [
+
+			{
+				"name" : "待办任务",
+				"url" : "liucheng/renwu_my.html?isZbrw=false"
+			},
+			{
+				"name" : "在办任务",
+				"url" : "liucheng/renwu_my.html?isZbrw=true"
+			},
+			{
+				"name" : "已办任务",
+				"url" : "liucheng/renwu_my.html?isLsrw=false"
+			},
+			{
+				"name" : "历史任务",
+				"url" : "liucheng/renwu_my.html?isLsrw=true"
+			}
+		]
+	},
+	{
+		"name" : "企业信息维护",
+		"url" : "qiye/qiye.html?id=000000011",
+		"leftIcon" : "l fa fa-file"
+	}
+]

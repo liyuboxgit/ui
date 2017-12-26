@@ -1,0 +1,286 @@
+<!--预录入报关单  -->
+<div class="container-fluid">
+    <div class="col-sm-12 plr0 height100 gridBox" id="wuliupay_gridBox">
+        <table id="wuliupay_jqGrid"></table>
+        <div id="wuliupay_jqGridPager"></div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+
+    
+$(function(){
+    var dataUrl = 'data/wuliupay.json';
+    var index = null;
+    var flag = '';
+    var rowNumber = 1000000;
+
+    //表格数据
+    var gridWidth = $('#wuliupay_gridBox').width();
+    var gridHeight = $('#wuliupay_gridBox').height()-122;
+    $("#wuliupay_jqGrid").jqGrid({
+        
+        hidegrid : false, 
+        altRows : true, 
+        colModel: [{label : '协议编号', name : 'number', align: 'center', width: 120},
+            {label : '协议名称', name : 'name', align: 'center', width:80},
+            {label : '合同金额 ', name : 'money', align: 'center', width:80},
+            {label : '实付金额', name : 'pay', align: 'center', width:80},
+            {label : '剩余金额', name : 'last', align: 'center', width:80},
+            {label : '结款状态', name : 'active', align: 'center', width:80}
+            ],
+        viewrecords: true,
+        loadonce:true,
+        width: gridWidth,
+        //width: 'auto',
+        //width : '100%',
+        height: gridHeight,
+        //height : 'auto',
+        rowNum: 11,
+        rowList:[10,15,20,25],
+        datatype: 'local',
+        pager: "#wuliupay_jqGridPager",
+        multiselect: true,
+        rownumbers: true,
+        rownumWidth: 30,
+        recordtext: "当前显示: <b>{0}</b>至<b>{1}</b> 总数: <b>{2}</b>",
+        //emptyrecords: "No records to view",
+        //loadtext: "Loading...",
+        
+    }).navGrid('#wuliupay_jqGridPager',{ 
+    // the buttons to appear on the toolbar of the grid
+        edit:false,add:false,del:false,search:false,refresh:false
+    }).navButtonAdd('#wuliupay_jqGridPager',{
+            //caption: '导出',
+        caption: '',
+        title : '结算',
+        buttonicon : 'fa fa-paypal',
+        onClickButton : wuliupay_importLayer, //调用导出函数
+        position : 'last'
+    }).navSeparatorAdd("#wuliupay_jqGridPager",{
+            sepcontent: '',
+            sepclass : "ui-separator"
+    });
+    //搜索框按钮,开启搜索框需要重新调整高度
+    $('#wuliupay_jqGrid').jqGrid('filterToolbar');
+    
+    fetchGridData();
+    
+    //editGridRow新增记录；viewGridRow查看记录详情；delGridRow删除记录。
+    // 结算函数
+    function wuliupay_importLayer(){
+        var rowd = getSelectedRow();
+        var len = rowd.length;
+        if(rowd && $.isArray(rowd) && rowd.length>0){
+            //删除
+            var deletindex = layer.confirm('确定要结算吗？', {
+              btn: ['确定','取消'] //按钮
+            }, function(){
+                /*for(var i=0; i<len; i++){
+                    jQuery("#yulu_jqGrid").delRowData(rowd[0]);  
+                }*/
+                var rowIds = getSelectedRow();
+                if(rowIds && $.isArray(rowIds) && rowIds.length == 1 ){
+                    
+                    var rowData = $("#wuliupay_jqGrid").getRowData(rowIds[0]);
+                    
+                    $('#wuliupay_pay').val(rowData.last),
+                    $('#wuliupay_last').val("0"),
+                    $('#wuliupay_active').val("已结清")
+                }
+                layer.msg('结算成功', {icon: 1});
+            }, function(){
+                layer.close(deletindex);
+            });
+            
+        }else{
+            layer.msg('请选择记录!');
+        }
+    }
+    
+    
+    //弹框取消按钮
+    $('#wuliupay_cacle_btn').on('click',function(){
+        layer.close(index);
+    });
+    
+    
+    
+    //弹框保存按钮
+    $(document).on('click','#wuliupay_save_btn',function(){
+        //var total = jQuery("#wuliupay_jqGrid").jqGrid('getGridParam', 'records'); 
+        ////console.log(total);
+        //addRowData
+        //rowid,data, position, srcrowid
+        //console.log(flag);
+        if(flag == 'add'){
+            var data = {
+                    "name": $.trim($('#wuliupay_name').val()),
+                    "relName": $.trim($('#wuliupay_relName').val()),
+                    "company": $.trim($('#wuliupay_company').val()),
+                    "createTime": $.trim($('#wuliupay_createTime').val())
+            };
+            var currentNumber = rowNumber++;
+            var result = jQuery("#wuliupay_jqGrid").addRowData(currentNumber,data,'first');
+            
+            if(result){
+                layer.msg('添加成功');
+                layer.close(index);
+                
+                jQuery("#wuliupay_jqGrid").setSelection(currentNumber,true);
+                
+            }else{
+                layer.msg('添加失败!');
+            }
+        }else if(flag == 'update'){
+            
+            //删除
+            var rowIds = getSelectedRow();
+            jQuery("#wuliupay_jqGrid").delRowData(rowIds[0]);
+            //添加
+            var data = {
+                    "name": $.trim($('#wuliupay_name').val()),
+                    "relName": $.trim($('#wuliupay_relName').val()),
+                    "company": $.trim($('#wuliupay_company').val()),
+                    "cteateTime": $.trim($('#wuliupay_cteateTime').val())
+            };
+            var currentNumber = rowNumber++;
+            var result = jQuery("#wuliupay_jqGrid").addRowData(currentNumber,data,'first');
+            
+            if(result){
+                layer.msg('更新成功');
+                layer.close(index);
+                jQuery("#wuliupay_jqGrid").setSelection(currentNumber,true);
+            }else{
+                layer.msg('更新失败!');
+            }
+        }
+        
+    });
+    
+    
+    //表头新增按钮
+    $(document).on('click','#wuliupay_add_btn',function(){
+        flag = 'add';
+        $('.form-control').val('');
+        index = parent.layer.open({
+            type: 1,
+            title : '添加模块',
+            area: ['60%', '70%'], //宽高
+            content: $('#wuliupay_formBox')
+        });
+    });
+    
+    //表头编辑按钮
+    $(document).on('click','#wuliupay_update_btn',function(){
+        flag = 'update';
+        var rowIds = getSelectedRow();
+        
+        if(rowIds && $.isArray(rowIds) && rowIds.length == 1 ){
+            
+            var rowData = $("#wuliupay_jqGrid").getRowData(rowIds[0]);
+            
+            //console.log(rowData);
+            
+            $('#wuliupay_number').val(rowData.number),
+            $('#wuliupay_relName').val(rowData.relName),
+            $('#wuliupay_company').val(rowData.company),
+            $('#wuliupay_createTime').val(rowData.createTime)
+            title = '修改模块';
+            index = layer.open({
+                type: 1,
+                title : title,
+                area: ['60%', '70%'], //宽高
+                content: $('#wuliupay_formBox')
+            });
+        }else{
+            layer.msg('同时只能选择一条记录!');
+        }
+    });
+    
+    //表头删除按钮
+    $(document).on('click','#wuliupay_delete_btn',function(){
+        var rowIds = getSelectedRow();
+        var len = rowIds.length;
+        if(rowIds && $.isArray(rowIds) && rowIds.length>0){
+            //删除
+            var deletindex = layer.confirm('确定要删除吗？', {
+              btn: ['确定','取消'] //按钮
+            }, function(){
+                for(var i=0; i<len; i++){
+                    jQuery("#wuliupay_jqGrid").delRowData(rowIds[0]);  
+                }
+                layer.msg('删除成功', {icon: 1});
+            }, function(){
+                layer.close(deletindex);
+            });
+            
+        }else{
+            layer.msg('请选择记录!');
+        }
+        
+    });
+  
+    
+    //获取json数据
+    function fetchGridData() {
+
+        var gridArrayData = [];
+        // show loading message
+        $("#wuliupay_jqGrid")[0].grid.beginReq();
+        $.ajax({
+            url: dataUrl,
+            success: function(result) {
+                for (var i = 0; i < result.items.length; i++) {
+                    var item = result.items[i];
+                    
+                    gridArrayData.push({
+                        number: item.number,
+                        name: item.name,
+                        pay: item.pay,
+                        money: item.money,
+                        pay: item.pay,
+                        last: item.last,
+                        active: item.active
+                    });
+
+                }
+                // set the new data
+                $("#wuliupay_jqGrid").jqGrid('setGridParam', {
+                    data: gridArrayData
+                });
+                // hide the show message
+                $("#wuliupay_jqGrid")[0].grid.endReq();
+                // refresh the grid
+                $("#wuliupay_jqGrid").trigger('reloadGrid');
+            }
+        });
+    }
+    //格式化标题
+    function formatTitle(cellValue, options, rowObject) {
+        return cellValue.substring(0, 50) + "...";
+    };
+    //格式化链接
+    function formatLink(cellValue, options, rowObject) {
+        return "<a href='" + cellValue + "'>" + cellValue.substring(0, 25) + "..." + "</a>";
+    };
+    //获取选择的行
+    function getSelectedRow() {
+        var grid = $("#wuliupay_jqGrid");
+        var rowKeys = grid.jqGrid('getGridParam',"selarrrow");
+
+       return rowKeys;
+    }
+    
+    
+    changeSearch(); //修改工具条
+    
+});
+
+
+    
+</script>
+
+
+

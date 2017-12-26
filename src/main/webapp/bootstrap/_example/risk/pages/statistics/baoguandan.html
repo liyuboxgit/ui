@@ -1,0 +1,166 @@
+<!-- 报关单统计 -->
+<div class="container-fluid tongji">
+	<div class="row">
+		<form class="form-inline">
+			<div class="form-group">
+				<select name="ywlx" id="" class="form-control input-sm">
+					<option value="" selected="selected">统计方式</option>
+					<option value="">年统计</option>
+					<option value="">月统计</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<input type="riqi" class="form-control input-sm"  onClick="WdatePicker()" placeholder="开始日期 ">
+			</div>
+			<i class="fa fa-minus"></i>
+			<div class="form-group">
+				<input type="riqi" class="form-control input-sm"  onClick="WdatePicker()" placeholder="结束日期 ">
+			</div>
+			<button type="button" class="btn btn-ckts btn-sm">查询</button>
+			<button type="reset" class="btn btn-danger btn-sm">重置</button>
+		</form>
+	</div>
+
+	<div class="row">
+		<div class="col-sm-6">
+			<div id="bgdxiazuanChart" style="min-width: 400px; height: 400px"></div>
+		</div>
+		<div class="col-sm-6">
+			<div id="bgdlineChart" style="min-width: 400px; height: 400px"></div>
+		</div>
+	</div>
+
+</div>
+<script type="text/javascript">
+	//可下钻的柱状图
+	Highcharts.chart('bgdxiazuanChart', {
+		chart : {
+			type : 'column'
+		},
+		title : {
+			text : '报关单年统计'
+		},
+		subtitle : {
+			text : '数据来源: 报关单统计'
+		},
+		xAxis : {
+			type : 'category'
+		},
+		yAxis : {
+			title : {
+				text : '总的统计'
+			}
+		},
+		legend : {
+			enabled : false
+		},
+		plotOptions : {
+			series : {
+				borderWidth : 0,
+				dataLabels : {
+					enabled : true,
+					format : '{point.y:.1f}%'
+				}
+			}
+		},
+		tooltip : {
+			headerFormat : '<span style="font-size:11px">{series.name}</span><br>',
+			pointFormat : '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
+		},
+		series : [ {
+			name : '关单地区',
+			colorByPoint : true,
+			data : [ {
+				name : '2002',
+				y : 46.33,
+				drilldown : '2002'
+			}, {
+				name : '2005',
+				y : 24.03,
+				drilldown : '2005'
+			}, {
+				name : '2009',
+				y : 19.38,
+				drilldown : '2009'
+			}, {
+				name : '2014',
+				y : 40.77,
+				drilldown : '2014'
+			}, {
+				name : '2017',
+				y : 29.91,
+				drilldown : '2017'
+			} ]
+		} ],
+		drilldown : {
+			series : [ {
+				name : '海淀haidian',
+				id : 'hd',
+				data : [ [ 'v11.0', 24.13 ], [ 'v8.0', 17.2 ], [ 'v9.0', 8.11 ], [ 'v10.0', 5.33 ], [ 'v6.0', 1.06 ], [ 'v7.0', 0.5 ] ]
+			}, {
+				name : '朝阳chaoyang',
+				id : 'chaoyang',
+				data : [ [ 'v40.0', 5 ], [ 'v41.0', 4.32 ], [ 'v42.0', 3.68 ], [ 'v39.0', 2.96 ], [ 'v36.0', 2.53 ], [ 'v43.0', 1.45 ], [ 'v31.0', 1.24 ], [ 'v35.0', 0.85 ], [ 'v38.0', 0.6 ], [ 'v32.0', 0.55 ], [ 'v37.0', 0.38 ], [ 'v33.0', 0.19 ], [ 'v34.0', 0.14 ], [ 'v30.0', 0.14 ] ]
+			}, {
+				name : '西城区',
+				id : 'xicheng',
+				data : [ [ 'v35', 2.76 ], [ 'v36', 2.32 ], [ 'v37', 2.31 ], [ 'v34', 1.27 ], [ 'v38', 1.02 ], [ 'v31', 0.33 ], [ 'v33', 0.22 ], [ 'v32', 0.15 ] ]
+			}, {
+				name : '东城区',
+				id : 'dongcheng',
+				data : [ [ 'v8.0', 2.56 ], [ 'v7.1', 0.77 ], [ 'v5.1', 0.42 ], [ 'v5.0', 0.3 ], [ 'v6.1', 0.29 ], [ 'v7.0', 0.26 ], [ 'v6.2', 0.17 ] ]
+			}, {
+				name : '丰台区',
+				id : 'fengtai',
+				data : [ [ 'v12.x', 0.34 ], [ 'v28', 0.24 ], [ 'v27', 0.17 ], [ 'v29', 0.16 ] ]
+			} ]
+		}
+	});
+
+	//柱形图
+	var chart = new Highcharts.Chart('bgdlineChart', {
+		title : {
+			text : '采购合同',
+			x : -20
+		},
+		subtitle : {
+			text : '数据来源: 报关单统计',
+			x : -20
+		},
+		xAxis : {
+			categories : [ '一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月' ]
+		},
+		yAxis : {
+			title : {
+				text : '条'
+			},
+			plotLines : [ {
+				value : 0,
+				width : 1,
+				color : '#808080'
+			} ]
+		},
+		tooltip : {
+			valueSuffix : '条'
+		},
+		legend : {
+			layout : 'vertical',
+			align : 'right',
+			verticalAlign : 'middle',
+			borderWidth : 0
+		},
+		series : [ {
+			name : '海淀区',
+			data : [ 7, 8, 9, 14, 18, 21, 25, 26, 23, 18, 13, 9 ]
+		}, {
+			name : '朝阳区',
+			data : [ 1, 2, 5, 11, 17, 22, 15, 14, 10, 8, 3, 2 ]
+		}, {
+			name : '东城区',
+			data : [ 1, 2, 3, 8, 13, 15, 14, 13, 10, 9, 3, 1 ]
+		}, {
+			name : '西城区',
+			data : [ 3, 4, 5, 8, 11, 15, 17, 16, 14, 10, 6, 4 ]
+		} ]
+	});
+</script>

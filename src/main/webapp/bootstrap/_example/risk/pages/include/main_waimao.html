@@ -1,0 +1,530 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <!--Bootstrap 不支持 IE 古老的兼容模式。为了让 IE 浏览器运行最新的渲染模式建议添加一下meta-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!--自适应设备宽度-->
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>外贸综合服务企业出口退税风险管控信息系统</title>
+    <meta name="Keywords" content="外贸综合服务企业出口退税风险管控信息系统">
+    <meta name="description" content="外贸综合服务企业出口退税风险管控信息系统">
+
+    <link rel="stylesheet" href="../../static/plugins/bootstrap-3.3.7/css/bootstrap.min.css"/>
+    <script type="text/javascript" src="../../static/plugins/jquery-2.1.1/jquery-2.1.1.js"></script>
+    <script type="text/javascript" src="../../static/plugins/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+
+    <!-- icon字体图标 -->
+    <link rel="stylesheet" href="../../static/plugins/font-awesome-4.7.0/css/font-awesome.css"/>
+    <!-- 表格 -->
+    <link rel="stylesheet" href="../../static/plugins/bootstrap-table-1.11.1/bootstrap-table.css"/>
+    <script type="text/javascript" src="../../static/plugins/bootstrap-table-1.11.1/bootstrap-table.js"></script>
+
+    <!-- 表格导出 -->
+    <script type="text/javascript"
+            src="../../static/plugins/bootstrap-table-1.11.1/extensions/export/bootstrap-table-export.js"></script>
+    <script type="text/javascript" src="../../static/plugins/tableExport.jquery.plugin/tableExport.js"></script>
+    <script type="text/javascript"
+            src="../../static/plugins/bootstrap-table-1.11.1/locale/bootstrap-table-zh-CN.js"></script>
+
+    <!-- 美化滚动条 -->
+    <script src="../../static/plugins/jquery.nicescroll-3.7.6/jquery.nicescroll.js"></script>
+
+    <!-- 自定义公用css/js -->
+    <script type="text/javascript" src="../../static/js/common.js"></script>
+    <link rel="stylesheet" href="../../static/css/common.css"/>
+
+    <!-- 本页专用 -->
+    <link rel="stylesheet" href="../../static/css/main.css"/>
+    <!-- <script type="text/javascript" src="../../static/js/main.js"></script> -->
+
+    <!-- 弹窗 -->
+    <!--
+    <link rel="stylesheet" href="../../static/plugins/layer-v3.1.0/theme/default/layer.css"/>
+        <script type="text/javascript" src="../../static/plugins/layer-v3.1.0/layer.js"></script> -->
+</head>
+<body>
+
+<!-- 首页 -->
+<div class="container-fluid" id="include_main_box">
+
+    <div class="row" style="overflow:hidden;">
+        <div class="col-sm-12">
+            <!-- 头部任务 -->
+            <div class="panel panel-info">
+                <div class="panel-heading">待办任务</div>
+                <div class="panel-body" style="padding:0; height:180px;overflow-y:auto;">
+                    <table class="table table-striped table-bordered table-condensed" style="margin-bottom:0;">
+                    </table>
+                </div>
+            </div>
+            <!-- 头部任务 -->
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-10">
+            <div class="panel panel-info">
+                <div class="panel-heading">统计报表</div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <a class="fa fa-bar-chart"></a>
+                            <span class="font" style="font-size:16px;padding-bottom:10px">任务总数</span>
+                            <p class="text-center" id="rwzs">0</p>
+                        </div>
+                        <div class="col-sm-3">
+                            <a class="fa fa-tasks" id="main_dbrw_title"></a>
+                            <span class="font" style="font-size:16px;padding-bottom:10px">待处理</span>
+                            <p class="text-center" id="dbrws">0</p>
+                        </div>
+                        <div class="col-sm-3">
+                            <a class="fa fa-check-square-o" id="main_zbrw_title"></a>
+                            <span class="font" style="font-size:16px;padding-bottom:10px">在处理</span>
+                            <p class="text-center" id="zbrws">0</p>
+                        </div>
+                        <div class="col-sm-3">
+                            <a class="fa fa-circle-o" id="main_ybrw_title"></a>
+                            <span class="font" style="font-size:16px;padding-bottom:10px">已处理</span>
+                            <p class="text-center" id="ybrws">0</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="panel panel-info">
+                <div class="panel-heading">历史任务</div>
+                <div class="panel-body">
+                    <a class="fa fa-bell-o" id="main_lsrw_title"></a>
+                    <span class="font" id="lsrws">0</span>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="col-sm-4">
+            <div class="panel panel-info">
+                <div class="panel-heading">收汇预警</div>
+                <div class="panel-body">
+                    <a class="fa fa-exchange" id="main_sh_title"></a>
+                    <span class="font">36</span>
+                </div>
+            </div>
+        </div> -->
+    </div>
+
+
+</div>
+<!-- 首页 -->
+<style>
+    #include_main_box .main_dbrw { /* cursor:pointer; */
+    }
+
+    #include_main_box .main_dbrw li {
+        line-height: 30px;
+        letter-spacing: 1px;
+        padding-left: 10px;
+    }
+
+    #include_main_box .daiban .panel-body {
+        height: 173px;
+        overflow-y: scroll;
+    }
+
+    #include_main_box .daiban .badge {
+        margin-left: 8px;
+    }
+
+    #include_main_box .panel-body .fa {
+        cursor: pointer;
+        padding-top: 20px;
+        display: block;
+        text-align: center;
+        font-size: 50px;
+        color: #666;
+    }
+
+    #include_main_box .panel-body .font {
+        padding-top: 20px;
+        padding-bottom: 20px;
+        display: block;
+        text-align: center;
+        font-size: 30px;
+        color: #666;
+    }
+
+    #include_main_box .panel-body:hover .fa, #include_main_box .panel-body:hover .font {
+        color: #333;
+    }
+
+    #main_renwu_detail_info_box .form-control {
+        border: none;
+        box-shadow: none;
+        padding-top: 7px;
+    }
+
+    #main_renwu_ope_box #danqian p {
+        margin-bottom: 0;
+    }
+
+    .layerForm .form-group {
+        margin-bottom: 0;
+    }
+
+    /* .layerForm .topSeven { padding-top:7px; } */
+    #main_renwu_choose_user_btn {
+        margin-top: 35px;
+    }
+
+    .rewwu_base_info p {
+    }
+
+    .rewwu_base_info p span {
+        padding: 0 10px;
+        font-weight: bold;
+    }
+
+</style>
+
+<script>
+    $(function () {
+
+        $('#main_dbrw_title').on('click', function () {
+            openTabs("ckts_1000003");
+        });
+        $('#main_zbrw_title').on('click', function () {
+            openTabs("ckts_1000004");
+        });
+        $('#main_ybrw_title').on('click', function () {
+            openTabs("ckts_1000005");
+        });
+        $('#main_lsrw_title').on('click', function () {
+            openTabs("ckts_1000006");
+        });
+
+        $.ajax({
+            url: '../../../renwu/query/dbrws',
+            type: 'POST',
+            data: {
+                "isZbrw": true,
+                "jggwBm": "",
+                "pageNo": 1,
+                "pageSize": 5
+            },
+            dataType: "json",
+            success: function (result) {
+                var details = "";
+                if (result.code == 'ZSW001') {
+                    var rwxxs = {};
+                    var rwbhs = [];
+                    result.returnObject.thisPageElements.forEach(function (value) {
+                        rwbhs.push(value.bussinessId);
+                    });
+
+                    /*if (menu != null && menu.urldz != null) {
+                        $.ajax({
+                            url: menu.urldz,
+                            type: 'GET',
+                            data: {
+                                "list": JSON.stringify(rwbhs)
+                            },
+                            dataType: "json",
+                            success: function (ckts) {
+                                console.log(ckts);
+                                if (ckts != null) {
+                                    rwxxs = ckts.returnObject.thisPageElements;
+                                }
+                            },
+                            error: function () {
+
+                            }
+                        });
+                    }*/
+
+                    result.returnObject.thisPageElements.forEach(function (value, index, array) {
+                        details += "<tr>\
+                			<td>" + value.bussinessId + "</td>\
+                			<td></td>\
+                			<td></td>\
+                			<td></td>\
+                			<td></td>\
+                			<th>" + value.taskName + "</th>\
+                			<td>" + value.assignee + "</td>\
+                			<td>" + value.createTime + "</td>\
+                			<td><a href='javascript:;' class='main_rewu_ope_btn' onclick=chuli_rw('" + value.taskId + "')>办理</a>" +
+                            "&nbsp;&nbsp;<a href='javascript:;' class='main_rewu_look_btn' onclick=detail_rw('" + value.taskId + "')>查看</a></td>\
+                			</tr>";
+                    });
+                }
+                var thead = "<thead style='background:#e5e6e6;'>\
+                    <tr>\
+                    <th >任务编号</th>\
+                    <th >出口国别</th>\
+                    <th >业务类型</th>\
+                    <th >出口口岸</th>\
+                    <th >运输方式</th>\
+                    <th >当前环节</th>\
+                    <th >操作人</th>\
+                    <th >操作时间</th>\
+                    <th >操作</th>\
+                    </tr>\
+                    </thead>\
+                	<tbody>\
+                	" + details + "\
+                	</tbody>";
+
+                $(".table").append(thead);
+            },
+            error: function (result) {
+                var thead = "<thead style='background:#e5e6e6;'>\
+                    <tr>\
+                  	<th >任务编号</th>\
+                    <th >出口国别</th>\
+                    <th >业务类型</th>\
+                    <th >出口口岸</th>\
+                    <th >运输方式</th>\
+                    <th >当前环节</th>\
+                    <th >操作人</th>\
+                    <th >操作时间</th>\
+                    <th >操作</th>\
+                    </tr>\
+                    </thead>\
+                	<tbody>\
+                	</tbody>>";
+                $(".table").append(thead);
+            }
+        });
+
+        $.ajax({
+            url: '../../../renwu/query/rwtj',
+            type: 'POST',
+            data: {
+                "jggwBm": ""
+            },
+            dataType: "json",
+            success: function (data) {
+                if (data.code == 'ZSW001') {
+                    var result = data.returnObject;
+                    var dbrws = result['dbrws'] != null ? parseInt(result['dbrws']) : 0;
+                    var zbrws = result['zbrws'] != null ? parseInt(result['zbrws']) : 0;
+                    var ybrws = result['ybrws'] != null ? parseInt(result['ybrws']) : 0;
+                    var lsrws = result['lsrws'] != null ? parseInt(result['lsrws']) : 0;
+                    $("#rwzs").empty();
+                    $("#rwzs").append(dbrws + zbrws + ybrws);
+                    $("#dbrws").empty();
+                    $("#dbrws").append(dbrws);
+                    $("#zbrws").empty();
+                    $("#zbrws").append(zbrws);
+                    $("#ybrws").empty();
+                    $("#ybrws").append(ybrws);
+                    $("#lsrws").empty();
+                    $("#lsrws").append(lsrws);
+                }
+            },
+            error: function (result) {
+
+            }
+        });
+    });
+
+    function chuli_rw(taskId) {
+        $.ajax({
+            url: '../../../renwu/clrw/' + taskId,
+            type: 'POST',
+            data: {},
+            dataType: "json",
+            success: function (data) {
+                if (data.code == 'ZSW001') {
+                    var result = data.returnObject;
+                    var dkfs = result['dkfs'] != null ? result['dkfs'] : "0";
+                    var url = result['url'] != null ? result['url'] : "";
+                    if (dkfs == "3") {
+                        commIndex = layer.open({
+                            type: 2,
+                            title: '办理任务',
+                            area: ["90%", "80%"],
+                            content: url,
+                        });
+                    } else {
+                        openTabs("ckts_1000002", new Date().getTime(), url, "办理任务");
+                    }
+                }
+            },
+            error: function () {
+
+            }
+        });
+    }
+
+    function detail_rw(taskId) {
+        openTabs("ckts_1000001", new Date().getTime(), "&taskId=" + taskId, "查看任务");
+    }
+
+    //查看详情
+    $(document).on('click', '.main_rewu_look_info_btn', function () {
+        parent.layer.open({
+            type: 2,
+            skin: 'myLayui', // 样式类名
+            title: "任务详情",
+            area: ["70%", "65%"],
+            content: "../../pages/liucheng/detail.html"
+        });
+    });
+    //点击任务处理
+    $(document).on('click', '.main_rewu_ope_btn', function () {
+        parent.layer.open({
+            type: 2,
+            skin: 'myLayui', // 样式类名
+            title: "任务处理",
+            area: ["70%", "90%"],
+            content: "../../pages/liucheng/lisi/chuli.html"
+        });
+
+    });
+
+    var ctx = "http://192.168.100.252:zsmh-web/";
+    function getMenuInfo(gnBm) {
+        var menu = {};
+        $.ajax({
+            url: ctx + 'menus/' + gnBm,
+            type: 'GET',
+            async: false,
+            dataType: 'json',
+            data: {},
+            contentType: "application/json;charset=UTF-8",
+            success: function (data) {
+                if (data.code == 'A0400000') {
+                    menu = data.returnObject;
+                }
+            },
+            error: function (data) {
+
+            }
+        });
+        return menu;
+    }
+
+    function OpenTab(menu) {
+        var url = "#";
+        if (menu.cdlx == '1' || menu.cdlx == '2') {
+            url = formatUrl(menu.urldz);
+            if (menu.mblx == '1') {
+                window.open(url);
+            } else {
+                //选中或者创建tab
+                selectOrCreateTab(menu.gnDm, menu.gnjc, url);
+            }
+        }
+    }
+
+    function openTabs(gnBm) {
+        var menu = getMenuInfo(gnBm);
+        if (menu.cdlx == '1' || menu.cdlx == '2') {
+            var address = formatUrl(menu.urldz);
+            if (menu.mblx == '1') {
+                window.open(address);
+            } else {
+                if (gnBm == 'ckts_1000000' || gnBm == 'ckts_2000000') {
+                    $("#1000000").attr("data-href", address);
+                    selectOrCreateTab("1000000", "首页", address);
+                    $('#main .con').eq(0).load(address);
+                } else {
+                    selectOrCreateTab(menu.gnDm, menu.gnjc, address);
+                }
+            }
+        }
+    }
+
+    function openTabs(gnBm, id, url, gnjc) {
+        var menu = getMenuInfo(gnBm);
+        if (menu.cdlx == '1' || menu.cdlx == '2') {
+            var address = formatUrl(menu.urldz);
+            if (typeof(url) != "undefined" && url != null) {
+                address = formatUrl(menu.urldz + url);
+            }
+            if (menu.mblx == '1') {
+                window.open(address);
+            } else {
+                if (gnBm == 'ckts_1000000' || gnBm == 'ckts_2000000') {
+                    $("#1000000").attr("data-href", address);
+                    selectOrCreateTab("1000000", "首页", address);
+                    $('#main .con').eq(0).load(address);
+                } else {
+                    var key = gnBm;
+                    var name = menu.gnjc;
+                    if (typeof(id) != "undefined" && id != null) {
+                        key = id;
+                    }
+                    if (typeof(gnjc) != "undefined" && gnjc != null) {
+                        name = gnjc;
+                    }
+
+                    selectOrCreateTab(key, name, address);
+                }
+            }
+        }
+    }
+
+    function formatUrl(url) {
+        //url＋时间戳 防止出现缓存问题
+        var date = (new Date()).valueOf();
+        if (url.indexOf("&") >= 0 || url.indexOf("?") >= 0) {
+            url += "&current=" + date;
+        } else {
+            url += "?current=" + date;
+        }
+        // console.log(url);
+        return url;
+    }
+
+    //当左侧菜单点击的时候右侧tab的操作
+    function selectOrCreateTab(gnDm, title, href) {
+        //标记,右侧是否已经存在
+        var flag = false;
+        var $tabs = $('#fkTabs ul');
+        var $tabsLi = $tabs.find('li');
+        $.each($tabsLi, function (i, e) {
+            var id = $.trim($(e).find('a').attr('id'));
+            if (id === gnDm) {
+                //去掉右侧所有li标签的当前样式
+                $tabsLi.removeClass('active');
+                $(e).addClass('active');
+                //右侧比较内容显示
+                var index = $(e).index();
+                var $mainCon = $('#main .con');
+                $mainCon.eq(index).addClass('active').siblings().removeClass('active');
+                flag = true;
+            }
+        });
+
+        //如果不存在
+        if (!flag) {
+            //去掉右侧所有li标签的当前样式
+            $tabsLi.removeClass('active');
+            //创建元素
+            var $li = $('<li></li>');
+            $li.attr('class', 'active');
+            var $a = $('<a></a>');
+            $a.attr('href', 'javascript:;');
+            $a.attr('id', gnDm);
+            $a.attr('data-href', href);
+            $a.text(title);
+            var $i = $('<i></i>');
+            $i.attr('class', 'fa fa-close');
+            $li.append($a);
+            $li.append($i);
+            //向右侧tab添加元素
+            $tabs.append($li);
+            //右侧内容区加载页面
+            var $main = $('#main');
+            $main.find('.con').removeClass('active');
+            var $con = $('<div></div>');
+            $con.attr('class', 'con active');
+            $main.append($con.load(href));
+        }
+    }
+</script>
+
+</body>
+</html>

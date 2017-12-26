@@ -1,0 +1,81 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <!--Bootstrap 不支持 IE 古老的兼容模式。为了让 IE 浏览器运行最新的渲染模式建议添加一下meta-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!--自适应设备宽度-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>外贸综合服务企业出口退税风险管控信息系统-导入</title>
+    <meta name="Keywords" content="外贸综合服务企业出口退税风险管控信息系统">
+    <meta name="description" content="外贸综合服务企业出口退税风险管控信息系统">
+    <link rel="stylesheet" href="../../static/plugins/bootstrap-3.3.7/css/bootstrap.min.css"/>
+    <script type="text/javascript" src="../../static/plugins/jquery-2.1.1/jquery-2.1.1.js"></script>
+    <script type="text/javascript" src="../../static/plugins/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../../static/plugins/font-awesome-4.7.0/css/font-awesome.css"/><!-- icon字体图标 -->
+    <link rel="stylesheet" href="../../static/plugins/bootstrap-table-1.11.1/bootstrap-table.css"/><!-- 表格 -->
+    <script type="text/javascript" src="../../static/plugins/bootstrap-table-1.11.1/bootstrap-table.js"></script>
+    <script type="text/javascript" src="../../../static/plugins/bootstrap-table-1.11.1/extensions/export/bootstrap-table-export.js"></script><!-- 表格导出 -->
+    <script type="text/javascript" src="../../static/plugins/tableExport.jquery.plugin/tableExport.js"></script>
+    <script type="text/javascript" src="../../static/plugins/bootstrap-table-1.11.1/locale/bootstrap-table-zh-CN.js"></script>
+    <script src="../../../static/plugins/jquery.nicescroll-3.7.6/jquery.nicescroll.js"></script><!-- 美化滚动条 -->
+    <script type="text/javascript" src="../../static/js/common.js"></script><!-- 自定义公用js -->
+    <link rel="stylesheet" href="../../static/css/common.css"/><!-- 自定义公用css -->
+    <link rel="stylesheet" href="../../static/plugins/layer-v3.1.0/theme/default/layer.css"/><!-- 弹窗 -->
+    <script type="text/javascript" src="../../static/plugins/layer-v3.1.0/layer.js"></script>
+    <!-- 文件上传 -->
+    <link rel="stylesheet" href="../../static/plugins/bootstrap-fileinput-4.4.6/css/fileinput.css"/>
+    <script type="text/javascript" src="../../static/plugins/bootstrap-fileinput-4.4.6/js/fileinput.js"></script>
+    <script type="text/javascript" src="../../static/plugins/bootstrap-fileinput-4.4.6/js/locales/zh.js"></script>
+    <!-- 文件上传 -->
+</head>
+<body>
+<div class="layerBodyBg">
+    <p class="text-left" style="background:#f4f4f4; padding:5px;">说明: 请下载<a href="javascript:downExcelmodel();"><u><span style="color: #6972ff;">文件模板</span></u></a></p>
+    <div class="row">
+        <label class="control-label col-xs-2 text-right" style="padding-top:7px; font-weight:normal;"><span class="text-danger">*</span>请选择:</label>
+        <p class="col-xs-8"><input type="file" name="fname" class="file inputBtn"></p>
+    </div>
+    <input type="hidden" id="url" name="url"/>
+</div>
+<script>
+    //上传的后台地址
+    $("#url").val(parent.url);
+    var uploadUrl = $("#url").val();
+    //附件上传按钮
+    $(".inputBtn").fileinput({
+        language : "zh",
+        showCaption : true,
+        browseClass : "btn btn-default btn-sm",
+        uploadExtraData : {id: "123"},
+        dropZoneEnabled : false,
+        showPreview : false,
+        allowedFileExtensions : ["xlsx","xls"],
+        removeClass : "btn btn-default btn-sm",
+        uploadClass : "btn btn-default btn-sm",
+        uploadUrl : uploadUrl
+    }).on("change",function(e,file){//
+        $(this).fileinput('refresh', {uploadExtraData : {id: 246}});//传入额外的参数
+    }).on("fileuploaded", function(event, data, previewId, index) { //上传成功后
+        var result = data.response;
+        if(result.success){
+            parent.layer.msg("上传成功");//提示
+            parent.layer.close(parent.layer.getFrameIndex(window.name));//成功后关闭页面
+            parent.refreshTable(); //刷新页面
+        }else{
+            parent.layer.msg(result.msg);//提示
+        }
+    });
+
+    $(function(){
+        console.log(parent.url);
+    });
+</script>
+<script>
+    function downExcelmodel(){
+        window.location.href = "../../../fuwuhetong/exportFwht";
+    }
+</script>
+</body>
+</html>

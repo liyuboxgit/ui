@@ -1,0 +1,47 @@
+[
+	
+	{
+		"id" : "menu_rw_gl",
+		"name" : "任务管理",
+		"url" : "liucheng/wangwu/handle.html",
+		"leftIcon" : "l fa fa-tasks"
+		
+	},
+	{
+		"name" : "合同管理",
+		"leftIcon" : "l fa fa-file-word-o",
+		"rightIcon" : "r fa fa-angle-right",
+		"children" : [
+			
+			{
+				"name" : "出口合同",
+				"url" : "hetong/chukou/list.html"
+			},
+			{
+				"name" : "采购合同",
+				"url" : "hetong/caigou/list.html"
+			},
+			{
+				"name" : "运输协议",
+				"url" : "hetong/wuliu/list.html"
+			}
+		]
+	},
+	{
+		"name" : "报关单管理",
+		"leftIcon" : "l fa fa-file-text",
+		"rightIcon" : "r fa fa-angle-right",
+		"children" : [
+			{
+				"name" : "预报关单",
+				"url" : "guandan/yuluru/list.html"
+				
+			},
+			{
+				"name" : "报关单",
+				"url" : "guandan/guandan/list.html"
+				
+			}
+		]
+	}
+]

@@ -1,0 +1,228 @@
+<!-- 按出口国统计 --><!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<!--Bootstrap 不支持 IE 古老的兼容模式。为了让 IE 浏览器运行最新的渲染模式建议添加一下meta-->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<!--自适应设备宽度-->
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+<title>外贸综合服务企业出口退税风险管控信息系统-风险评估</title>
+<meta name="Keywords" content="外贸综合服务企业出口退税风险管控信息系统">
+<meta name="description" content="外贸综合服务企业出口退税风险管控信息系统">
+<link rel="stylesheet"
+	href="../../../static/plugins/bootstrap-3.3.7/css/bootstrap.min.css" />
+<script type="text/javascript"
+	src="../../../static/plugins/jquery-2.1.1/jquery-2.1.1.js"></script>
+<script type="text/javascript"
+	src="../../../static/plugins/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+<!-- icon字体图标 -->
+<link rel="stylesheet"
+	href="../../../static/plugins/font-awesome-4.7.0/css/font-awesome.css" />
+<!-- 表格 -->
+<link rel="stylesheet"
+	href="../../../static/plugins/bootstrap-table-1.11.1/bootstrap-table.css" />
+
+<script type="text/javascript"
+	src="../../../static/plugins/bootstrap-table-1.11.1/bootstrap-table.js"></script>
+<!-- 表格导出 -->
+<script type="text/javascript"
+	src="../../../static/plugins/bootstrap-table-1.11.1/extensions/export/bootstrap-table-export.js"></script>
+
+<script type="text/javascript"
+	src="../../../static/plugins/tableExport.jquery.plugin/tableExport.js"></script>
+
+<script type="text/javascript"
+	src="../../../static/plugins/bootstrap-table-1.11.1/locale/bootstrap-table-zh-CN.js"></script>
+<!-- 美化滚动条 -->
+<script
+	src="../../../static/plugins/jquery.nicescroll-3.7.6/jquery.nicescroll.js"></script>
+<!-- 自定义公用css/js -->
+<link rel="stylesheet" href="../../../static/css/common.css" />
+<script type="text/javascript" src="../../../static/js/common.js"></script>
+<script type="text/javascript" src="../../../static/js/tongji/tuishui_list.js"></script>
+<style type="text/css">
+</style>
+</head>
+<body>
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<!--Bootstrap 不支持 IE 古老的兼容模式。为了让 IE 浏览器运行最新的渲染模式建议添加一下meta-->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<!--自适应设备宽度-->
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+<title>外贸综合服务企业出口退税风险管控信息系统-风险评估</title>
+<meta name="Keywords" content="外贸综合服务企业出口退税风险管控信息系统">
+<meta name="description" content="外贸综合服务企业出口退税风险管控信息系统">
+<link rel="stylesheet"
+	href="../../../static/plugins/bootstrap-3.3.7/css/bootstrap.min.css" />
+<script type="text/javascript"
+	src="../../../static/plugins/jquery-2.1.1/jquery-2.1.1.js"></script>
+<script type="text/javascript"
+	src="../../../static/plugins/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+<!-- icon字体图标 -->
+<link rel="stylesheet"
+	href="../../../static/plugins/font-awesome-4.7.0/css/font-awesome.css" />
+<!-- 表格 -->
+<link rel="stylesheet"
+	href="../../../static/plugins/bootstrap-table-1.11.1/bootstrap-table.css" />
+
+<script type="text/javascript"
+	src="../../../static/plugins/bootstrap-table-1.11.1/bootstrap-table.js"></script>
+<!-- 表格导出 -->
+<script type="text/javascript"
+	src="../../../static/plugins/bootstrap-table-1.11.1/extensions/export/bootstrap-table-export.js"></script>
+
+<script type="text/javascript"
+	src="../../../static/plugins/tableExport.jquery.plugin/tableExport.js"></script>
+<script type="text/javascript" src="../../../static/plugins/My97DatePicker-4.8/WdatePicker.js"></script>
+<script type="text/javascript"
+	src="../../../static/plugins/bootstrap-table-1.11.1/locale/bootstrap-table-zh-CN.js"></script>
+<!-- 美化滚动条 -->
+<script
+	src="../../../static/plugins/jquery.nicescroll-3.7.6/jquery.nicescroll.js"></script>
+<!-- 自定义公用css/js -->
+<link rel="stylesheet" href="../../../static/css/common.css" />
+<script type="text/javascript" src="../../../static/js/common.js"></script>
+<script type="text/javascript" src="../../../static/js/tongji/hetong_list.js"></script>
+
+<style type="text/css">
+</style>
+</head>
+<body>
+<style type="text/css">
+	.yincang{display: none;}
+	#fenlei{display: none;}
+	*{padding:0;margin:0;} 
+#fenlei caption{font-size:14px;font-weight:bold;} 
+#fenlei table{ border-collapse:collapse;border:1px #525152 solid;width:900px;margin:0 auto;} 
+#fenlei th,#fenlei td{border:1px #525152 solid;text-align:center;font-size:12px;line-height:30px;} 
+
+
+/*模拟对角线*/ 
+.out{ 
+border-top:45px #D6D3D6 solid;/*上边框宽度等于表格第一行行高*/ 
+width:0px;/*让容器宽度为0*/ 
+height:0px;/*让容器高度为0*/ 
+border-left:199px #BDBABD solid;/*左边框宽度等于表格第一行第一格宽度*/ 
+position:relative;/*让里面的两个子容器绝对定位*/ 
+} 
+.topcolor{background: #D6D3D6;}
+.t1{background: #BDBABD;}
+#fenlei b{font-style:normal;display:block;position:absolute;top:-45px;left:-67px;width:75px;} 
+#fenlei em{font-style:normal;display:block;position:absolute;top:-30px;left:-183px;width:95x;} 
+#fenlei .topcolor{width: 200px;}
+#fenlei td {height: 50px;}
+.row{padding: 20px;}
+</style>
+<div class="container-fluid tongji">
+	<div class="row">
+		<form class="form-inline">
+			<div class="form-group">
+				<select name="ywlx" id="selecter" class="form-control input-sm">
+					<option value="" selected="selected">请选择</option>
+					<option value="关单数量">关单数量</option>
+					<option value="出口金额">出口金额</option>
+					<option valuwdawdawwwwwwwwwwwwwwwwwwwe="商品分类数量">商品分类数量</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<label>起始日期:</label>
+				<input type="riqi" class="form-control input-sm" onclick="WdatePicker();">
+			</div>
+			<div class="form-group">
+				<label>截止日期:</label>
+				<input type="riqi" class="form-control input-sm" onclick="WdatePicker();">
+			</div>
+			<button type="button" class="btn btn-ckts btn-sm" id="search">查询</button>
+			<button type="reset" class="btn btn-danger btn-sm">重置</button>
+			
+		</form>
+	</div>
+
+	<div class="row">
+		<div class="col-sm-2" id="guandan" class="yincang">
+			<div id="guandanChart" style="min-width:1000px;height:400px"></div>
+			
+		</div>
+		<div class="col-sm-2" id="jine" class="yincang">
+			<div id="jineChart" style="min-width:1000px;height:400px"></div>
+		</div>
+		<div class="col-sm-2" id="fenlei" class="yincang">
+			<table>
+				<tr> 
+				<th style="width:200px"> 
+					<div class="out">
+						<em>商品名称</em>  
+						<b>国家</b> 
+					</div> 
+				</th> 
+				<th class="topcolor" style="width:150px">美国</th> 
+				<th class="topcolor" style="width:150px">德国</th> 
+				<th class="topcolor">意大利</th> 
+				<th class="topcolor">俄罗斯</th>
+				<th class="topcolor">德国</th>
+				<th class="topcolor">合计</th>
+				</tr> 
+				<tr> 
+					<td class="t1">液晶显示器</td> 
+					<td>10</td> 
+					<td>20</td> 
+					<td>30</td> 
+					<td>40</td> 
+					<td>50</td>
+					<td>150</td>
+				</tr> 
+				<tr> 
+					<td class="t1">华为手机</td> 
+					<td>10</td> 
+					<td>20</td> 
+					<td>30</td> 
+					<td>40</td> 
+					<td>50</td>
+					<td>150</td>
+				</tr> 
+				<tr> 
+					<td class="t1">控制器内变压器</td> 
+					<td>10</td> 
+					<td>20</td> 
+					<td>30</td> 
+					<td>40</td> 
+					<td>50</td>
+					<td>150</td>
+				</tr>
+				<tr> 
+					<td class="t1">钻井平台防滑板</td> 
+					<td>10</td> 
+					<td>20</td> 
+					<td>30</td> 
+					<td>40</td> 
+					<td>50</td>
+					<td>150</td>
+				</tr>
+				<tr>
+					<td class="t1">合计</td>
+					<td>40</td> 
+					<td>80</td> 
+					<td>120</td> 
+					<td>160</td> 
+					<td>200</td>
+					<td>600</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+
+</div>
+<script type="text/javascript" src="../../../static/plugins/Highcharts-5.0.14/highcharts.js"></script>
+<script type="text/javascript" src="../../../static/plugins/Highcharts-5.0.14/highcharts-3d.js"></script>
+<script type="text/javascript" src="../../../static/plugins/Highcharts-5.0.14/highcharts-more.js"></script>
+<script type="text/javascript" src="../../../static/plugins/Highcharts-5.0.14/modules/solid-gauge.js"></script>
+<script type="text/javascript" src="../../../static/plugins/Highcharts-5.0.14/modules/exporting.js"></script>
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<!--Bootstrap 不支持 IE 古老的兼容模式。为了让 IE 浏览器运行最新的渲染模式建议添加一下meta-->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<!--自适应设备宽度-->
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+<title>外贸综合服务企业出口退税风险管控信息系统-任务管理</title>
+<meta name="Keywords" content="外贸综合服务企业出口退税风险管控信息系统">
+<meta name="description" content="外贸综合服务企业出口退税风险管控信息系统">
+<link rel="stylesheet" type="text/css" href="../../../zsuiNew/css/easyui.1.5.2.css">
+<link rel="stylesheet" type="text/css" href="../../../zsuiNew/css/formstyle.css">
+<script type="text/javascript" src="../../../zsuiNew/js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="../../../zsuiNew/js/jquery.easyui.min.1.5.2.js"></script>
+<script type="text/javascript" src="../../../zsuiNew/js/common.js"></script>
+<script type="text/javascript" src="../../../zsuiNew/js/echarts.min.js"></script>
+
+</head>
+<body>
+<div region="center" style="padding: 0px;" border="false">
+	<div id="divNorth" region="north" title="" border="false" noheader="false" style="padding: 0px 5px 5px 5px; height: 35px; background: none repeat scroll 0 0 #EFEFEF;">
+		<div class="form" id="queryform">
+			<div style="padding-left:15px;">
+				<input class="easyui-textbox" id="nsrsbh" style="width:400px" data-options="label:'请填写要评估的纳税人识别号:',labelWidth:200">
+			</div>
+			<div style="padding-left:30px; margin-top: 3px;">
+				<a href="javascript:search()" class="easyui-linkbutton c1" id="query" data-options="iconCls:'icon-search'" style="width:60px; margin-left:0px;">查询</a>
+				<a href="javascript:emptyQuery()" class="easyui-linkbutton c1" id="emptyQuery" data-options="iconCls:'icon-mini-refresh'" style="width:60px; margin-left:15px;">重置</a>
+			</div>
+		</div>
+	</div>
+	<div class="row" id="qyhxhtml">
+		<!--<iframe src="http://localhost:7201/riskManageWeb/fpfx_new/html/qyhxLimit.html?nsrsbm=14010858334850X&nsrmc=%E5%B1%B1%E8%A5%BF%E9%91%AB%E8%BF%9E%E9%91%AB%E7%89%A9%E8%B5%84%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8" id="iframeid" frameborder="0" allowtransparency="true" style="width: 100%; height: 780px"></iframe>-->
+	</div>
+</div>
+<script type="text/javascript">
+    function checkRate(nubmer) {
+        var re =  /^[0-9a-zA-Z]*$/g;  //判断字符串是否为数字和字母组合
+        if (!re.test(nubmer))
+        {
+            return false;
+        }else{
+            return true;
+        }
+    }
+    
+    function emptyQuery() {
+        $('#nsrsbh').textbox("setValue","");
+    }
+	function search(){
+		var nsrsbh=$('#nsrsbh').val();
+		if(nsrsbh==''){
+//			layer.msg('请输入纳税人识别号!');
+            $.gritter.add({
+                title: "消息提示",
+                text: '请输入纳税人识别号!',
+                color: "#999",
+                speed: 3000,
+                isclose: false,
+                position:"middle",
+                width: 320,
+                parent:true,
+            });
+			return;
+		}
+	//	校验识别号 位数15位或者18位
+		var flag = checkRate(nsrsbh);
+		if(flag) {//数字和字母组合
+			if (nsrsbh.length != 15 && nsrsbh.length != 18) {
+				$.gritter.add({
+					title: "消息提示",
+					text: '纳税人识别号位数不正确!',
+					color: "#999",
+					speed: 3000,
+					isclose: false,
+					position:"middle",
+					width: 320,
+					parent:true,
+				});
+				return;
+			}
+		}else{
+			$.gritter.add({
+				title: "消息提示",
+				text: '纳税人识别号格式不正确!',
+				color: "#999",
+				speed: 3000,
+				isclose: false,
+				position:"middle",
+				width: 320,
+				parent:true,
+			});
+			return;
+		}
+		//获取nsrmc
+		var jsonString = {
+			"nsrsbh": nsrsbh,
+			"qypf": 1,
+		};
+		var nsrmc="";
+		$.ajax({
+			url: "../../../zsy/qyfx",
+			data: {
+				"opcode": "1",
+				"jsonString": JSON.stringify(jsonString),
+			},
+			type: "POST",
+	//        async: false,
+			success: function (data) {
+				if(typeof(data)=="string"){
+					nsrmc = JSON.parse(data).jcxx==null?"":JSON.parse(data).jcxx.NSR_MC;
+				}else{
+					nsrmc = data.jcxx==null?"":data.jcxx.NSR_MC;
+				}
+				var src="../../../fpfx_new/html/qyhxLimit.html?nsrsbm="+nsrsbh+"&nsrmc="+nsrmc;
+				var iframe = document.createElement("iframe");
+				iframe.style.width = '100%';
+				iframe.style.height = '780px';
+				iframe.style.border = '0';
+				iframe.style.padding = '0';
+				iframe.style.margin = '0';
+				iframe.id='biaoji';
+				iframe.src =src;
+				if($('#biaoji')!=null){
+					$('#biaoji').remove();
+				}
+				$('#qyhxhtml').append(iframe);
+			}
+		});
+}
+</script>
+
+</body>
+</html>

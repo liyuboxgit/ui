@@ -1,0 +1,68 @@
+<!-- 预录入报关单 -->
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<!--Bootstrap 不支持 IE 古老的兼容模式。为了让 IE 浏览器运行最新的渲染模式建议添加一下meta-->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<!--自适应设备宽度-->
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+<title>外贸综合服务企业出口退税风险管控信息系统-风险评估</title>
+<meta name="Keywords" content="外贸综合服务企业出口退税风险管控信息系统">
+<meta name="description" content="外贸综合服务企业出口退税风险管控信息系统">
+<link rel="stylesheet"
+	href="../../../static/plugins/bootstrap-3.3.7/css/bootstrap.min.css" />
+<script type="text/javascript"
+	src="../../../static/plugins/jquery-2.1.1/jquery-2.1.1.js"></script>
+<script type="text/javascript"
+	src="../../../static/plugins/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+<!-- icon字体图标 -->
+<link rel="stylesheet"
+	href="../../../static/plugins/font-awesome-4.7.0/css/font-awesome.css" />
+<!-- 表格 -->
+<link rel="stylesheet"
+	href="../../../static/plugins/bootstrap-table-1.11.1/bootstrap-table.css" />
+
+<script type="text/javascript"
+	src="../../../static/plugins/bootstrap-table-1.11.1/bootstrap-table.js"></script>
+<!-- 表格导出 -->
+<script type="text/javascript"
+	src="../../../static/plugins/bootstrap-table-1.11.1/extensions/export/bootstrap-table-export.js"></script>
+
+<script type="text/javascript"
+	src="../../../static/plugins/tableExport.jquery.plugin/tableExport.js"></script>
+
+<script type="text/javascript"
+	src="../../../static/plugins/bootstrap-table-1.11.1/locale/bootstrap-table-zh-CN.js"></script>
+<!-- 美化滚动条 -->
+<script
+	src="../../../static/plugins/jquery.nicescroll-3.7.6/jquery.nicescroll.js"></script>
+<!-- 自定义公用css/js -->
+<link rel="stylesheet" href="../../../static/css/common.css" />
+<script type="text/javascript" src="../../../static/js/common.js"></script>
+<script type="text/javascript" src="../../../static/js/yushenbao/yushenbao_list.js"></script>
+
+<style type="text/css">
+</style>
+</head>
+<body>
+	<div class="myContainer">
+		<div class="tableBox">
+				<!-- 表格头部操作按钮 -->
+			<div class="myBtn">
+				<a id="upload" href="javascript:;" class="btn btn-default btn-xs"><i class="glyphicon glyphicon-import"></i>导入反馈数据包</a>
+				<a id="export" href="javascript:;" class="btn btn-default btn-xs"><i class="glyphicon fa fa-reply"></i>撤销</a>
+				<a id="export" href="javascript:;" class="btn btn-default btn-xs"><i class="glyphicon fa fa-share"></i>转已申报</a>
+				<a id="export" href="javascript:;" class="btn btn-default btn-xs"><i class="glyphicon fa fa-calculator"></i>小计</a>
+				<a id="import" href="javascript:;" class="btn btn-default btn-xs"> <i class="glyphicon fa fa-print"></i>打印</a>
+			</div>
+				<!-- 表格头部操作按钮 -->
+				<!-- 表格数据 -->
+			<table id="table" class="myTable table-condensed"></table>
+				<!-- 表格数据 -->
+		</div>
+	</div>
+</body>
+</html>
